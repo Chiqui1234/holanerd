@@ -18,37 +18,34 @@ class Forum extends CI_Controller {
 
         echo '<div id="root">';
 
-            
-            /*  START FORUM LISTING */
+            /*  START INDEX FORUM LISTING */
             $result = $this -> forum_model -> returnForums(); // Obtengo todos los foros y subforos
             echo $result;
             /* END FORUM LISTING */
-        
 
         echo '</div>';
-        
-
         
     }
 
     public function forum($forumToSearch, $subforumToSearch) {
 
-        $data['title'] = $forumToSearch;
+        $data['title'] = '$forumToSearch';
         
         // Abrir un foro mediante un link
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/footer');
 
-        
+        //$data['subForumResult'] = $this -> forum_model -> printSubForums($forumToSearch, $subforumToSearch);
+        //$data['threadsResult'] = $this -> forum_model -> printThreadList($forumToSearch, $subforumToSearch);
 
+        //$this->load->view('forum/openedForum', $data); // Tengo que hacer una búsqueda dentro del foro solicitado :D
         echo '<div id="root">';
-        $subForumSearch = $this -> forum_model -> printSubForums($forumToSearch, $subforumToSearch);
-        $threadsSearch = $this -> forum_model -> printThreadList($forumToSearch, $subforumToSearch);
-        print_r($this -> forum_model -> getSubForums($forumToSearch, $subForumSearch));
+        echo '<h3>subforums()</h3>';
+        print_r($this->forum_model->getSubforums($forumToSearch, $subforumToSearch));
+        echo '<h3>threads()</h3>';
+        print_r($this->forum_model->getThreads($forumToSearch, $subforumToSearch));
         echo '</div>';
-        //$this->load->view('forum/forum', $subForumSearch); // Tengo que hacer una búsqueda dentro del foro solicitado :D
-
     }
 
     public function thread() {

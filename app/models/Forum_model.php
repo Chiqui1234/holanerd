@@ -5,9 +5,33 @@ public function __construct() {
         $this->load->database();
 }
 
-function listForums() {
+function getForums() {
     // Obtiene toda la lista de foros
     $query = $this->db->get('forums');
+    return $query->result_array();
+}
+
+function getSubforums($forumToSearch, $subforumToSearch) {
+    // Obtiene la lista de sub-foros del foro actual
+    $this->db->select('subforum1, subforum2, subforum3'); // Selecciono los 3 subforos para próximamente imprimirlos por pantalla
+    $this->db->where('forumName', $forumToSearch); // Capto subforos del foro deseado. WHERE 'forumName' = $forumToSearch
+    $query = $this->db->get('forums'); // $array[0]['subforum1']
+    return $query->result_array();
+}
+
+function getThreads($forumToSearch, $subforumToSearch) {
+    // Primero, evalúo si estoy dentro de un foro o subforo
+    if( $subforumToSearch === 'home' ) { // Si esa variable = 'home', no estamos dentro de un subforo. Por eso debo obtener absolutamente todos los posts
+        $this->db->where('forum', $forumToSearch);
+        $query = $this->db->get('posts');
+    } else { // Si estamos dentro de un subforo...
+        $filter = array(
+            'forum' => $forumToSearch,
+            'subforum' => $subforumToSearch
+        );
+        $this->db->where($filter); // WHERE 'forum' = $forumToSearch AND 'subforum' = $subforumToSearch
+        $query = $this->db->get('posts');
+    }
     return $query->result_array();
 }
 
@@ -15,7 +39,7 @@ function returnForums() {
     /*  Devuelve un listado de los foros que existen, la cantidad de posts de cada uno,
         quién y en dónde está la última respuesta y los subforos :D */
 
-    $data['forum_item'] = $this->listForums();
+    $data['forum_item'] = $this->getForums();
     $n = 8; // LA COMUNIDAD TIENE 8 FOROS
     $m = array( // CANTIDAD DE SUBFOROS DE CADA FORO
         /*'computacion' =>*/ 3,
@@ -32,7 +56,7 @@ function returnForums() {
     for($i = 0;$i < $n;$i++) { // FOR NAVIGATE THROUGHT FORUMS
 
         echo '<li><div class="forumName">
-        <a href="forum/'.$data['forum_item'][$i]['slug'].'/home">'.$data['forum_item'][$i]['forumName'].'</a>
+        <a href="Forum/forum/'.$data['forum_item'][$i]['slug'].'/home">'.$data['forum_item'][$i]['forumName'].'</a>
         </div>';
 
         echo '<div class="topicCounter">'.$data['forum_item'][$i]['topicCounter'].'</div>';
@@ -54,7 +78,7 @@ function returnForums() {
             echo '<li>
                     <div class="img"></div>
                     <div class="title">
-                    <a href="forum/'.$data['forum_item'][$i]['slug'].'/'.$data['forum_item'][$i]['subforum1'].'">'.$data['forum_item'][$i]['subforum1'].'</a>
+                    <a href="Forum/forum/'.$data['forum_item'][$i]['slug'].'/'.$data['forum_item'][$i]['subforum1'].'">'.$data['forum_item'][$i]['subforum1'].'</a>
                     </div>
                    </li>';  
             echo '<li>
@@ -76,69 +100,6 @@ function returnForums() {
     echo '</ul></div>';
 }
 
-function getSubForums($forumToSearch, $subForumToSearch) {
-    // Devuelve los subforos del foro al que se entró
-    
-    if($subForumToSearch !== 'home') {
-        /* Si NO estoy en 'home', quiere decir que estoy ya en un subforo
-        y no se necesita buscar más subforos (porque subforo de un subforo
-        padre NO existe) */
-        $filtro = array(
-            $forumToSearch,
-            $subForumToSearch        
-        );
 
-        $this->db->select('subForum1, subForum2, subForum3');
-        $this->db->where($filtro);
-        $subforums = $this->db->get('forums', $filtro);
-        $result = $subforums->result_array();
-        return $result;
-    } else {
-        // Si ya estoy en un subforo, no hago nada :)
-    }
-    
-}
-
-function getThreads($forumToSearch, $subForumToSearch) {
-
-    // Devuelve los posts del foro al que se entró
-    $this->db->select('id, title, post'); // 'title' para mostrar el nombre en pantalla y 'post' dentro del parámetro TITLE del link
-
-    $filtro = array(
-        $forumToSearch,
-        $subForumToSearch        
-    );
-    
-    if($subForumToSearch !== 'home') {
-        /* Si NO estoy en 'home', quiere decir que estoy ya en un subforo
-        y preciso obtener una lista de ese subforo en específico */ 
-        $this->db->where('subforum', $subForumToSearch);
-        $subforums = $this->db->get('posts', $filtro);
-    } else{
-        // where = *
-        $subforums = $this->db->get('posts');
-    }
-    
-    
-    $result = $subforums->result_array();
-    return $result;
-}
-
-function printSubForums($forumToSearch, $subForumToSearch) {
-    $result = $this->getSubForums($forumToSearch, $subForumToSearch);
-    /*echo '<p>'.$result['forum_item'][0]['subforum1'].'</p>';
-    echo '<p>'.$result['forum_item'][1]['subforum2'].'</p>';*/
-}
-
-function printThreadList($forumToSearch, $subForumToSearch) {
-    // Imprimo en pantalla los posts que se buscan
-    $result = $this->getThreads($forumToSearch, $subForumToSearch);
-
-    $i = 0;
-    while( isset($result[$i]['id']) ) {
-        echo '<p>'.$result[$i]['title'].'</p>';
-        $i++;
-    }
-}
 
 }
