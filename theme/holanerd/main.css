@@ -1,0 +1,190 @@
+* {
+    box-sizing: border-box;
+}
+h1, h2, h3, h4, h5, h6 {clear: both;}
+p, h1, h2, h3, h4, h5, h6, em, pre, .forumName, .topicCounter, .lastAnswer, .lastAnswer .title, .lastAnswer .user, footer * {
+    white-space: nowrap;
+    overflow: hidden; /* :hover puede ser 'visible' para mostrar el texto cuándo el cursor posa arriba */
+    text-overflow: ellipsis;
+    font-family: Roboto, sans-serif;
+}
+blockquote {
+    background-color: #eee;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 0 10px 0 10px;
+    box-shadow: 0 0 5px var(--shadow);
+    color: var(--textColor2);
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+}
+footer .marketing p, #root h1, #root p, #sidebar p {
+    white-space: normal;
+}
+body {
+    width: 100%;
+    overflow: visible;
+    color: var(--textColor);
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%; /* Mejor precisión al diseñar cualquier plantilla. Súmamente flexible */
+    grid-auto-rows: 40vh repeat(auto, 3); /* Header, contenido en sí, footer */    
+}
+:root {
+    --bgColor       : rgb(223, 223, 223);
+    --mainColor     : #fff;
+    --mainHover     : rgb(238, 238, 238);
+    --headerColor   : #fff;
+    --textColor     : #393939;
+    --textColor2    : #696969;
+    --textColor3    : #eee;
+    --linkColor     : rgb(62, 9, 207);
+    --linkHover     : rgb(22, 103, 224);
+    --linkColor2    : rgb(166, 175, 255);
+    --linkHover2    : rgb(213, 220, 241);
+    --startGradient : rgb(108, 40, 218);
+    --finishGradient: rgb(60, 123, 218);
+    --subForumBorder: rgb(236, 28, 73);
+    --helpColor     : #57d138;
+    --warningColor  : #e9a237;
+    --shadow        : #292929;
+}
+#root, #profile {
+    grid-row: 2;
+    background-color: var(--mainColor);
+    z-index: 2;
+    font-family: Roboto, sans-serif;
+}
+#root {
+    grid-column:  3 / 7;
+    padding-right: 10px;
+}
+#profile {
+    grid-column: 1 / span 10;
+}
+a {
+    -webkit-transition: all 500ms linear;
+    -moz-transition: all 500ms linear;
+    -o-transition: all 500ms linear;
+    transition: all 500ms linear;
+}
+#root p {
+    font-size: 16px;
+    line-height: 25px;
+}
+#root a {
+    color: var(--linkColor);
+}
+#root a:hover {
+    color: var(--linkHover);
+}
+/*  Login box extends to sidebar and login page */
+#login, #register {
+    width: 80%;
+    padding: 10px;
+    clear: both;
+    display: table;
+    content: "";
+}
+#login .help {
+    float: left;
+    width: 63%;
+    margin-right: 3%;
+    border: 2px solid var(--linkHover2);
+    padding: 5px;
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
+}
+#login .help a {
+    color: var(--startGradient);
+}
+#login .help a:hover {
+    color: var(--linkHover);
+}
+#login .loginType {
+    width: 100%;
+    clear: both;
+}
+#login .loginType p {
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+#login input[type=radio] {
+    float: left;
+}
+#register {
+    width: 50%;
+    margin: 0 auto;
+}
+#submitPost button {
+    width: 33%;
+    border: 2px solid var(--linkColor2);
+    outline: none;
+    padding: 5px;
+    margin: 10px 0 10px 0;
+    float: left;
+    font-family: Roboto, sans-serif;
+    font-variant: small-caps;
+    font-weight: 600;
+    cursor: pointer;
+    clear: both;
+}
+#login input[type=text], #login input[type=password], #register input[type=text], #register input[type=password] {
+    width: 100%;
+    border: 2px solid var(--linkHover2);
+    padding: 5px;
+    margin-bottom: 10px;
+    outline: none;
+    clear: both;
+    font-family: Roboto, sans-serif;
+    background-color: var(--mainColor);
+    -webkit-transition: all 150ms linear;
+    -moz-transition: all 150ms linear;
+    -o-transition: all 150ms linear;
+    transition: all 150ms linear;
+}
+#login input[type=text]:hover, #login input[type=password]:hover, #register input[type=text]:hover, #register input[type=password]:hover {
+    border: 2px solid var(--linkColor2);
+    background-color: var(--mainHover);
+    box-shadow: inset 0 0 15px rgb(209, 209, 209);
+}
+#login input[type=submit], #register input[type=submit] {
+    width: 33%;
+    border: 2px solid var(--linkColor2);
+    outline: none;
+    padding: 5px;
+    float: right;
+    font-family: Roboto, sans-serif;
+    font-variant: small-caps;
+    font-weight: 600;
+    cursor: pointer;
+}
+#register input[type=text], #register input[type=password], #register input[type=submit]{
+    width: 100%;
+    float: left;
+    clear: both;
+}
+#register #avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 64px;
+    margin: 0 auto;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAnFBMVEX///80NDNJnWI8SFujfGI1epEzMzOtgWVmZmXy8vKZmZnMzMxZWVlNTUzm5uVzc3JEg1Y6RFM1OjY5Tj83PURrWEp5YVA0ODmzs7JIll+mpqU8W0WMjIw0RUpdT0U0V2KAgH9BdVA+aEpFiVk7VUKOblm/v781ZHRIQTw1cYWHalY0SlDZ2dk0PT49YkdAQD83QTlPRj81W2hkU0cNDBanAAADAElEQVRYhe2X25KqMBBF3Y5cRBRvgKjgZUQBZ0TG//+300lAUWMZ5uk8zH6wrIK97O50J7HV+tP/qi/LtMHUNx2rt1+v590m9q6JJ+VfDfw5MB2NPphGo+nU5wRbHbCGL9ylRiKG/kwVANz5S4JOiJ4q4ONRLCGGWf4ugkpTqoTKaqxfEigIUwHQZS0wlTJGilmIsvsSCBEUKrnXdf0VY6qSxFoXkjKAwVuAKfy5lOEr5NAXgE4iiwN4v5ICUBiGi3ouDDHy0X9fAw5AxzA6HS/RcWMojmWXW2KDAUhZlN8Q/fX7ErZmNDm6a1QAJi8RCLWBtBBRBet+UkyICJYiwE108seXyn2JiaBfXHVAzACRngl/phf0qXdUI9gjMQqWQXYtAfuIOonKHLTYKsAzjIcakFxAyU99ACTxIyBLoNJDXGxXdx8B9PtKuwkH0JJfOMBDUYBXoFNQczQBJCKC2PNiEQEaApDdp+A2ATgMkPAUWAezFGLm1x1FQNe0bVbGWgAJcts2m5ywe4jiJTqrQYRcYQrvZQHXWYiU9uIH9Xg7iUGkE6kxgJqJTnlErhuJnUi1gKUshN/ICuEtPISh4mZSqpv76YEWInOjwvWoBw6p8iBwzbDStNV1I/UPmnbE/r2v5+SVJ9U0Lf0Jw+8wPP7Qd+1w3ZadVwWt36187Um1G5e8o9ipvv1sc42/JYCJePa5HcvvGUuMS3u7vcPh0b/CqXr6OZbdEgbAsH19BayK9/5xcH08lB3R8ypEkQOV4XhIhTk9HP1aeKQJ5k8AG5vbCwHZ/fpFdbwNav725vneSRkE9RdCWrjVMQTOk8liO2zfKwAez9gldrUXtlUJgLZUi6cy9rGoRTCpVuEFIFg8dTZdDrHbBFfAKjy+BAx3sumc8T8IJYMXLkwlgGCz43f3maSVBnPOOC82tM5YjOGv0jvAcLM481vG8uX+Npg75bKdTyf+MoIhabM9Tc7lHMzf7Y69uWNDqj79/XljvlH2luWYJPpJJsvaN99W/6Sqf+K8OjKxeEs3AAAAAElFTkSuQmCC');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#register #nickname {
+    width: 100%;
+    margin: 5px 0 5px 0;
+    text-align: center;
+    clear: both;
+    font-family: Roboto, sans-serif;
+    font-weight: 200;
+    font-size: 16px;
+}
+@media only screen and (max-width: 600px) {
+   
+}

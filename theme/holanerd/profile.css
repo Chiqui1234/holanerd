@@ -1,0 +1,144 @@
+/* El contenedor de 'profile' está definido en main.css */
+
+#profile .background { 
+    /* En el fondo de la portada habrá 'tiles' que contendrán posteos del usuario, notas destacadas, etc */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+#profile .background ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-rows: 125px;
+    grid-gap: 10px;
+    padding: 10px;
+}
+#profile .background ul li { /* ítem (dónde dentro estará un post o estado del usuario) */
+    color: #212121;
+    background-color: var(--mainHover);
+    opacity: 0.9;
+    border: 1px solid var(--linkColor);
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+    cursor: pointer;
+    overflow: hidden; /* :hover puede ser 'visible' para mostrar el texto cuándo el cursor posa arriba */
+}
+#profile .background ul li:hover {
+    border: 1px solid var(--linkHover);
+    transform: perspective(20em) rotateX(10deg);
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+#profile .background ul li h1 {
+    font-size: 26px;
+    font-family: Roboto, sans-serif;
+    padding: 0 10px 0 10px;
+}
+#profile .background ul li p {
+    font-size: 18px;
+    font-family: Roboto, sans-serif;
+    padding: 0 10px 0 10px;
+        
+}
+/*  */
+#profile .portrait {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 5% 30% 30% 30% 5%;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    background: url('https://i.imgur.com/85u96kO.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+#profile .portrait #back { /* Menu choto, provisorio para volver al foro */
+    grid-column: 1;
+    grid-row: 1;
+    width: 32px;
+    height: 32px;
+    z-index: 2;
+}
+
+
+#profile .portrait #basic { /* Una caja que contiene el primer texto
+    que aparece en la portada con información del perfil */
+    grid-column: 3;
+    grid-row: 2 / span 3;
+    display: grid;
+    grid-template-columns: auto 150px auto;
+    grid-template-rows: 10px 150px 50px auto 50px;
+    position: relative;
+    border: 2px solid #ffc509;
+}
+#profile .portrait .bg.blur {
+    /* Blur in the background of avatar+email+nav */
+    background: url('https://i.imgur.com/85u96kO.jpg') no-repeat center center fixed;
+    background-size: cover;
+    overflow: hidden;
+    filter: blur(15px);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    opacity: 0.9;
+    z-index: 1;
+}
+#profile .portrait #basic .avatar {
+    grid-column: 2;
+    grid-row: 2;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    border-radius: 150px;
+    border: 2px solid var(--textColor);
+    z-index: 2;
+}
+#profile .portrait #basic .email {
+    grid-column: 1 / span 3;
+    grid-row: 3;
+    font-family: Roboto, sans-serif;
+    font-size: 20px;
+    padding: 10px;
+    font-weight: 700;
+    color: var(--textColor3);
+    text-align: center;
+    z-index: 2;
+}
+/* */
+#profile .portrait #basic nav {
+    grid-column: 1 / span 3;
+    grid-row: 5;
+    background-color: #212121;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    z-index: 2;
+}
+#profile .portrait #basic nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+    grid-row: 2;
+}
+#profile .portrait #basic nav ul li {
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    font-weight: 300;
+}
+#profile .portrait #basic ul li a {
+    color: #ffc509;
+}
+#profile .portrait #basic ul li a:hover {
+    color: var(--linkHover2);
+    text-shadow: none;
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CodeIgniter Fast FAQ's</title>
+    </head>
+<body>
+    <h1>CodeIgniter Fast FAQ's</h1>
+    <p>Hi! I'm Santiago Gimenez, the developer of #holanerd. #holanerd is a time-based community based in Code Igniter 3.x. This framework
+            causes some headaches at the start. I'm here to answer Frequently-Asqued-Questions and a little more :D.</p>
+    <h3>Get the last query to the DB</h3>
+    <textarea>$this->db->last_query(); // Prints the last query (query, not result)</textarea>
+
+    <h3>Get info from all database</h3>
+    <textarea>$query = $this->db->get('mytable');</textarea>
+    <h4>If you need less columns (no comodins)</h4>
+    <p>You can put this code before get():</p>
+    <textarea>$this->db->select('title, content, date');
+    // Executes: SELECT title, content, date FROM mytable</textarea>
+</body>
+</html>

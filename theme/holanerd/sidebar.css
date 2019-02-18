@@ -1,0 +1,35 @@
+#sidebar {
+    grid-column: 7 / 9;
+    grid-row: 2;
+    padding-left: 10px;
+    border-left: 1px solid var(--textColor2);
+    background-color: var(--mainColor);
+    font-family: Roboto, sans-serif;
+    z-index: 3;
+}
+#sidebar h1 {
+    clear: both;
+    padding: 10px;
+    line-height: 0;
+    font-variant: small-caps;
+    font-family: Roboto;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--textColor2);
+}
+#sidebar p {
+    clear: both;
+    padding: 10px;
+    line-height: 20px;
+    font-family: Roboto;
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--textColor2);
+}
+#sidebar #fastPanel ul {
+    list-style-type: circle;
+    overflow: visible;
+}
+#sidebar #fastPanel ul li {
+    overflow: visible;
+}

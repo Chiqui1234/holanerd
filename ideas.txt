@@ -1,0 +1,5 @@
+- Tengo que pasar una variable al controlador de viewPost. El valor de dicha variable va a ser el id
+  Para ver los posts dentro de los foros, necesito armar una tabla de posts con:
+  ID, nombre, fecha, autor, texto, foro, subforo, puntos
+
+- Desarrollar el validador de cuentas + crear el archivo para validarlas (ver Email_model y Register)
