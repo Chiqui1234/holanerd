@@ -34,64 +34,63 @@ public function user() {
     $this->load->view('templates/sidebar');
     $this->load->view('templates/footer');
     
-if( $this->input->post('passwd') === $this->input->post('passwdConfirm') && (!empty($this->input->post('passwd'))) ) {
-    if( (!empty($this->input->post('email'))) && (!empty($this->input->post('dni'))) ){
+    date_default_timezone_set('UTC'); // Zona horaria predeterminada
+    $now = purify(date('d/m/Y')); // Obtengo la fecha
 
-        date_default_timezone_set('UTC'); // Zona horaria predeterminada
-        $now = date('m/d/Y h:i:s a', time()); // Obtengo la fecha
+    // Capto variables del formulario. Este array va a comprobación
+    $catch_data = array(
+        'username' => purify($this->input->post('username')),
+        'email' => purify($this->input->post('email')),
+        'password' => purify($this->input->post('passwd')),
+        'passwdConfirm' => purify($this->input->post('passwdConfirm')),
+        'dni' => purify($this->input->post('dni'))
+    );
+    
+    // Array preparado para la BD
+    $validate_data = array (
+        'username' => $catch_data['username'],
+        'email' => $catch_data['email'],
+        'password' => $catch_data['password'],
+        'dni' => $catch_data['dni'],
+        'avatar' => '',
+        'points' => 60,
+        'created_at' => $now,
+        'is_admin' => false,
+        'is_confirmed' => false,
+        'is_public' => false,
+        'is_deleted' => false
+    );
 
-        $validate_data = array (
-            'username' => '',
-            'email' => $this->input->post('email'),
-            'password' => $this->input->post('passwd'),
-            'dni' => $this->input->post('dni'),
-            'avatar' => '',
-            'points' => 60,
-            'created_at' => $now,
-            'updated_at' => $now,
-            'is_admin' => false,
-            'is_confirmed' => false,
-            'is_public' => false,
-            'is_deleted' => false
+    if( $this->Register_model->checkUser($catch_data) ) {
+
+        $this->session->set_userdata('email', $validate_data['email']); // Guardo una sesión
+
+        // DATOS PARA ENVIO DE EMAIL
+        $emailData = array(
+            'from' => 'santiagogimenez@outlook.com.ar',
+            'to' => $this->input->post('email'),
+            'subject' => 'Activá tu cuenta en #holanerd',
+            'message' => '<p>¡Hola! Bienvenido '.$validate_data['email'].', estamos orgullosos de nuestra
+            comunidad y siempre trabajamos para mejorarla. ¡Estás a sólo un paso de unirte!</p>
+            <p><a href="#">Link aquí</a>.</p>'
         );
 
-        $this->session->set_userdata($sessionData); // Guardo una sesión
+        if( !$this->Email_model->sendEmail($emailData) ) { // Envía el email para solicitar activación
+            $data['error'] = true;
+            $data['text'] = '<p>No pudimos enviarte un email, no podrás activar tu cuenta.</p>';
+            $this->load->view('pages/status', $data);
+        }
 
-        // Tengo que corroborar que ya no exista ese email en la DB, y en vez de pedir el DNI: solicitar una foto
-        //$validate_data = encrypt($validate_data);
-            // Creo el archivo que validará la cuenta del usuario
-
-            $codeBase = '';
-
-            $validatePage = fopen(base_url().$this->input->post('email').'.php', 'a');
-            fwrite($validatePage, $codeBase);
-            fclose($validatePage);
-
-            // DATOS PARA ENVIO DE EMAIL
-            $emailMessage = '<p>¡Hola! Bienvenido '.$this->input->post('email').', estamos orgullosos de nuestra
-            comunidad y siempre trabajamos para mejorarla. ¡Estás a sólo un paso de unirte!</p>
-            <p><a href="#">Link aquí</a>.</p>';
-            $emailData = array(
-                'from' => 'santiagogimenez@outlook.com.ar',
-                'to' => $this->input->post('email'),
-                'subject' => 'Activá tu cuenta en #holanerd',
-                'message' => $emailMessage
-            );
+        $this->Email_model->activationPage($emailData); // Crea el archivo para activar tu cuenta
 
         $this->Register_model->createUser($validate_data); // Creo el usuario
         $this->Email_model->sendEmail($emailData); // Envío el email
         $data['error'] = false;
         $data['text'] = '<p>¡Usuario creado! Revisá tu email para validar tu cuenta.</p>';
         $this->load->view('pages/status', $data);
-
-    } else {
-        $data['error'] = true;
-        $data['text'] = 'Escribí tu email y DNI';
-        $this->load->view('pages/status', $data);
-    }
 } else {
     $data['error'] = true;
-    $data['text'] = 'Tus contraseñas no coinciden y/o están vacías';
+    $data['text'] = '<p>Existe otra cuenta con tu nombre de usuario, email o dni; O bien, olvidaste <strong>rellenar todo el formulario</strong>.</p>';
     $this->load->view('pages/status', $data);
 }
 

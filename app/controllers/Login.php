@@ -19,31 +19,29 @@ public function user() {
     $this->load->view('templates/footer');
 
     $dbData = array(
-        'email' => $this->input->post('email'),
-        'password' => $this->input->post('password')
+        'email' => purify($this->input->post('email')),
+        'password' => purify($this->input->post('password'))
     );
 
-    $userData = $this->Login_model->getUser($dbData); // Recopilo en un array() la información del usuario, si existe
+    $userData = $this->Login_model->getUser($dbData); // Si existe cuenta con ese email y contraseña, devuelve sus datos
+    $userInfo = $this->Login_model->getUserInfo($dbData); // Para almacenar nombre de usuario, avatar y otras preferencias
 
     if( (!empty($userData)) && $userData !== NULL && (!isset($_SESSION['email'])) ) { // Si no tiene cookies, lo logueamos (y creamos cookies)
+        
         $sessionData = array(
-            'email' => $this->input->post('email'), // Lo hago array porque es posible que agregue más cosas a la sesión
-            'username' => $userData[0]['username']
+            'email' => purify($this->input->post('email')), // Lo hago array porque es posible que agregue más cosas a la sesión
+            'username' => purify($userInfo[0]['username']),
+            'avatar' => purify($userInfo[0]['avatar'])
         );
         
-        //if( (!isset($_SESSION['email'])) || $_SESSION['email'] === NULL ) {
-            $this->session->set_userdata($sessionData); // Guardo una sesión
-        //}
+        $this->session->set_userdata($sessionData); // Guardo una sesión
 
         $data['error'] = false;
         $data['text'] = "Tus credenciales son correctas.";
-        //print_r($this->Login_model->getUser($dbData));
         $this->load->view("pages/status", $data);
-    } else{
+    } else {
         $data['error'] = true;
         $data['text'] = "Tus credenciales son incorrectas.";
-        //echo $data['text'];
-        //print_r($this->Login_model->getUser($dbData));
         $this->load->view("pages/status", $data);
     }
 }

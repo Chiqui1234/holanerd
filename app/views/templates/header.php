@@ -10,8 +10,9 @@ variable, which we’ll define later in the controller. -->
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/home.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/header.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/nav.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/homeForum.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/sidebar.css" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/homeForum.css" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/payment.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/profile.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/footer.css" />
             <?php if( isset($headerExtraCode) && (!empty($headerExtraCode)) ) {

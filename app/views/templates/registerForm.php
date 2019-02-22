@@ -4,6 +4,7 @@
     echo '<div id="avatar"></div>
         <div id="nickname"></div>';
     echo form_input(array('id' => 'email', 'name' => 'email', 'placeholder' => 'E-mail', 'required' => 'required'));
+    echo form_input(array('id' => 'username', 'name' => 'username', 'placeholder' => 'Usuario', 'required' => 'required'));
     echo form_input(array('id' => 'dni', 'name' => 'dni', 'placeholder' => 'Tu DNI', 'required' => 'required'));
     echo form_password(array('id' => 'passwd', 'name' => 'passwd', 'placeholder' => 'Contraseña', 'required' => 'required'));
     echo form_password(array('id' => 'passwdConfirm', 'name' => 'passwdConfirm', 'placeholder' => 'Repetí contraseña', 'required' => 'required'));

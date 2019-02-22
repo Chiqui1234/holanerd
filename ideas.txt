@@ -1,5 +1,13 @@
-- Tengo que pasar una variable al controlador de viewPost. El valor de dicha variable va a ser el id
-  Para ver los posts dentro de los foros, necesito armar una tabla de posts con:
-  ID, nombre, fecha, autor, texto, foro, subforo, puntos
+- Darle al usuario la posibilidad de editar su fondo y colores preferidos. (listo, falta conectar a la UI y comprobar)
+- getUserInfo(), para usar el avatar, email, username, colores preferidos, fondo, etc; del usuario en el perfil (listo, falta conectar a la UI y comprobar)
+- API de pagos
+- purify() ya hecho en todos lados, salvo creador de post
+- El creador de posts necesita algo estilo BBCodes... veré como lo hago sin comprometer lo estético.
+- El creador de post necesita actualizar el último usuario y post de /Forum.
+- ¿Convertir las fechas a varchar?
 
+
+APLAZADO:
 - Desarrollar el validador de cuentas + crear el archivo para validarlas (ver Email_model y Register)
+
+Entre 2.1MB/s y 2.6MB/s transferiendo video desde el servidor hasta la Raspberry Pi 3

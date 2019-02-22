@@ -40,16 +40,55 @@ class Forum extends CI_Controller {
         //$data['threadsResult'] = $this -> forum_model -> printThreadList($forumToSearch, $subforumToSearch);
 
         //$this->load->view('forum/openedForum', $data); // Tengo que hacer una búsqueda dentro del foro solicitado :D
+
+        $subforumsResult = $this->forum_model->getSubforums($forumToSearch, $subforumToSearch);
+        $threadsResult = $this->forum_model->getThreads($forumToSearch, $subforumToSearch);
+
         echo '<div id="root">';
         echo '<h3>subforums()</h3>';
-        print_r($this->forum_model->getSubforums($forumToSearch, $subforumToSearch));
+        //print_r($this->forum_model->getSubforums($forumToSearch, $subforumToSearch));
+        echo '<ul>';
+        echo '<li><a href="'.$subforumsResult[0]['subforum1'].'">'.$subforumsResult[0]['subforum1'].'</a></li>';
+        echo '<li><a href="'.$subforumsResult[0]['subforum2'].'">'.$subforumsResult[0]['subforum2'].'</a></li>';
+         if( !empty($subforumsResult[0]['subforum3']) ) {
+            echo '<li><a href="'.$subforumsResult[0]['subforum3'].'">'.$subforumsResult[0]['subforum3'].'</a></li>';
+         }
+        echo '</ul>';
+        
+
         echo '<h3>threads()</h3>';
-        print_r($this->forum_model->getThreads($forumToSearch, $subforumToSearch));
+
+        $i = 0;
+        while( isset($threadsResult[$i]) && !empty($threadsResult[$i]) ){
+            echo '<p><a href="'.base_url().'Forum/post/'.$threadsResult[$i]['slug'].'" title="'.$threadsResult[0]['title'].'">'
+            .$threadsResult[$i]['title'].' | '.$threadsResult[$i]['subforum'].'
+            </a></p>';
+            $i++;
+        }
+        
+
+        //print_r($this->forum_model->getThreads($forumToSearch, $subforumToSearch));
         echo '</div>';
     }
 
-    public function thread() {
+    public function post($slug) {
         // Abrir un hilo mediante un link
+        $thread = $this->forum_model->openThread($slug);
+        echo '<div id="root">';
+        //print_r($thread);
+        echo '<h1>'.$thread[0]['title'].'</h1>';
+        echo '<h3>Autor: '.$thread[0]['author'].'</h3>';
+        echo '<p>'.$thread[0]['post'].'</p>';
+        echo '</div>';
+
+        $data['title'] = $thread[0]['title'];
+        
+        // Abrir un foro mediante un link
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/footer');
+
+        
     }
 
 }

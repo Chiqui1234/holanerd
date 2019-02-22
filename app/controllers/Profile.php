@@ -28,7 +28,7 @@ public function view() {
         <p>Buscá el correo en tu casilla de <strong>No deseados</strong>.</p>";
         $this->load->view('templates/header', $data, FALSE);
         $this->load->view('templates/sidebar');
-        $this -> load -> view('pages/status', $data);
+        $this->load->view('pages/status', $data);
     }
     
 }

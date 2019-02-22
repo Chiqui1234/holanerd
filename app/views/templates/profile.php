@@ -9,17 +9,8 @@
                 <!-- En el fondo de la portada habrá 'tiles' que contendrán posteos del usuario, notas destacadas, etc -->
                 <ul>
                     <?php
-                        $posts = $this->Profile_model->getUserPosts();
-                        $i = 0;
-                        while( isset($posts[$i]) ) {
-                            echo '<li>
-                                    <h1>'.$posts[$i]['title'].'</h1>
-                                    <p>'.$posts[$i]['post'].'</p>
-                                  </li>';
-                            $i++;
-                        }
+                        $this->Profile_model->printUserPosts();
                     ?>
-                    
                 </ul>
             </div>
         
@@ -27,8 +18,19 @@
             
             <div id="basic">
                 <div class="bg blur"></div>
-                <div class="avatar"><img src="https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png" width="100%"" /></div>
-                <div class="email"><?php echo $_SESSION['email']; ?></div>
+                <div class="avatar"><img src="<?php echo $this->Profile_model->printAvatar(); ?>" width="100%" /></div>
+                <div class="email"><?php echo purify($_SESSION['email']); ?></div>
+
+                <div class="stats">
+                <!-- Estadísticas del usuario, aunque el contenido cambiará cuándo se presionen los siguientes links:
+                        - Posts
+                        - Tienda
+                        - Preferencias
+                -->
+                    <?php
+                        $this->Profile_model->printUserStats();
+                    ?>
+                </div>
 
                 <!-- Menú rápido para el usuario -->
                 <nav>

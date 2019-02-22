@@ -84,7 +84,7 @@ class CI_Input {
 	 *
 	 * @var	bool
 	 */
-	protected $_enable_xss = FALSE;
+	protected $_enable_xss = TRUE;
 
 	/**
 	 * Enable CSRF flag

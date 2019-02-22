@@ -35,6 +35,15 @@ function getThreads($forumToSearch, $subforumToSearch) {
     return $query->result_array();
 }
 
+function openThread($slug) {
+    /* Puedo crear un modelo (o usar forum_model) para crear una función que en base al 'slug' encuentre el post
+    solicitado. Osea, por URL le paso el slug y luego en el controlador obtengo de MySQL el título, texto, etc +
+    pido los comentarios de la tabla 'comentarios' :D */
+    $this->db->where('slug', $slug);
+    $query = $this->db->get('posts');
+    return $query->result_array();
+} 
+
 function returnForums() {
     /*  Devuelve un listado de los foros que existen, la cantidad de posts de cada uno,
         quién y en dónde está la última respuesta y los subforos :D */
@@ -53,7 +62,7 @@ function returnForums() {
     );
 
     echo '<div id="forums"><ul>';
-    for($i = 0;$i < $n;$i++) { // FOR NAVIGATE THROUGHT FORUMS
+    for($i = 0;$i < $n;$i++) { // NAVEGAR ENTRE LOS FOROS PARA OBTENERLOS
 
         echo '<li><div class="forumName">
         <a href="Forum/forum/'.$data['forum_item'][$i]['slug'].'/home">'.$data['forum_item'][$i]['forumName'].'</a>
@@ -69,7 +78,7 @@ function returnForums() {
         } else {
             echo '<div class="lastAnswer">
                 <div class="title">Sin posts</div>
-                <div class="user">@none</div>
+                <div class="user">-</div>
               </div>';
         }
 
@@ -84,14 +93,14 @@ function returnForums() {
             echo '<li>
                    <div class="img"></div>
                    <div class="title">
-                   <a href="forum/'.$data['forum_item'][$i]['slug'].'/'.$data['forum_item'][$i]['subforum2'].'">'.$data['forum_item'][$i]['subforum2'].'</a>
+                   <a href="Forum/forum/'.$data['forum_item'][$i]['slug'].'/'.$data['forum_item'][$i]['subforum2'].'">'.$data['forum_item'][$i]['subforum2'].'</a>
                    </div>
                   </li>'; 
             if(!empty($data['forum_item'][$i]['subforum3'])){ // SI EXISTE UN TERCER SUBFORO
                 echo '<li>
                    <div class="img"></div>
                    <div class="title">
-                   <a href="forum/'.$data['forum_item'][$i]['slug'].'/'.$data['forum_item'][$i]['subforum3'].'">'.$data['forum_item'][$i]['subforum3'].'</a>
+                   <a href="Forum/forum/'.$data['forum_item'][$i]['slug'].'/'.$data['forum_item'][$i]['subforum3'].'">'.$data['forum_item'][$i]['subforum3'].'</a>
                    </div>
                   </li>';
             }
