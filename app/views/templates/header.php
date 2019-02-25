@@ -13,7 +13,10 @@ variable, which we’ll define later in the controller. -->
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/sidebar.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/homeForum.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/payment.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/profile.css" />
+                <?php if( isset($_SESSION['email']) && $_SESSION !== NULL ) { ?>
+                <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/profile.css" />
+                <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/postCreator.css" />
+                <?php } ?>
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/footer.css" />
             <?php if( isset($headerExtraCode) && (!empty($headerExtraCode)) ) {
                     echo $headerExtraCode;

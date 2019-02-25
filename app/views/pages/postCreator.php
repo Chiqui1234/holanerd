@@ -10,8 +10,26 @@
         <input type="hidden" id="postCatcher" value="" name="post" />
         <input type="hidden" id="titleCatcher" value="" name="title" />
         <!-- VALORES DE PRUEBA -->
-        <input type="hidden" value="Computación" name="forum" />
-        <input type="hidden" value="Aportes" name="subforum" />
+        <select name="forum" id="forum">
+            <option value="computacion" onclick="changeSubforums()">Computación</option>
+            <option value="programacion" onclick="changeSubforums()">Programación</option>
+            <option value="diseno-grafico" onclick="changeSubforums()">Diseño gráfico</option>
+            <option value="audio" onclick="changeSubforums()">Audio</option>
+            <option value="video" onclick="changeSubforums()">Video</option>
+            <option value="emprenderismo" onclick="changeSubforums()">Emprenderismo</option>
+            <option value="universidades" onclick="changeSubforums()">Universidades</option>
+            <option value="off-topic" onclick="changeSubforums()">Off-Topic</option>
+        </select>
+
+        <select name="subforum" id="subforum">
+            <option value="aportes">Aportes</option>
+            <option value="preguntas">Preguntas</option>
+            <option value="" id="pivot">Aportes</option>
+        </select>
+        <!--<input type="hidden" value="Computación" name="forum" />-->
+        <!--
+            PARA SUPLIR ESTO, TENGO QUE USAR JS PERO SIN LLAMAR A LA BD
+            <input type="hidden" value="Aportes" name="subforum" />-->
         <div id="submitPost"><button name="submit" onclick="submitPost()">Subir post</button></div>
     </form>
 
@@ -31,7 +49,7 @@
     <script>
         // Este script toma el innerHTML de #post, lo almacena en input.hidden#postCatcher y luego hace un submit
         function submitPost() {
-            var postValue = document.getElementById('post').innerText;
+            var postValue = document.getElementById('post').innerHTML;
                 document.getElementById('postCatcher').value = postValue;
                 
             var titleValue = document.getElementById('title').innerText;
@@ -42,5 +60,5 @@
     </script>
     <script src="<?php echo base_url(); ?>plug-ins/get-content-tools/content-tools.min.js"></script>
     <script src="<?php echo base_url(); ?>plug-ins/get-content-tools/sandbox.js"></script>
-
+    <script src="<?php echo base_url(); ?>js/getSubForums.js"></script>
 </div>

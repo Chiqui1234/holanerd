@@ -7,6 +7,7 @@ public function __construct() {
     parent::__construct();
     $this -> load -> helper('url_helper');
     $this -> load -> model('Profile_model');
+    $this -> load -> model('Validate_model');
     $this->load->library('session');
     //$this->load->library('encrypt');
 }
@@ -18,7 +19,7 @@ public function view() {
     $this->load->view('templates/footer');
 
     /*  IMPORTO EL TEMPLATE DEL PERFIL SEGUN CORRESPONDA */
-    if( $this->Profile_model->isConfirmed() ) { // Si la cuenta está confirmada
+    if( $this->Validate_model->validateSession() ) { // Si la cuenta está confirmada
         // Importo el perfil
         $this->load->view('templates/profile');
     } else { // Sino... te notifico :D

@@ -31,4 +31,18 @@ class postCreator_model extends CI_Model {
     public function addPost($postData) {
         $this->db->insert('posts', $postData);
     }
+
+    public function isExists($slug) {
+        // Comprueba que un post de nombre idéntico exista
+        $this->db->where('slug', $slug);
+        $this->db->select('slug');
+        $query = $this->db->get('posts');
+        $result = $query->result_array();
+        
+        if( $result[0]['slug'] === $slug ) {
+            return true; // Existe
+        } else {
+            return false;
+        }
+    }
 }

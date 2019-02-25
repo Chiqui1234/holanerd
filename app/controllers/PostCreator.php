@@ -7,6 +7,7 @@ public function __construct() {
     parent::__construct();
     $this -> load -> helper('url_helper');
     $this -> load -> model('postCreator_model');
+    $this -> load -> model('Validate_model');
     $this->load->library('session');
     //$this->load->library('encrypt');
 }
@@ -14,11 +15,18 @@ public function __construct() {
 public function view() {
     $data['title'] = 'Crear post';
     $data['headerExtraCode'] = '<link rel="stylesheet" type="text/css" href="'.base_url().'plug-ins/get-content-tools/content-tools.min.css" /><link rel="stylesheet" type="text/css" href="'.base_url().'plug-ins/get-content-tools/content.css" />';
-
     $this->load->view('templates/header', $data, FALSE);
-    $this->load->view('pages/postCreator', $data, FALSE); // Cargo la vista del creador de posts
     $this->load->view('templates/sidebar');
     $this->load->view('templates/footer');
+
+    if( $this->Validate_model->validateSession() ) { // Si la cuenta es válida y existe
+        $this->load->view('pages/postCreator', $data, FALSE); // Cargo la vista del creador de posts
+    } else {
+        $data['error'] = true;
+        $data['text'] = "<p>Para crear un post, iniciá sesión.</p>";
+        $this -> load -> view('pages/status', $data);
+    }
+    
 }
 
 public function create() {
@@ -33,6 +41,30 @@ public function create() {
     date_default_timezone_set('UTC'); // Zona horaria predeterminada
     $now = date('m/d/Y h:i:s a'); // Obtengo la fecha
 
+    $find = array(
+        'á',        'é',        'í',        'ó',        'ú',
+        'ä',        'ë',        'ï',        'ö',        'ü',
+        'Á',        'É',        'Í',        'Ó',        'Ú',
+        'Ä',        'Ë',        'Ï',        'Ö',        'Ü',
+        '!',        '"',        "'",        '#',        '$',
+        '%',        '&',        '/',        '(',        ')',
+        '=',        '?',        '¿',        '¡'
+    );
+
+    $replace = array(
+        'a',        'e',        'i',        'o',        'u',
+        'a',        'e',        'i',        'o',        'u',
+        'A',        'E',        'I',        'O',        'U',
+        'A',        'E',        'I',        'O',        'U',
+        '-',        '-',        "-",        '-',        '-',
+        '-',        '-',        '-',        '-',        '-',
+        '-',        '-',        '-',        '-'
+
+    );
+
+    $title = $this->input->post('title');
+    $slug = str_replace($find, $replace, $title);
+
     $postData = array (
         'image' => 'https://wallpaperaccess.com/full/234164.jpg', // Portada por defecto, ¡al menos de momento!
         'time' => $now,
@@ -40,20 +72,28 @@ public function create() {
         'forum' => $this->input->post('forum'),
         'subforum' => $this->input->post('subforum'),
         'points' => 0,
-        'title' => $this->input->post('title'),
+        'title' => $title,
+        'slug' => $slug,
         'post' => $this->input->post('post')  
     );
 
     if( (!empty($postData['post'])) || (!empty($postData['title'])) || (!empty($postData['image'])) ){ // Si esos campos contienen información (osea, no están vacíos)
-        $this -> postCreator_model -> addPost($postData); // Agrega el post
-        $data['error'] = false;
-        $data['text'] = "<p>¡Bien! Ya subiste tu aporte.</p>";
-        $data['title'] = 'Crear Post / Un paso más...'; // En caso de error o éxito, se pone un título más específico, sino "Un paso más" como nombre de pestaña queda medio colgado
-        $this->load->view('pages/status', $data); // Imprimo el éxito :v
+        if( !$this->Post_model->isExists($slug) ) { // Si el nombre del post no existe
+            $this -> postCreator_model -> addPost($postData); // Agrega el post
+            $data['error'] = false;
+            $data['text'] = "<p>¡Bien! Ya subiste tu aporte.</p>";
+            $data['title'] = 'Post creado'; // En caso de error o éxito, se pone un título más específico, sino "Un paso más" como nombre de pestaña queda medio colgado
+            $this->load->view('pages/status', $data); // Imprimo el éxito :v
+        } else { // Si el nombre del post ya existía
+            $data['error'] = true;
+            $data['text'] = "<p>Cambiá el nombre de tu post, porque ya existe uno con el mismo título</p>";
+            $data['title'] = 'Crear Post / Un paso más...';
+            $this->load->view('pages/status', $data); // Imprimo el error
+        }
     } else {
         $data['error'] = true;
         $data['text'] = "<p>El título o el post están vacíos.</p>";
-        $data['title'] = 'Crear Post / Un paso más...'; // En caso de error o éxito, se pone un título más específico, sino "Un paso más" como nombre de pestaña queda medio colgado
+        $data['title'] = 'Crear Post, Error'; // En caso de error o éxito, se pone un título más específico, sino "Un paso más" como nombre de pestaña queda medio colgado
         $this->load->view('pages/status', $data);
         
     }

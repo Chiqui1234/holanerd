@@ -1,11 +1,14 @@
 - Darle al usuario la posibilidad de editar su fondo y colores preferidos. (listo, falta conectar a la UI y comprobar)
 - getUserInfo(), para usar el avatar, email, username, colores preferidos, fondo, etc; del usuario en el perfil (listo, falta conectar a la UI y comprobar)
+- Validador de usuarios: comprobador de confirmación + activador (listo, falta comprobar)
+--- Estaría bueno hacerle un activador en la página, dónde el usuario ingrese su email (previo captcha) y valide la cuenta sin tener que entrar a su email
 - API de pagos
 - purify() ya hecho en todos lados, salvo creador de post
 - El creador de posts necesita algo estilo BBCodes... veré como lo hago sin comprometer lo estético.
 - El creador de post necesita actualizar el último usuario y post de /Forum.
 - ¿Convertir las fechas a varchar?
 
+:: NOTA: Agregar 'slug' a posts en MySQL ::
 
 APLAZADO:
 - Desarrollar el validador de cuentas + crear el archivo para validarlas (ver Email_model y Register)
