@@ -31,7 +31,8 @@ public function user() {
         $sessionData = array(
             'email' => purify($this->input->post('email')), // Lo hago array porque es posible que agregue más cosas a la sesión
             'username' => purify($userInfo[0]['username']),
-            'avatar' => purify($userInfo[0]['avatar'])
+            'avatar' => purify($userInfo[0]['avatar']),
+            'less' => purify($userInfo[0]['less'])
         );
         
         $this->session->set_userdata($sessionData); // Guardo una sesión
@@ -44,6 +45,7 @@ public function user() {
         $data['text'] = "Tus credenciales son incorrectas.";
         $this->load->view("pages/status", $data);
     }
+
 }
 
 public function logout() {

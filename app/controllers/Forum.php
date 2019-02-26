@@ -43,6 +43,7 @@ class Forum extends CI_Controller {
 
         $subforumsResult = $this->forum_model->getSubforums($forumToSearch, $subforumToSearch);
         $threadsResult = $this->forum_model->getThreads($forumToSearch, $subforumToSearch);
+        print_r($subforumsResult);
 
         echo '<div id="root">';
         echo '<h3>subforums()</h3>';
@@ -77,7 +78,8 @@ class Forum extends CI_Controller {
         echo '<div id="root">';
         //print_r($thread);
         echo '<h1>'.$thread[0]['title'].'</h1>';
-        echo '<h3>Autor: '.$thread[0]['author'].'</h3>';
+        echo '<h3>De @<a href="'.base_url().'Profile/search/'.$thread[0]['author'].'">'.$thread[0]['author'].'</a></h3>';
+        echo '<img src="'.$thread[0]['image'].'" width="100%" id="postImage" />';
         echo '<p>'.$thread[0]['post'].'</p>';
         echo '</div>';
 

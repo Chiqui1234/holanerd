@@ -1,0 +1,4 @@
+#postImage {
+    box-shadow: 0 0 3px var(--shadow);
+    border-radius: 5px;
+}

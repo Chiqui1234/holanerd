@@ -10,7 +10,7 @@ class Profile_model extends CI_Model {
 
     function getUserPosts() {
         //$this->db->select('author');
-        $this->db->where('author', $_SESSION['email']); // WHERE email = '$_SESSION'
+        $this->db->where('author', $_SESSION['username']); // WHERE email = '$_SESSION'
         $query = $this->db->get('posts');
         $result = $query->result_array();
         return $result;
@@ -18,7 +18,7 @@ class Profile_model extends CI_Model {
 
     function getUserStats() {
         // Obtener rango, puntos, Git, linkedIn, etc
-        $this->db->where('email', $_SESSION['email']); // WHERE email '$_SESSION'
+        $this->db->where('username', $_SESSION['username']); // WHERE email '$_SESSION'
         $this->db->select('points, git, linkedin, web');
         $query = $this->db->get('users');
         $result = $query->result_array();

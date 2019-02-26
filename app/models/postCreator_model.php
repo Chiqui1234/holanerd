@@ -28,8 +28,63 @@ class postCreator_model extends CI_Model {
             }
     }
 
-    public function addPost($postData) {
+    public function slugish($title) {
+        // Partiendo de un título amigable con el user, hacemos un slug (amigable con navegadores)
+        $find = array(
+            'á',        'é',        'í',        'ó',        'ú',
+            'ä',        'ë',        'ï',        'ö',        'ü',
+            'Á',        'É',        'Í',        'Ó',        'Ú',
+            'Ä',        'Ë',        'Ï',        'Ö',        'Ü',
+            '!',        '"',        "'",        '#',        '$',
+            '%',        '&',        '/',        '(',        ')',
+            '=',        '?',        '¿',        '¡',        '<', 
+            '>',        '[',        ']',        '{',        '}',
+            ' '
+        );
+    
+        $replace = array(
+            'a',        'e',        'i',        'o',        'u',
+            'A',        'E',        'I',        'O',        'U',
+            'a',        'e',        'i',        'o',        'u',
+            'A',        'E',        'I',        'O',        'U',
+            '-',        '-',        "-",        '-',        '-',
+            '-',        '-',        '-',        '-',        '-',
+            '-',        '-',        '-',        '-',        '-',
+            '-',        '-',        '-',        '-',        '-',
+            '-'
+        );
+
+        return str_replace($find, $replace, $title); // str_ireplace() hace cochinadas, por eso no lo uso
+    }
+
+    public function addPost(array $postData) {
         $this->db->insert('posts', $postData);
+    }
+
+    public function getForumToRefresh($forum) {
+        // Obtiene el 'slug' y 'topicCounter' del foro al que se le debe 'updatear' su info 
+        // Con refreshForumInfo() se actualiza: topicCounter, lastAnswerTopic, lastAnswerUser
+        $this->db->select('slug, topicCounter');
+        $this->db->where('slug', $forum); // Por ej: WHERE slug = 'computacion'
+        
+        $query = $this->db->get('forums');
+        $result = $query->result_array();
+
+        return $result;
+    }
+
+    public function refreshForumInfo(array $postData, array $forumDataToRefresh) {
+        // Actualiza 'topicCounter', 'lastAnswerTopic' & 'lastAnswerUser' del foro deseado
+        // Nótese que esta función se ejecuta cuándo se responde un post, pero también cuándo se crea uno
+        $data = array(
+            'slug' => $forumDataToRefresh[0]['slug'],
+            'topicCounter' => $forumDataToRefresh[0]['topicCounter']+1,
+            'lastAnswerTopicSlug' => $postData['slug'],
+            'lastAnswerTopic' => $postData['title'],
+            'lastAnswerUser' => $postData['author']
+        );
+    $this->db->where('slug', $forumDataToRefresh[0]['slug']);
+    $this->db->update('forums', $data);// Me crea otro registro 'programacion'... chequear!
     }
 
     public function isExists($slug) {
@@ -39,7 +94,7 @@ class postCreator_model extends CI_Model {
         $query = $this->db->get('posts');
         $result = $query->result_array();
         
-        if( $result[0]['slug'] === $slug ) {
+        if( isset($result[0]['slug']) && $result[0]['slug'] === $slug ) {
             return true; // Existe
         } else {
             return false;

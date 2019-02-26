@@ -19,7 +19,7 @@ class Login_model extends CI_Model {
     function getUserInfo($dbData) {
         // Esta función toma información del usuario. La idea es que se use sólo cuándo no hay info en las cookies
         $this->db->where('email', $dbData['email']); // WHERE email '$_SESSION'
-        $this->db->select('username, email, avatar');
+        $this->db->select('username, email, avatar, less');
         $query = $this->db->get('users');
         $result = $query->result_array();
         return $result;

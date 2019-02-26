@@ -34,4 +34,8 @@ public function view() {
     
 }
 
+public function search($userToSearch) {
+    echo $userToSearch;
+}
+
 }

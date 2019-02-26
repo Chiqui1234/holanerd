@@ -12,8 +12,9 @@ variable, which we’ll define later in the controller. -->
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/nav.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/sidebar.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/homeForum.css" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/post.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/payment.css" />
-                <?php if( isset($_SESSION['email']) && $_SESSION !== NULL ) { ?>
+                <?php if( isset($_SESSION['email']) && ($_SESSION['email'] !== NULL) ) { ?>
                 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/profile.css" />
                 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/postCreator.css" />
                 <?php } ?>
@@ -29,42 +30,10 @@ variable, which we’ll define later in the controller. -->
         </head>
         <body>
 <div id="fashionHeader"> <!-- Un header muy fachero -->
-    <!-- particles.js container -->
-    <div id="particles-js"></div>
-
-    <!-- scripts -->
-    <script src="<?php echo base_url(); ?>theme/holanerd/js/particlesJs/particles.js"></script>
-    <script src="<?php echo base_url(); ?>theme/holanerd/js/particlesJs/app.js"></script>
-
-    <!-- stats.js -->
-    <script>
-        var count_particles,
-            stats,
-            update;
-        stats = new Stats;
-        stats.setMode(0);
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.left = '0px';
-        stats.domElement.style.top = '0px';
-        document
-            .body
-            .appendChild(stats.domElement);
-        count_particles = document.querySelector('.js-count-particles');
-        update = function () {
-            stats.begin();
-            stats.end();
-            if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
-                count_particles.innerText = window
-                    .pJSDom[0]
-                    .pJS
-                    .particles
-                    .array
-                    .length;
-            }
-            requestAnimationFrame(update);
-        };
-        requestAnimationFrame(update);
-    </script>
+    <?php
+    if( isset($_SESSION['less']) && (!$_SESSION['less']) ) { // Si 'less' (menos) existe y es FALSO, entonces el usuario "quiere más" y habilitamos el JS
+        $this->load->view('templates/particles');
+    } ?>
     <div class="logo" title="<?php echo $title; ?>"></div>
     <nav>
         <ul>

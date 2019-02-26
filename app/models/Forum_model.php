@@ -14,7 +14,7 @@ function getForums() {
 function getSubforums($forumToSearch, $subforumToSearch) {
     // Obtiene la lista de sub-foros del foro actual
     $this->db->select('subforum1, subforum2, subforum3'); // Selecciono los 3 subforos para próximamente imprimirlos por pantalla
-    $this->db->where('forumName', $forumToSearch); // Capto subforos del foro deseado. WHERE 'forumName' = $forumToSearch
+    $this->db->where('slug', $forumToSearch); // Capto subforos del foro deseado. WHERE 'forumName' = $forumToSearch
     $query = $this->db->get('forums'); // $array[0]['subforum1']
     return $query->result_array();
 }
@@ -39,6 +39,7 @@ function openThread($slug) {
     /* Puedo crear un modelo (o usar forum_model) para crear una función que en base al 'slug' encuentre el post
     solicitado. Osea, por URL le paso el slug y luego en el controlador obtengo de MySQL el título, texto, etc +
     pido los comentarios de la tabla 'comentarios' :D */
+    $this->db->select('image, author, title, post');
     $this->db->where('slug', $slug);
     $query = $this->db->get('posts');
     return $query->result_array();
@@ -72,8 +73,8 @@ function returnForums() {
 
         if(!empty($data['forum_item'][$i]['lastAnswerTopic'])) {
             echo '<div class="lastAnswer">
-                <div class="title">'.$data['forum_item'][$i]['lastAnswerTopic'].'</div>
-                <div class="user">'.$data['forum_item'][$i]['lastAnswerUser'].'</div>
+                <div class="title"><a href="'.base_url().'Forum/post/'.$data['forum_item'][$i]['lastAnswerTopicSlug'].'">'.$data['forum_item'][$i]['lastAnswerTopic'].'</a></div>
+                <div class="user"><a href="'.base_url().'Profile/search/'.$data['forum_item'][$i]['lastAnswerUser'].'">@'.$data['forum_item'][$i]['lastAnswerUser'].'</a></div>
               </div>';
         } else {
             echo '<div class="lastAnswer">
