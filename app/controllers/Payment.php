@@ -48,8 +48,8 @@ public function view($productSlug, $sellerUsername, $buyerUsername, $points) {
                     'points' => purify($points),
                     'token' => $this->Payment_model->createToken(64)
                 );
-
-                    echo $transactionData['token'];
+                //print_r( $this->Payment_model->createTransaction($transactionData) );
+                    //echo $transactionData['token'];
                     // Creo un token a partir del productSlug, para procesar el pago. Ese token lo creo y todo el $transactionData va a la tabla "store_transactions"
                     if( $this->Payment_model->createTransaction($transactionData) ) {
                         $this->load->view('templates/payment.php', $transactionData);
@@ -86,7 +86,46 @@ public function view($productSlug, $sellerUsername, $buyerUsername, $points) {
 }
 
 public function process($token) {
-    echo $token;
+    // Otra vez debería comprobar que el comprador sea realmente el comprador :v
+    $data['title'] = 'Procesamos tu pago';
+    
+        $this->load->view('templates/header', $data, FALSE);
+        $this->load->view('templates/sidebar');
+        $this->load->view('templates/footer');
+    
+        /*      */
+
+    $transactionData = $this->Payment_model->searchTransactionByToken($token); // seller, buyer, productSlug, points, token
+    $typeOfProduct = $this->Payment_model->getTypeOfProductBySlug($transactionData[0]['productSlug']); // TRUE si es digital, FALSE si es físico
+    $transactionData += array(
+        'typeOfProduct' => $typeOfProduct, // Agrego el tipo de producto al array que le envío a la vista. Si es TRUE => es digital
+    );
+
+        if($typeOfProduct) { // Si es digital, tengo que agregar el link a la vista
+            $download = $this->Payment_model->getDownloadLink($transactionData[0]['productSlug']); // Obtengo el link
+
+            $transactionData += array( 'download' => $download[0]['download'] ); // Agrego ese valor al array() que será pasada a la vista
+        }
+
+    if( $token === $transactionData[0]['token'] ) { // Si los token coinciden
+        $statusBuyer = $this->Payment_model->checkLegitBuyer($transactionData[0]['buyerUsername'], $transactionData[0]['sellerUsername']); // TRUE o FALSE (¿el comprador existe y el link del pago es para él?)
+        $statusSeller = $this->Payment_model->checkLegitSeller($transactionData[0]['buyerUsername'], $transactionData[0]['sellerUsername']); // TRUE o FALSE (¿el vendedor existe y es el que realmente vende el producto?)
+        if( $statusBuyer && $statusSeller ) { // ¡Ok! Ya está todo verificado
+            $this->Payment_model->transferPoints($transactionData[0]['sellerUsername'], $transactionData[0]['buyerUsername'], $transactionData[0]['points']); // Le transfiero los puntos del comprador al vendedor*/
+            $this->Payment_model->finishTransaction($transactionData[0]['token']);
+            /* Si el producto es digital, le entrego directamente un link de descarga, si es
+            físico lo debo llevar por un asistente de compra para coordinar la recepción del
+            producto. 
+            Pongo la transacción como finalizada */
+            $this->load->view('templates/payment_finish', $transactionData); // Cargo la página
+        }
+    } else {
+        $data['error'] = true;
+        $data['text'] = '<p>No recibimos tu <strong>token único</strong> para finalizar con la transacción. ¡Tranquilo! Todavía
+        no compraste realmente el producto y por ende, tus <u>minutos</u> siguen intactos.</p>';
+        $this->load->view('pages/status', $data);
+    }
+
 }
 
 } // Cierre Payment class

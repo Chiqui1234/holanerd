@@ -78,11 +78,10 @@ class Payment_model extends CI_Model {
     }
 
     function checkExistingTransaction($token) { // Esta función devuelve la búsqueda de un token
-            $this->db->select('token');
             $this->db->where('token', $token);
+            $this->db->select('token');
             $query = $this->db->get('store_transactions');
-            $result = $query->result_array();
-            return $result;
+            return $query->result_array();
     }
 
     function createTransaction(array $transactionData) {
@@ -94,15 +93,30 @@ class Payment_model extends CI_Model {
                 // Crea una transacción para que sea validada por Payment/process
                 $this->db->insert('store_transactions', $transactionData);
                 return true;
+                //return $this->db->affected_rows(); 
             }
         
     }
 
     function getProductNameBySlug($slug) {
         $this->db->where('slug', $slug); // Si no coinciden estos datos, spoiler: no va a encontrar el producto :v
-        $this->db->select('product');
+        $this->db->select('product'); // Recuperamos el nombre real
         $query = $this->db->get('store_products');
         return $query->result_array();
+    }
+
+    function getTypeOfProductBySlug($slug) {
+        // Obtiene el campo 'download' y 'quantity'
+        // Si 'download' y 'quantity' === NULL, el producto es digital (devuelvo true)
+        $this->db->select('quantity, download');
+        $this->db->where('slug', $slug);
+        $query = $this->db->get('store_products');
+        $result = $query->result_array();
+        if( isset($result[0]['download']) && isset($result[0]['quantity']) && $result[0]['download'] !== NULL && $result[0]['quantity'] === NULL || $result[0]['quantity'] == '0' ) {
+            return true; // Es producto digital!
+        } else {
+            return false; // Es producto físico!
+        }
     }
 
     function getActualBalance($buyer) {
@@ -120,9 +134,56 @@ class Payment_model extends CI_Model {
         // Busca una transacción por token
         // Extrae el comprador de ese token, junto a lo que tiene que pagar y el producto que adquiere
         $this->db->where('token', $token);
-        $this->db->select('sellerUsername, buyerUsername, productSlug, points, token');
         $query = $this->db->get('store_transactions');
         $result = $query->result_array();
+        return $result;
+    }
+
+    function getDownloadLink($slug) {
+        $this->db->where('slug', $slug);
+        $this->db->select('download');
+        $query = $this->db->get('store_products');
+        $result = $query->result_array();
+        return $result;
+    }
+
+    function finishTransaction($token) {
+        // Ejecuto el update
+        $this->db->set('is_finished', 1, FALSE); // Activa el campo is_finished, para aclarar que la transacción ya se realizó y no puede editarse
+        $this->db->where('token', $token);
+        $updateQuery = $this->db->update('store_transactions'); // gives UPDATE users SET points = $pointsToCalculate WHERE username = $username
+    }
+
+    function calculatePoints($username, $points, $operation) {
+        // Se pide el usuario
+        // Se piden los puntos a operar
+        // Si operation === TRUE, se suma. Caso contrario, se resta
+        $this->db->select('points');
+        $this->db->where('username', $username);
+        $query = $this->db->get('users');
+        $fResult = $query -> result_array(); // fResult = firstResult
+        
+        $pointsToCalculate = 0;
+
+        if( $operation ) { // Si TRUE, entonces se suma al puntaje del usuario
+            $pointsToCalculate = $fResult[0]['points'] + $points;
+        } else {
+            $pointsToCalculate = $fResult[0]['points'] - $points;
+        }
+
+        // Ejecuto el update
+        $this->db->set('points', $pointsToCalculate, FALSE);
+        $this->db->where('username', $username);
+        $updateQuery = $this->db->update('users'); // gives UPDATE users SET points = $pointsToCalculate WHERE username = $username
+
+        return $updateQuery; // devuelve bool? raro, pero eso leí :: AVERIGUAR
+    }
+
+    function transferPoints($seller, $buyer, $points) {
+        
+        $this->calculatePoints($buyer, $points, FALSE); // Le quito los puntos al comprador
+        $this->calculatePoints($seller, $points, TRUE); // Le doy los puntos al vendedor
+
     }
 
 } // Cierre Payment_model class
