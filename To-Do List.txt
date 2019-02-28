@@ -1,0 +1,23 @@
+:: PAGOS (hecho) ::
+Actualmente los pagos se hacen de vendedor a comprador, entre usuarios
+específicos (Privado).
+- Se deben habilitar los pagos públicos, para que cualquier registrado
+pueda pagar. Básicamente me evito el check del comprador.
+- Se debe hacer una versión (estéticamente hablando) para "pagar" en
+los posts. Con AJAX <3
+
+:: SISTEMA DE COMENTARIOS ::
+Sin una cuenta no podrás comentar. Una vez registrado estás habilitado
+para comentar en cualquier post que te lo permita :D 
+No va a haber comentarios anidados, pero si un <blockquote> como había
+en los foros. Hay que usar AJAX + PHP + MySQL.
+
+:: CREADOR DE POSTS ::
+Hay que eliminar las imágenes y otros contenidos multimedia "locales".
+Sólo se permitirán imágenes de servidores externos.
+
+:: SISTEMA DE USUARIOS ::
+El usuario debe poder editar su avatar, su fondo y colores.
+Podemos hacer una página externa con los "daily" de cada uno, dónde
+se comente en que se está trabajando (después del lanzamiento).
+
