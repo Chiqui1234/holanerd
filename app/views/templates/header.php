@@ -14,17 +14,9 @@ variable, which we’ll define later in the controller. -->
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/homeForum.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/post.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/payment.css" />
-                <?php if( isset($_SESSION['email']) && ($_SESSION['email'] !== NULL) ) { ?>
-                <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/profile.css" />
-                <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/postCreator.css" />
-                <?php } ?>
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/profile.css" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/postCreator.css" />
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/footer.css" />
-            <?php if( isset($headerExtraCode) && (!empty($headerExtraCode)) ) {
-                    echo $headerExtraCode;
-                    }
-                    /* Permite la adición de más código CSS, por ejemplo, sin necesidad de llamar a <head> en las
-                    vistas */ 
-            ?>
             <!-- Google Fonts -->
             <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
         </head>

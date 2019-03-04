@@ -40,6 +40,18 @@ function create() {
     );
 
     // Tomo los datos del post que irán a la BD
+    /*$postData = array(
+        // id se auto-genera en la Query SQL
+        'slug' =>  slugify($this->input->post('title')),
+        'author' => purify($_SESSION['username']), // Se obtiene el usuario que creó el post
+        // Los puntos son cero por defecto
+        'image' => $this->input->post('image'),
+        'title' => $this->input->post('title'),
+        'content' => $this->input->post('post'),
+        'subforum' => $this->input->post('subforum'),
+        'is_approved' => 1 // Por ahora, no vamos a coartar la libertad de nadie (se aprueba por defecto) :P
+    );*/
+
     $postData = array(
         // id se auto-genera en la Query SQL
         'slug' =>  slugify($this->input->post('title')),
@@ -52,7 +64,17 @@ function create() {
         'is_approved' => 1 // Por ahora, no vamos a coartar la libertad de nadie (se aprueba por defecto) :P
     );
 
-    
+    /*$postData = array(
+        // id se auto-genera en la Query SQL
+        'slug' =>  utf8_encode($_REQUEST['title']),
+        'author' => purify($_SESSION['username']), // Se obtiene el usuario que creó el post
+        // Los puntos son cero por defecto
+        'image' => $_REQUEST['image'],
+        'title' => $_REQUEST['title'],
+        'content' => $_REQUEST['post'],
+        'subforum' => $_REQUEST['subforum'],
+        'is_approved' => 1 // Por ahora, no vamos a coartar la libertad de nadie (se aprueba por defecto) :P
+    );*/
 
     $table = 'posts_'.$positionData['forum']; // Establezco a que tabla va el post (el nombre de la tabla tiene el prefijo "posts_")
 
@@ -61,7 +83,7 @@ function create() {
     if( $is_valid ) { // ... le damos para adelante
         
         if( !$this->PostCreator_model->isExists($table, $postData['slug']) && DB_POST($table, $postData) ) {
-            $data['successText'] = 'Ya podés ver tu post <a href="'.base_url().'Forum/forum/'.$positionData['forum'].'/'.$postData['subforum'].'">acá</a>.';
+            $data['successText'] = 'Ya podés ver tu post <a href="'.base_url().'Forum/'.$positionData['forum'].'">acá</a>.';
             $data['title'] = 'Post publicado';
             $this->load->view('status/success', $data);
         } else{

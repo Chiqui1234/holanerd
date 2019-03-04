@@ -14,7 +14,7 @@ if( !function_exists('DB_GET') ) { // Obtiene registro
     function DB_GET($table, array $info) {
         $ci=& get_instance(); // Creo $ci en los helpers, ya que no se puede acceder a la super variable $this desde fuera de las clases
         $ci->load->database(); // Creo $ci en los helpers, ya que no se puede acceder a la super variable $this desde fuera de las clases
-        $query = $ci->db->get($table, $info);
+        $query = $ci->db->get_where($table, $info);
         $result = $query->result_array();
         if( isset($result) ) {
             return $result;

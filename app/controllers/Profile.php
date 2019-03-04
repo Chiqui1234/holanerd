@@ -24,7 +24,6 @@ public function view() {
     } else { // Sino... te notifico :D
         $this->load->view('templates/header', $data, FALSE);
         $this->load->view('templates/sidebar');
-        
         $data['errorText'] = 'Tu cuenta no existe o todavía no fue activada. Si acabás de crearla, revisá tu email.';
         $this->load->view('status/error', $data);
     }

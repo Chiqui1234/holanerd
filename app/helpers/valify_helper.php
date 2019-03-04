@@ -33,7 +33,7 @@ if( !function_exists('V_SESSION') ) {
             isset($_SESSION['background']) ) { // ¿Las variables de sesión están seteadas y contienen información? (Nótese que empty() no arroja error si la variable no existe, simplemente false)
                 return true;
         } else {
-            return false;
+                return false;
         }
     }
   

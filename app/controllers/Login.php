@@ -18,32 +18,37 @@ public function user() {
     $this->load->view('templates/sidebar');
     $this->load->view('templates/footer');
 
-    $dbData = array(
-        'email' => purify($this->input->post('email')),
-        'password' => purify($this->input->post('password'))
+    $dbData = array( // Capto la entrada del usuario
+        'email' => $this->input->post('email'),
+        'password' => $this->input->post('password')
     );
 
     $userData = $this->Login_model->getUser($dbData); // Obtengo el usuario
 
-    $sessionData = array( // Preparo el array para crear las cookies después
-        'email' => $dbData['email'],
-        'username' => purify($userData[0]['username']),
-        'avatar' => purify($userData[0]['avatar']),
-        'background' => purify($userData[0]['background']),
-        'less' => purify($userData[0]['less'])
-    );
-
-    if( !V_SESSION() && V_LEGIT($dbData['email'], $userData[0]['email']) ) { // Si no tiene sesión activa y V_LEGIT comprueba que el email digitado por el usuario es igual al de la BD, le damos para adelante
+    
+    
+    $v_session = V_SESSION();
+    $v_legit = V_LEGIT($dbData['email'], $userData[0]['email']);
+    
+    echo 'v_session: '.$v_session;
+        echo 'v_legit: '.$v_legit;
+    if( !$v_session && $v_legit ) { // Si no tiene sesión activa y V_LEGIT comprueba que el email digitado por el usuario es igual al de la BD, le damos para adelante
         
-        
-        
+        $sessionData = array( // Preparo el array para crear las cookies después
+            'email' => $dbData['email'],
+            'username' => $userData[0]['username'],
+            'avatar' => $userData[0]['avatar'],
+            'background' => $userData[0]['background'],
+            'less' => $userData[0]['less']
+        );
+        print_r($sessionData);
         $this->session->set_userdata($sessionData); // Guardo una sesión
 
         $data['successText'] = "Tus credenciales son correctas.";
         $this->load->view("status/success", $data);
     } else {
         $data['errorText'] = "Tus credenciales son incorrectas.";
-        $this->load->view("status/error", $data);
+        //$this->load->view("status/error", $data);
     }
 
 }

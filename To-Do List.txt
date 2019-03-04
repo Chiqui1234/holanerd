@@ -1,3 +1,6 @@
+- Integrar el puntuador de posts y comentarios (página extra, ver detalle más abajo)
+- Hacer la confirmación de usuario vía email
+
 :: PAGOS (hecho) ::
 Actualmente los pagos se hacen de vendedor a comprador, entre usuarios
 específicos (Privado).
