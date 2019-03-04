@@ -3,7 +3,11 @@
 class Profile_model extends CI_Model {
     public function __construct() {
         $this->load->database();
-        $this -> load -> helper('purify_helper');
+        $this -> load -> helper('url_helper');
+        $this -> load -> helper('purify_helper'); // Evita XSS
+        $this -> load -> helper('valify_helper'); // Valida relleno de formularios y usuarios
+        $this -> load -> helper('db_helper'); // Uso simplificado para el manejo con BDs
+        //$this->load->library('encrypt');
     }
 
     // getUserInfo en Login_model.php
@@ -28,10 +32,34 @@ class Profile_model extends CI_Model {
     // getUserColors() y getUserBackground() en Login_model
 
     function printAvatar() {
-        if( $_SESSION['avatar'] === NULL ) { // Si el avatar no existe
-            return 'https://cdn3.vectorstock.com/i/1000x1000/38/42/hacker-character-avatar-icon-vector-11573842.jpg'; // Ponemos uno por defecto
-        } else {
-            return $_SESSION['avatar']; // Si existe, se lo ponemos! 
+        if( isset($_SESSION['avatar']) && $_SESSION['avatar'] == '' ) { // Si el avatar no existe en sesión o no tiene datos
+            $this->db->where('email', purify($_SESSION['email']));
+            $this->db->select('avatar');
+            $query = $this->db->get('users');
+            $result = $query->result_array();
+            if( isset($result[0]) ) { // Si el usuario tiene avatar en la bd
+                return $result[0]['avatar'];
+            } else { // Si no tiene, ponemos uno por defecto
+                return 'https://i.imgur.com/jfrFsXA.png';
+            }
+        } else { // Si tiene el avatar en sesión, lo ponemos
+            return $_SESSION['avatar'];
+        }
+    }
+
+    function printBg() {
+        if( isset($_SESSION['background']) && $_SESSION['background'] == '' ) { // Si el fondo no existe en sesión o no tiene datos
+            $this->db->where('email', purify($_SESSION['email']));
+            $this->db->select('background');
+            $query = $this->db->get('users');
+            $result = $query->result_array();
+            if( isset($result[0]) ) { // Si el usuario tiene fondo en la bd
+                return $result[0]['background'];
+            } else { // Si no tiene, ponemos uno por defecto
+                return 'https://static.vecteezy.com/system/resources/previews/000/094/491/non_2x/polygonal-texture-background-vector.jpg';
+            }
+        } else { // Si tiene el fondo en sesión, lo ponemos
+            return $_SESSION['background'];
         }
     }
 
@@ -73,5 +101,4 @@ class Profile_model extends CI_Model {
         $this->db->where('email', $_SESSION['email']);
         $this->db->update('users', $data);
     }
-
 }

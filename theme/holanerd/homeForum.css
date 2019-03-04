@@ -18,7 +18,9 @@
     float: left;
     font-size: 22px;
 }
-
+#forums ul li a {
+    text-decoration: none;
+}
 #forums ul li .topicCounter {
     width: 15%;
     float: left;
@@ -48,7 +50,7 @@
     clear: both;
     display: table;
     content: "";
-    border: 2px solid var(--subForumBorder);
+    border: 1px solid var(--shadow);
 }
 #forums ul li #subForum ul {
     list-style-type: none;

@@ -19,17 +19,14 @@ public function view() {
     $this->load->view('templates/footer');
 
     /*  IMPORTO EL TEMPLATE DEL PERFIL SEGUN CORRESPONDA */
-    if( $this->Validate_model->validateSession() ) { // Si la cuenta está confirmada
-        // Importo el perfil
-        $this->load->view('templates/profile');
+    if( V_SESSION() && V_CONFUSER() ) { // Si la cuenta está confirmada y hay sesión
+        $this->load->view('templates/profile'); // Importo el perfil
     } else { // Sino... te notifico :D
-        $data['error'] = true;
-        $data['text'] = "<p>Tu cuenta no existe o todavía no fue activada. Si acabás de crearla, revisá tu email.</p>
-
-        <p>Buscá el correo en tu casilla de <strong>No deseados</strong>.</p>";
         $this->load->view('templates/header', $data, FALSE);
         $this->load->view('templates/sidebar');
-        $this->load->view('pages/status', $data);
+        
+        $data['errorText'] = 'Tu cuenta no existe o todavía no fue activada. Si acabás de crearla, revisá tu email.';
+        $this->load->view('status/error', $data);
     }
     
 }

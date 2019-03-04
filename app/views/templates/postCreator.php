@@ -7,8 +7,8 @@
     </style>
 <div id="root">
     <form action="<?php echo base_url(); ?>PostCreator/create" method="post" id="postUploader">
-        <input type="hidden" id="postCatcher" value="" name="post" />
-        <input type="hidden" id="titleCatcher" value="" name="title" />
+        <input type="hidden" id="postCatcher" value="" name="post" required /> <!-- Mediante javascript, capturo el contenido del post -->
+        <input type="hidden" id="titleCatcher" value="" name="title" required /> <!-- Mediante javascript, capturo el título del post -->
         <!-- VALORES DE PRUEBA -->
         <select name="forum" id="forum">
             <option value="computacion" onclick="changeSubforums()">Computación</option>
@@ -26,10 +26,9 @@
             <option value="preguntas">Preguntas</option>
             <option value="" id="pivot">Aportes</option>
         </select>
-        <!--<input type="hidden" value="Computación" name="forum" />-->
-        <!--
-            PARA SUPLIR ESTO, TENGO QUE USAR JS PERO SIN LLAMAR A LA BD
-            <input type="hidden" value="Aportes" name="subforum" />-->
+
+        <input type="text" placeholder="Portada de tu post" id="image" name="image" required />
+
         <div id="submitPost"><button name="submit" onclick="submitPost()">Subir post</button></div>
     </form>
 
@@ -58,7 +57,7 @@
             document.getElementById("postUploader").submit();
         }
     </script>
-    <script src="<?php echo base_url(); ?>plug-ins/get-content-tools/content-tools.min.js"></script>
+    <script src="<?php echo base_url(); ?>plug-ins/get-content-tools/content-tools.js"></script>
     <script src="<?php echo base_url(); ?>plug-ins/get-content-tools/sandbox.js"></script>
     <script src="<?php echo base_url(); ?>js/getSubForums.js"></script>
-</div>
+</div> <!-- Cierre div#root

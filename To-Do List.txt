@@ -13,11 +13,63 @@ No va a haber comentarios anidados, pero si un <blockquote> como había
 en los foros. Hay que usar AJAX + PHP + MySQL.
 
 :: CREADOR DE POSTS ::
-Hay que eliminar las imágenes y otros contenidos multimedia "locales".
-Sólo se permitirán imágenes de servidores externos.
+Hay que eliminar la posibilidad de subir imágenes y otros contenidos
+multimedia al servidor. Sólo se permitirán imágenes de servidores
+externos, como imgur o el mismísimo GitHub.
 
 :: SISTEMA DE USUARIOS ::
 El usuario debe poder editar su avatar, su fondo y colores.
 Podemos hacer una página externa con los "daily" de cada uno, dónde
-se comente en que se está trabajando (después del lanzamiento).
+se comente en que se está trabajando (f(x) después del lanzamiento).
 
+:: IDEA SUPER GENIAL ::
+Al terminar de leer el post, podría abrir una caja dónde el lector,
+mediante un link, pudiera acceder a otra página para dejar unos
+puntos y comentario. El usuario podrá indicar si el comentario es
+público o mensaje privado al autor del post.
+Esto me ahorra aprender AJAX, ya que directamente me puedo centrar
+en aprender REACT y terminar de modularizar el sitio.
+
+:: MEJORES POSTS DEL MES ::
+Clasificados únicamente por la cantidad de puntos del post. Es un
+listado que se hace a fin de mes y contiene los mejores 5 posts.
+
+:: VER POSTEOS ::
+Al ver los posts, la sidebar tendría que tener información del autor,
+tales como el usuario, avatar y su BIO resumida.
+
+:: ANUNCIOS PUBLICITARIOS ::
+Tendrá que ser dirigido a los foros con los que mayor interacción
+tiene el usuario.
+
+FORUM/POSTS sólo puede abrir threads creados desde PHPMyAdmin, no 
+desde el creador de posts.
+
+----------------------------
+            BD
+----------------------------
+- Nombres de usuario no mayor a 50 caracteres.
+- Cuenta de correo no mayor a 50 caracteres.
+- Nombres de post no mayor a 50 caracteres.
+- URLs (de posts, imágenes, etc) no mayor a 255 caracteres.
+- Nombres de subforos menores a 30 caracteres.
+- Al listar los hilos, se muestran de 15 en 15.
+
+
+----------------------------
+      MANEJO DE ERRORES
+        (con ejemplo)
+----------------------------
+
+$data['title'] = 'Error';
+$data['errorStatus'] = true;
+$data['errorText'] = '<p>Tu cuenta no existe o no está confirmada, ¿revisaste tu email?</p>';
+$this->load->view('error', $data);
+
+
+---------------------------
+    MIS NUEVAS FUNCIONES
+---------------------------
+$this -> load -> helper('purify_helper'); // Evita XSS
+$this -> load -> helper('valify_helper'); // Valida relleno de formularios y usuarios
+$this -> load -> helper('db_helper'); // Uso simplificado para el manejo con BDs

@@ -75,23 +75,21 @@ public function user() {
             <p><a href="#">Link aquí</a>.</p>'
         );
 
-        if( !$this->Email_model->sendEmail($emailData) ) { // Envía el email para solicitar activación
+        /*if( !$this->Email_model->sendEmail($emailData) ) { // Envía el email para solicitar activación
             $data['error'] = true;
             $data['text'] = '<p>No pudimos enviarte un email, no podrás activar tu cuenta.</p>';
             $this->load->view('pages/status', $data);
-        }
+        }*/
 
-        $this->Email_model->activationPage($emailData); // Crea el archivo para activar tu cuenta
+        //$this->Email_model->activationPage($emailData); // Crea el archivo para activar tu cuenta
 
         $this->Register_model->createUser($validate_data); // Creo el usuario
-        $this->Email_model->sendEmail($emailData); // Envío el email
-        $data['error'] = false;
-        $data['text'] = '<p>¡Usuario creado! Revisá tu email para validar tu cuenta.</p>';
-        $this->load->view('pages/status', $data);
+        //$this->Email_model->sendEmail($emailData); // Envío el email
+        $data['successText'] = '<p>¡Usuario creado! Revisá tu email para validar tu cuenta.</p>';
+        $this->load->view('status/success', $data);
 } else {
-    $data['error'] = true;
-    $data['text'] = '<p>Existe otra cuenta con tu nombre de usuario, email o dni; O bien, olvidaste <strong>rellenar todo el formulario</strong>.</p>';
-    $this->load->view('pages/status', $data);
+    $data['errorText'] = '<p>Existe otra cuenta con tu nombre de usuario, email o dni; O bien, olvidaste <strong>rellenar todo el formulario</strong>.</p>';
+    $this->load->view('status/error', $data);
 }
 
 } // Cierro función user()

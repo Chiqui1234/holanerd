@@ -3,7 +3,7 @@
 class Forum extends CI_Controller {
     public function __construct() {
         parent::__construct();
-        $this->load->model('forum_model');
+        $this->load->model('Forum_model');
         $this->load->helper('url_helper');
     }
 
@@ -17,12 +17,12 @@ class Forum extends CI_Controller {
         $this->load->view('templates/footer');
 
         echo '<div id="root">';
-
+        echo '<div id="forums"><ul>';
             /*  START INDEX FORUM LISTING */
             $result = $this -> forum_model -> returnForums(); // Obtengo todos los foros y subforos
             echo $result;
             /* END FORUM LISTING */
-
+        echo '</ul></div>';
         echo '</div>';
         
     }
@@ -72,25 +72,15 @@ class Forum extends CI_Controller {
         echo '</div>';
     }
 
-    public function post($slug) {
-        // Abrir un hilo mediante un link
-        $thread = $this->forum_model->openThread($slug);
-        echo '<div id="root">';
-        //print_r($thread);
-        echo '<h1>'.$thread[0]['title'].'</h1>';
-        echo '<h3>De @<a href="'.base_url().'Profile/search/'.$thread[0]['author'].'">'.$thread[0]['author'].'</a></h3>';
-        echo '<img src="'.$thread[0]['image'].'" width="100%" id="postImage" />';
-        echo '<p>'.$thread[0]['post'].'</p>';
-        echo '</div>';
+    public function computacion($slug) {
+        $data['post'] = $this->Forum_model->openThread('computacion', $slug); // Abrir un hilo mediante un slug
+        $data['title'] = $data['post'][0]['title'];
 
-        $data['title'] = $thread[0]['title'];
-        
-        // Abrir un foro mediante un link
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/footer');
 
-        
+        $this->load->view('templates/post', $data);
     }
 
 }

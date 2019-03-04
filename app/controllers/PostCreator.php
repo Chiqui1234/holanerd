@@ -6,84 +6,76 @@ class PostCreator extends CI_Controller {
 public function __construct() {
     parent::__construct();
     $this -> load -> helper('url_helper');
-    $this -> load -> helper('purify_helper');
-    $this -> load -> model('postCreator_model');
-    $this -> load -> model('Validate_model');
-    $this->load->library('session');
-    //$this->load->library('encrypt');
+    $this -> load -> model('PostCreator_model');
 }
 
-public function view() {
-    $data['title'] = 'Crear post';
-    $data['headerExtraCode'] = '<link rel="stylesheet" type="text/css" href="'.base_url().'plug-ins/get-content-tools/content-tools.min.css" /><link rel="stylesheet" type="text/css" href="'.base_url().'plug-ins/get-content-tools/content.css" />';
-    $this->load->view('templates/header', $data, FALSE);
-    $this->load->view('templates/sidebar');
-    $this->load->view('templates/footer');
+function view() {
+    $sessionExists = V_SESSION();
+    $sessionConfirmed = V_CONFUSER();
 
-    if( $this->Validate_model->validateSession() ) { // Si la cuenta es válida y existe
-        $this->load->view('templates/postCreator', $data, FALSE); // Cargo la vista del creador de posts
+    if( V_SESSION() && V_CONFUSER() ) { // Si existe una sesión y el usuario está confirmado
+        $data['title'] = 'Crear post';
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('templates/footer');
+
+        $this->load->view('templates/postCreator.php'); // Importo la vista del creador de posts
     } else {
-        $data['error'] = true;
-        $data['text'] = "<p>Para crear un post, iniciá sesión.</p>";
-        $this -> load -> view('pages/status', $data);
+        $data['title'] = 'Error';
+        $data['errorStatus'] = true;
+        $data['errorText'] = '<p>Tu cuenta no existe o no está confirmada, ¿revisaste tu email?</p>';
+        $this->load->view('error', $data);
     }
-    
 }
 
-public function create() {
-    // Pido el nombre del post, una sinopsis y la portada
-    $this->load->helper('form'); // Cargo el creador de formularios
-
-    $data['title'] = 'Un paso más...';
-    $this->load->view('templates/header', $data, FALSE);
+function create() {
+    $data['title'] = 'Crear post';
+    $this->load->view('templates/header', $data);
     $this->load->view('templates/sidebar');
     $this->load->view('templates/footer');
 
-    date_default_timezone_set('UTC'); // Zona horaria predeterminada
-    $now = date('m/d/Y h:i:s a'); // Obtengo la fecha
-
-    $title = $this->input->post('title');
-    $slug = $this->postCreator_model->slugish($title);
-
-    $postData = array (
-        'image' => 'https://wallpaperaccess.com/full/234164.jpg', // Portada por defecto, ¡al menos de momento!
-        'time' => purify($now),
-        'author' => purify($_SESSION['username']),
-        'forum' => purify($this->input->post('forum')),
-        'subforum' => purify($this->input->post('subforum')),
-        'points' => 0,
-        'title' => purify($title),
-        'slug' => purify($slug),
-        'post' => removeScripting($this->input->post('post'))  
+    // Tomo los datos del post que me sirven para ubicarme en la tabla correcta de la BD
+    $positionData = array(
+        'forum' => $this->input->post('forum'),
     );
 
-    if( (!empty($postData['post'])) || (!empty($postData['title'])) || (!empty($postData['image'])) ){ // Si esos campos contienen información (osea, no están vacíos)
-        if( !$this->postCreator_model->isExists($slug) ) { // Si el nombre del post no existe
-            $this->postCreator_model->addPost($postData); // Agrega el post
-            
-            
-            $forumToRefresh = $this->postCreator_model->getForumToRefresh($postData['forum']); // Obtengo el foro a actualizar y su contador
-            $this->postCreator_model->refreshForumInfo($postData, $forumToRefresh); // Actualiza la información del foro
-            
-            $data['error'] = false;
-            $data['text'] = "<p>¡Bien! Ya subiste tu aporte.</p>";
-            $data['title'] = 'Post creado'; // En caso de error o éxito, se pone un título más específico, sino "Un paso más" como nombre de pestaña queda medio colgado
-            $this->load->view('pages/status', $data); // Imprimo el éxito :v
-        } else { // Si el nombre del post ya existía
-            $data['error'] = true;
-            $data['text'] = "<p>Cambiá el nombre de tu post, porque ya existe uno con el mismo título</p>";
-            $data['title'] = 'Crear Post / Un paso más...';
-            $this->load->view('pages/status', $data); // Imprimo el error
-        }
-    } else {
-        $data['error'] = true;
-        $data['text'] = "<p>El título o el post están vacíos.</p>";
-        $data['title'] = 'Crear Post, Error'; // En caso de error o éxito, se pone un título más específico, sino "Un paso más" como nombre de pestaña queda medio colgado
-        $this->load->view('pages/status', $data);
-        
-    }
+    // Tomo los datos del post que irán a la BD
+    $postData = array(
+        // id se auto-genera en la Query SQL
+        'slug' =>  slugify($this->input->post('title')),
+        'author' => purify($_SESSION['username']), // Se obtiene el usuario que creó el post
+        // Los puntos son cero por defecto
+        'image' => $this->input->post('image'),
+        'title' => $this->input->post('title'),
+        'content' => $this->input->post('post'),
+        'subforum' => $this->input->post('subforum'),
+        'is_approved' => 1 // Por ahora, no vamos a coartar la libertad de nadie (se aprueba por defecto) :P
+    );
 
     
+
+    $table = 'posts_'.$positionData['forum']; // Establezco a que tabla va el post (el nombre de la tabla tiene el prefijo "posts_")
+
+    $is_valid = V_FORM_ASSOC($postData); // Paso el array asociativo a la función y, si todos los índices tienen contenido...
+
+    if( $is_valid ) { // ... le damos para adelante
+        
+        if( !$this->PostCreator_model->isExists($table, $postData['slug']) && DB_POST($table, $postData) ) {
+            $data['successText'] = 'Ya podés ver tu post <a href="'.base_url().'Forum/forum/'.$positionData['forum'].'/'.$postData['subforum'].'">acá</a>.';
+            $data['title'] = 'Post publicado';
+            $this->load->view('status/success', $data);
+        } else{
+            $data['errorText'] = 'No pudimos crear tu post. ¡Probá en unos minutos!';
+            $data['title'] = 'Error';
+            $this->load->view('status/error', $data);
+        }
+        
+    } else {
+        $data['errorText'] = '¡Hey! Volvé atrás y rellená todos los campos para crear el post.';
+        $data['title'] = 'Error';
+        $this->load->view('status/error', $data);
+    }
+
 }
 
 }

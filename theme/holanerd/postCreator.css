@@ -1,10 +1,10 @@
 #pivot {
     display: none;
 }
-#postUploader {
+#postUploader { /* Caja base */
 
 }
-#postUploader #forum, #postUploader #subforum {
+#postUploader #forum, #postUploader #subforum, #postUploader #image { /* Estilo que aplican a los inputs del creador de posts */
     width: 33%;
     margin: 10px 10px 0 0;
     outline: none;
@@ -14,4 +14,5 @@
     font-family: Roboto, sans-serif;
     font-weight: 700;
     padding: 5px;
+    float: left;
 }

@@ -62,7 +62,7 @@
     display: grid;
     grid-template-columns: 5% 30% 30% 30% 5%;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    background: url('https://i.imgur.com/85u96kO.jpg') no-repeat center center fixed;
+    background: no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -87,7 +87,7 @@
 }
 #profile .portrait .bg.blur {
     /* Blur in the background of avatar+email+nav */
-    background: url('https://i.imgur.com/85u96kO.jpg') no-repeat center center fixed;
+    background: no-repeat center center fixed;
     background-size: cover;
     overflow: hidden;
     filter: blur(15px);

@@ -23,6 +23,7 @@ function getThreads($forumToSearch, $subforumToSearch) {
     // Primero, evalúo si estoy dentro de un foro o subforo
     if( $subforumToSearch === 'home' ) { // Si esa variable = 'home', no estamos dentro de un subforo. Por eso debo obtener absolutamente todos los posts
         $this->db->where('forum', $forumToSearch);
+        $this->db->select('id, title, subforum');
         $query = $this->db->get('posts');
     } else { // Si estamos dentro de un subforo...
         $filter = array(
@@ -35,13 +36,16 @@ function getThreads($forumToSearch, $subforumToSearch) {
     return $query->result_array();
 }
 
-function openThread($slug) {
+function openThread($forum, $slug) {
     /* Puedo crear un modelo (o usar forum_model) para crear una función que en base al 'slug' encuentre el post
     solicitado. Osea, por URL le paso el slug y luego en el controlador obtengo de MySQL el título, texto, etc +
     pido los comentarios de la tabla 'comentarios' :D */
-    $this->db->select('image, author, title, post');
-    $this->db->where('slug', $slug);
-    $query = $this->db->get('posts');
+    $table = 'posts_'.$forum;
+    $_slug = array(
+        'slug' => $slug
+    );
+    $this->db->select('image, author, title, date, content');
+    $query = $this->db->get_where($table, $_slug);
     return $query->result_array();
 } 
 
@@ -49,11 +53,11 @@ function returnForums() {
     /*  Devuelve un listado de los foros que existen, la cantidad de posts de cada uno,
         quién y en dónde está la última respuesta y los subforos :D */
 
-    $data['forum_item'] = $this->getForums();
+    $forums = $this->getForums();
     $n = 8; // LA COMUNIDAD TIENE 8 FOROS
     $m = array( // CANTIDAD DE SUBFOROS DE CADA FORO
-        /*'computacion' =>*/ 3,
-        /*'programacion' =>*/ 3,
+        /*'computacion' =>*/ 2,
+        /*'programacion' =>*/ 2,
         /*'disenoGrafico' =>*/ 2,
         /*'audio' =>*/ 2,
         /*'video' =>*/ 2,
@@ -61,53 +65,35 @@ function returnForums() {
         /*'universidades' =>*/ 3,
         /*'offtopic' =>*/ 2
     );
-
-    echo '<div id="forums"><ul>';
-    for($i = 0;$i < $n;$i++) { // NAVEGAR ENTRE LOS FOROS PARA OBTENERLOS
-
+    $subforumName = 'subforum1'; // Así empieza
+    $subforumCount = 0;
+    $i = 0;
+    while( isset($forums[$i]) ) { // Este while() recorre los foros
         echo '<li><div class="forumName">
-        <a href="Forum/forum/'.$data['forum_item'][$i]['slug'].'/home">'.$data['forum_item'][$i]['forumName'].'</a>
-        </div>';
+                    <a href="'.base_url().'Forum/forum/'.$forums[$i]['slug'].'/home">'.$forums[$i]['forumName'].'</a>
+                  </div>';
 
-        echo '<div class="topicCounter">'.$data['forum_item'][$i]['topicCounter'].'</div>';
-
-        if(!empty($data['forum_item'][$i]['lastAnswerTopic'])) {
-            echo '<div class="lastAnswer">
-                <div class="title"><a href="'.base_url().'Forum/post/'.$data['forum_item'][$i]['lastAnswerTopicSlug'].'">'.$data['forum_item'][$i]['lastAnswerTopic'].'</a></div>
-                <div class="user"><a href="'.base_url().'Profile/search/'.$data['forum_item'][$i]['lastAnswerUser'].'">@'.$data['forum_item'][$i]['lastAnswerUser'].'</a></div>
-              </div>';
-        } else {
-            echo '<div class="lastAnswer">
-                <div class="title">Sin posts</div>
-                <div class="user">-</div>
-              </div>';
-        }
-
+        echo '<div class="topicCounter">'.$forums[$i]['topicCounter'].'</div>';
+                                
+        echo '<div class="lastAnswer">
+                                <div class="title"><a href="'.base_url().'Forum/post/'.$forums[$i]['lastAnswerTopicSlug'].'">'.$forums[$i]['lastAnswerTopic'].'</a></div>
+                                <div class="user"><a href="'.base_url().'Profile/search/'.$forums[$i]['lastAnswerUser'].'">'.$forums[$i]['lastAnswerUser'].'</a></div>
+                                </div>';
         echo '<div id="subForum"><ul>';
-        // SE IMPRIMEN DOS SUBFOROS DE CADA FORO (EL MÍNIMO)
+        for($q = 0;$q < $m[$i];$q++) { // Este for() recorre los subforos
             echo '<li>
                     <div class="img"></div>
                     <div class="title">
-                    <a href="Forum/forum/'.$data['forum_item'][$i]['slug'].'/'.$data['forum_item'][$i]['subforum1'].'">'.$data['forum_item'][$i]['subforum1'].'</a>
+                    <a href="Forum/forum/'.$forums[$i]['slug'].'/'.$forums[$i][$subforumName].'">'.$forums[$i][$subforumName].'</a>
                     </div>
-                   </li>';  
-            echo '<li>
-                   <div class="img"></div>
-                   <div class="title">
-                   <a href="Forum/forum/'.$data['forum_item'][$i]['slug'].'/'.$data['forum_item'][$i]['subforum2'].'">'.$data['forum_item'][$i]['subforum2'].'</a>
-                   </div>
-                  </li>'; 
-            if(!empty($data['forum_item'][$i]['subforum3'])){ // SI EXISTE UN TERCER SUBFORO
-                echo '<li>
-                   <div class="img"></div>
-                   <div class="title">
-                   <a href="Forum/forum/'.$data['forum_item'][$i]['slug'].'/'.$data['forum_item'][$i]['subforum3'].'">'.$data['forum_item'][$i]['subforum3'].'</a>
-                   </div>
-                  </li>';
-            }
-        echo '</div>';
-    }
-    echo '</ul></div>';
+                   </li>';
+            $subforumCount = strval($q+1);
+            $subforumName = 'subforum'.$subforumCount;
+        } // Cierre for()
+        echo '</ul></div>'; // #subForum
+        echo '</li>'; // #forumName
+        $i++;
+    } // Cierre while()
 }
 
     function getUserToDonate($dbData) {

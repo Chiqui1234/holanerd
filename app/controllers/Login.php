@@ -23,27 +23,27 @@ public function user() {
         'password' => purify($this->input->post('password'))
     );
 
-    $userData = $this->Login_model->getUser($dbData); // Si existe cuenta con ese email y contraseña, devuelve sus datos
-    $userInfo = $this->Login_model->getUserInfo($dbData); // Para almacenar nombre de usuario, avatar y otras preferencias
+    $userData = $this->Login_model->getUser($dbData); // Obtengo el usuario
 
-    if( (!empty($userData)) && $userData !== NULL && (!isset($_SESSION['email'])) ) { // Si no tiene cookies, lo logueamos (y creamos cookies)
+    $sessionData = array( // Preparo el array para crear las cookies después
+        'email' => $dbData['email'],
+        'username' => purify($userData[0]['username']),
+        'avatar' => purify($userData[0]['avatar']),
+        'background' => purify($userData[0]['background']),
+        'less' => purify($userData[0]['less'])
+    );
+
+    if( !V_SESSION() && V_LEGIT($dbData['email'], $userData[0]['email']) ) { // Si no tiene sesión activa y V_LEGIT comprueba que el email digitado por el usuario es igual al de la BD, le damos para adelante
         
-        $sessionData = array(
-            'email' => purify($this->input->post('email')), // Lo hago array porque es posible que agregue más cosas a la sesión
-            'username' => purify($userInfo[0]['username']),
-            'avatar' => purify($userInfo[0]['avatar']),
-            'less' => purify($userInfo[0]['less'])
-        );
+        
         
         $this->session->set_userdata($sessionData); // Guardo una sesión
 
-        $data['error'] = false;
-        $data['text'] = "Tus credenciales son correctas.";
-        $this->load->view("pages/status", $data);
+        $data['successText'] = "Tus credenciales son correctas.";
+        $this->load->view("status/success", $data);
     } else {
-        $data['error'] = true;
-        $data['text'] = "Tus credenciales son incorrectas.";
-        $this->load->view("pages/status", $data);
+        $data['errorText'] = "Tus credenciales son incorrectas.";
+        $this->load->view("status/error", $data);
     }
 
 }
@@ -56,9 +56,8 @@ public function logout() {
     $this->load->view('templates/footer');
 
         $this -> Login_model -> unsetUser('email');
-        $data['error'] = false;
-        $data['text'] = "Podés seguir navegando, pero tu sesión se cerró como querías.";
-        $this->load->view("pages/status", $data);
+        $data['successText'] = "Podés seguir navegando, pero tu sesión se cerró como querías.";
+        $this->load->view("status/success", $data);
 }
 
 }

@@ -49,8 +49,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['uploadingPost'] = 'PostCreator/create';
+$route['uploadPost'] = 'PostCreator/create';
 $route['createPost'] = 'PostCreator/view'; 
+$route['profile/logout'] = 'Login/logout'; 
 $route['store'] = 'Store/view'; 
 $route['about'] = 'About/view'; 
 $route['logout'] = 'Login/logout'; // Si escribo 'logout', me llevás al controlador 'Login', función pública 'logout'
