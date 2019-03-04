@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-03-2019 a las 18:58:46
+-- Tiempo de generación: 04-03-2019 a las 18:59:41
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.0
 
@@ -326,9 +326,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `dni`, `avatar`, `background`, `color1`, `color2`, `less`, `points`, `git`, `linkedin`, `web`, `created_at`, `is_admin`, `is_confirmed`, `is_public`, `is_deleted`) VALUES
-(1, 'chiqui1234', 'santiagogimenez@outlook.com.ar', 'lilolilo10', '42214991', '', 'http://s1.1zoom.me/big7/144/Nissan_350z_rocket_488598.jpg', '', '', 1, 1000, NULL, NULL, NULL, '2019-02-10 00:00:00', 1, 1, 0, 0),
-(2, 'dummy', 'dummyForHolanerd@hotmail.com', 'lilolilo10', '42214991', 'https://i.imgur.com/jfrFsXA.png', 'https://i.imgur.com/2Grn39w.jpg', '', '', 0, 1000, '', '', '', '2019', 0, 1, 1, 0),
-(3, 'test', 'test@outlook.com', 'lilolilo10', '40000000', '', NULL, '', '', 0, 60, NULL, NULL, NULL, '04/03/2019', 0, 1, 0, 0);
+(1, 'chiqui1234', 'santiagogimenez@outlook.com.ar', 'test', '42214991', '', 'http://s1.1zoom.me/big7/144/Nissan_350z_rocket_488598.jpg', '', '', 1, 1000, NULL, NULL, NULL, '2019-02-10 00:00:00', 1, 1, 0, 0),
+(2, 'dummy', 'dummyForHolanerd@hotmail.com', 'test', '42214991', 'https://i.imgur.com/jfrFsXA.png', 'https://i.imgur.com/2Grn39w.jpg', '', '', 0, 1000, '', '', '', '2019', 0, 1, 1, 0),
+(3, 'test', 'test@outlook.com', 'test', '40000000', '', NULL, '', '', 0, 60, NULL, NULL, NULL, '04/03/2019', 0, 1, 0, 0);
 
 --
 -- Índices para tablas volcadas
