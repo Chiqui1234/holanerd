@@ -13,13 +13,9 @@ class PostCreator_model extends CI_Model {
 
     public function isExists($table, $slug) {
         // Comprueba que un post de nombre idéntico exista
-        $this->db->where('slug', $slug);
-        $this->db->select('slug');
-        $query = $this->db->get($table);
-        $result = $query->result_array();
-        
-        if( isset($result[0]['slug']) && $result[0]['slug'] === $slug ) {
-            return true; // Existe
+        $result = DB_GET($table, $slug)
+        if( isset($result[0]['slug']) && $result[0]['slug'] === $slug ) { // Si existe, devuelve true
+            return true;
         } else {
             return false;
         }

@@ -24,14 +24,10 @@ public function user() {
     );
 
     $userData = $this->Login_model->getUser($dbData); // Obtengo el usuario
-
-    
     
     $v_session = V_SESSION();
     $v_legit = V_LEGIT($dbData['email'], $userData[0]['email']);
     
-    echo 'v_session: '.$v_session;
-        echo 'v_legit: '.$v_legit;
     if( !$v_session && $v_legit ) { // Si no tiene sesión activa y V_LEGIT comprueba que el email digitado por el usuario es igual al de la BD, le damos para adelante
         
         $sessionData = array( // Preparo el array para crear las cookies después

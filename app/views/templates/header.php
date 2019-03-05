@@ -30,8 +30,8 @@ variable, which we’ll define later in the controller. -->
     <nav>
         <ul>
             <li><a href="<?php echo base_url(); ?>">inicio</a></li> <!-- Un feed general de todo el sitio -->
-            <li><a href="<?php echo base_url(); ?>forum">foro</a></li>
-            <li><a href="<?php echo base_url(); ?>store">tienda</a></li>
+            <li><a href="<?php echo base_url(); ?>Forum">foro</a></li>
+            <li><a href="<?php echo base_url(); ?>Store">tienda</a></li>
             <?php if( $this->session->has_userdata('email') ) {
                 ?>
                 <li><a href="<?php echo base_url(); ?>profile#profile">perfil</a></li>

@@ -1,75 +1,73 @@
-#forums {
-    width: 100%;
-}
-#forums ul {
-    list-style-type: none;
-    padding: 0;
+#rootExtended ul  {
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-auto-rows: 250px;
+    display: grid;
+    grid-gap: 10px;
     margin: 0;
-}
-#forums ul li {
-    width: 100%;
     padding: 10px;
-    white-space: nowrap;
+}
+#rootExtended ul li {
+    list-style-type: none;
+    display: grid;
+    grid-row-gap: 20px;
+    grid-template-rows: auto 18px 24px 34px 24px auto; /* Cantidad de minutos
+                                                     Cantidad de posts + Último respondido
+                                                     Nombre del foro
+                                                     Subforos */
+    position: relative;
+    font-family: Roboto, sans-serif;
+}
+#rootExtended ul li .bg {
+    background: no-repeat center center;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    animation-name: bgZoom;
+    animation-iteration-count: infinite;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 0;
 }
-#forums ul li .forumName {
-    width: 30%;
-    float: left;
+#rootExtended ul li .minutes {
+    font-size: 16px;
+    grid-row: 2; /* 18px */
+}
+#rootExtended ul li .quantity {
     font-size: 22px;
+    grid-row: 3;
 }
-#forums ul li a {
+#rootExtended ul li .quantity a, #rootExtended ul li .subForums a {
+    color: var(--linkColor2);
     text-decoration: none;
 }
-#forums ul li .topicCounter {
-    width: 15%;
-    float: left;
+#rootExtended ul li .quantity a:hover, #rootExtended ul li .subForums a:hover {
+    color: var(--linkHover2);
+}
+#rootExtended ul li .forumName {
+    font-size: 30px; /* Pongo un valor menor a 30px (fila del medio) para que no se corte la palabra */
+    grid-row: 4; /* 34px */
+}
+#rootExtended ul li .forumName a {
+    color: var(--mainColor);
+    text-shadow: 0 0 2px var(--mainColor);
+    text-decoration: none;
+}
+#rootExtended ul li .forumName a:hover {
+    color: var(--linkHover2);
+}
+#rootExtended ul li .subForums {
     font-size: 22px;
+    grid-row: 5;
+}
+#rootExtended ul li .minutes, #rootExtended ul li .quantity, #rootExtended ul li .forumName, #rootExtended ul li .subForums {
+    color: var(--mainColor);
     text-align: center;
+    font-size: auto;
+    z-index: 1;
 }
-#forums ul li .lastAnswer {
-    width: 55%;
-    float: left;
-    text-align: right;
-    margin-bottom: 5px;
-}
-#forums ul li .lastAnswer .title {
-    width: 100%;
-    font-size: 22px;
-    color: var(--textColor);
-}
-#forums ul li .lastAnswer .user {
-    width: 100%;
-    font-size: 14px;
-    color: var(--textColor2);
-}
-#forums ul li #subForum {
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px;
-    clear: both;
-    display: table;
-    content: "";
-    border: 1px solid var(--shadow);
-}
-#forums ul li #subForum ul {
-    list-style-type: none;
-}
-#forums ul li #subForum ul li {
-    display: inline;
-}
-#forums ul li #subForum ul li .img {
-    background-image: url('https://i.imgur.com/WExj1A5.gif');
-    background-size: cover;
-    width: 16px;
-    height: 16px;
-    float: left;
-    margin-right: 5px;
-}
-#forums ul li #subForum ul li .title {
-    font-family: Roboto, sans-serif;
-    font-weight: 800;
-    font-size: 14px;
-    float: left;
-    margin-right: 20px;
-}
+
+/* Animación */
+@keyframes bgZoom {
+    0%  {background-size: 110%;filter: blur(3px) brightness(60%);}
+    100%    {background-size: 150%;filter: blur(5px) brightness(60%);}
+  }
