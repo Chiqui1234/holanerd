@@ -19,9 +19,13 @@ public function addComment($infoRequested) {
         $query = $this->db->get_where($postTable, $aux1);
         $result = $query->result_array();  
 
-        $aux2 = array('comments' => $result[0]['comments']+1);
-        DB_UPDATE($postTable, $aux2); // Le agrego +1 al contador de comentarios de dicho post
-        return $result; // Por se necesita acceder a la cantidad de comentarios del post
+        if( isset($result[0]) ){
+            $aux2 = array('comments' => $result[0]['comments']+1);
+            DB_UPDATE($postTable, $aux2); // Le agrego +1 al contador de comentarios de dicho post
+            return $result; // Por se necesita acceder a la cantidad de comentarios del post
+        } else {
+            return false;
+        }
     }
 }
 

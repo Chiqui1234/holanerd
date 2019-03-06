@@ -32,7 +32,7 @@
                 console.log('Comunicándose con: '+base_url+'Post/donatePoints');
             },
             success: function(response) {
-                var result = $.parseJSON(response);
+                var result = /*$.parseJSON(response);*/response;
                 $('#yourCommentBox').html(response);
                 console.log('Success');
             },

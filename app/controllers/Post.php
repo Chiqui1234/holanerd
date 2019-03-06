@@ -44,9 +44,21 @@ public function commentPost() { // Sabiendo la tabla del post, el post y el usua
         'forum' => purify($_REQUEST['forum']),
         'post' => purify($_REQUEST['post'])
     );
+    /*$info = array(
+        'username' => 'chiqui1234',
+        'comment' => 'testeadito desde VSCode',
+        'forum' => 'computacion',
+        'post' => 'test-desde-vscode'
+    );*/
     echo $info['username'];
     $process = $this->Post_model->addComment($info);
-    return json_encode($process);
+
+    if( !$process ) { // Si $process es false, todo mal
+        return false;
+    } else {
+        return json_encode($process);
+    }
+    
 }
 
 } // Cierre de la clase
