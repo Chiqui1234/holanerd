@@ -32,12 +32,14 @@
                 console.log('Comunicándose con: '+base_url+'Post/donatePoints');
             },
             success: function(response) {
+                var result = $.parseJSON(response);
                 $('#yourCommentBox').html(response);
                 console.log('Success');
             },
-            error: function() {
+            error: function(xhr, status, error) {
+                var err = xhr;
+                console.warn('ERROR: ' + err.Message);
                 $('#yourCommentBox').html('No pudimos subir tu comentario');
-                console.warn('Error');
             }
         });
     } // Cierre de función

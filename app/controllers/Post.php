@@ -37,8 +37,7 @@ public function donatePoints(/*$table, $forum, $post, $user*/) { // Sabiendo la 
 
 }
 
-public function commentPost(/*$table, $forum, $post, $user*/) { // Sabiendo la tabla del post, el post y el usuario, quién acceda a éste script podrá donar puntos al usuario y post pasado por variables. Los puntos salen de la comunidad, no del usuario puntuador.
-    
+public function commentPost() { // Sabiendo la tabla del post, el post y el usuario, quién acceda a éste script podrá donar puntos al usuario y post que se pasa por variables (mediante ajax). Los puntos salen de la comunidad, no del usuario puntuador.
     $info = array(
         'username' => purify($_REQUEST['username']),
         'comment' => purify($_REQUEST['comment']),
@@ -46,8 +45,8 @@ public function commentPost(/*$table, $forum, $post, $user*/) { // Sabiendo la t
         'post' => purify($_REQUEST['post'])
     );
     echo $info['username'];
-    /*$process = $this->Post_model->addComment($info);
-    return $process;*/
+    $process = $this->Post_model->addComment($info);
+    return json_encode($process);
 }
 
 } // Cierre de la clase
