@@ -44,11 +44,13 @@ function create() {
         // id se auto-genera en la Query SQL
         'slug' =>  slugify($this->input->post('title')),
         'author' => purify($_SESSION['username']), // Se obtiene el usuario que creó el post
+        'date' => V_TIME(),
         // Los puntos son cero por defecto
         'image' => $this->input->post('image'),
         'title' => $this->input->post('title'),
         'content' => $this->input->post('post'),
         'subforum' => $this->input->post('subforum'),
+        // Los comentarios son cero por defecto
         'is_approved' => 1 // Por ahora, no vamos a coartar la libertad de nadie (se aprueba por defecto) :P
     );
 
@@ -59,11 +61,11 @@ function create() {
     if( $is_valid ) { // ... le damos para adelante
         
         if( !$this->PostCreator_model->isExists($table, $postData['slug']) && DB_POST($table, $postData) ) {
-            $data['successText'] = 'Ya podés ver tu post <a href="'.base_url().'Forum/'.$positionData['forum'].'">acá</a>.';
+            $data['successText'] = 'Ya podés ver tu post <a href="'.base_url().'Post/index/'.$positionData['forum'].'/'.$postData['subforum'].'/'.$postData['slug'].'">acá</a>.';
             $data['title'] = 'Post publicado';
             $this->load->view('status/success', $data);
         } else{
-            $data['errorText'] = 'No pudimos crear tu post. ¡Probá en unos minutos!';
+            $data['errorText'] = 'No pudimos crear tu post. ¡Probá en unos minutos! Quizá exista un post con el mismo nombre que el tuyo. Eso no está permitido en Holanerd.';
             $data['title'] = 'Error';
             $this->load->view('status/error', $data);
         }

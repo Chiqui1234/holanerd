@@ -56,7 +56,7 @@ public function commentPost() { // Sabiendo la tabla del post, el post y el usua
     );
 
     $commentAdded = $this->Post_model->addComment($info);
-    $commentCounter = /*$this->Post_model->updateCommentCounter($info);*/true;
+    $commentCounter = $this->Post_model->updateCommentCounter($info);;
 
     if( $commentAdded && $commentCounter  ) { // Si $process es false, todo mal
         return true;
