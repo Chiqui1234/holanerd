@@ -52,7 +52,7 @@ body {
     --warningColor  : #e9a237;
     --shadow        : #292929;
 }
-#root, #profile {
+#root, #rootExtended, #profile {
     grid-row: 2;
     background-color: var(--mainColor);
     z-index: 2;

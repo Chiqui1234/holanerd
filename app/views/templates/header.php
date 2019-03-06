@@ -19,6 +19,8 @@ variable, which we’ll define later in the controller. -->
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/footer.css" />
             <!-- Google Fonts -->
             <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+            <!-- JQuery -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
         </head>
         <body>
 <div id="fashionHeader"> <!-- Un header muy fachero -->

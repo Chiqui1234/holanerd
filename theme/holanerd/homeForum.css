@@ -1,12 +1,13 @@
-#rootExtended ul  {
-    grid-template-columns: 25% 25% 25% 25%;
+#forums ul  {
+    grid-template-columns: 50% 50%;
     grid-auto-rows: 250px;
     display: grid;
     grid-gap: 10px;
     margin: 0;
-    padding: 10px;
+    padding: 10px 0 10px 0;
+    z-index: 2;
 }
-#rootExtended ul li {
+#forums ul li {
     list-style-type: none;
     display: grid;
     grid-row-gap: 20px;
@@ -17,7 +18,7 @@
     position: relative;
     font-family: Roboto, sans-serif;
 }
-#rootExtended ul li .bg {
+#forums ul li .bg {
     background: no-repeat center center;
     overflow: hidden;
     animation-name: bgZoom;
@@ -28,38 +29,38 @@
     top: 0;
     z-index: 0;
 }
-#rootExtended ul li .minutes {
+#forums ul li .minutes {
     font-size: 16px;
     grid-row: 2; /* 18px */
 }
-#rootExtended ul li .quantity {
+#forums ul li .quantity {
     font-size: 22px;
     grid-row: 3;
 }
-#rootExtended ul li .quantity a, #rootExtended ul li .subForums a {
+#forums ul li .quantity a, #forums ul li .subForums a {
     color: var(--linkColor2);
     text-decoration: none;
 }
-#rootExtended ul li .quantity a:hover, #rootExtended ul li .subForums a:hover {
+#forums ul li .quantity a:hover, #forums ul li .subForums a:hover {
     color: var(--linkHover2);
 }
-#rootExtended ul li .forumName {
+#forums ul li .forumName {
     font-size: 30px; /* Pongo un valor menor a 30px (fila del medio) para que no se corte la palabra */
     grid-row: 4; /* 34px */
 }
-#rootExtended ul li .forumName a {
+#forums ul li .forumName a {
     color: var(--mainColor);
     text-shadow: 0 0 2px var(--mainColor);
     text-decoration: none;
 }
-#rootExtended ul li .forumName a:hover {
+#forums ul li .forumName a:hover {
     color: var(--linkHover2);
 }
-#rootExtended ul li .subForums {
+#forums ul li .subForums {
     font-size: 22px;
     grid-row: 5;
 }
-#rootExtended ul li .minutes, #rootExtended ul li .quantity, #rootExtended ul li .forumName, #rootExtended ul li .subForums {
+#forums ul li .minutes, #forums ul li .quantity, #forums ul li .forumName, #forums ul li .subForums {
     color: var(--mainColor);
     text-align: center;
     font-size: auto;

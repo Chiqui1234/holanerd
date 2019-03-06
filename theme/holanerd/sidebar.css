@@ -1,15 +1,13 @@
 #sidebar {
     grid-column: 7 / 9;
     grid-row: 2;
-    padding-left: 10px;
-    border-left: 1px solid var(--textColor2);
+    padding-left: 20px;
     background-color: var(--mainColor);
     font-family: Roboto, sans-serif;
     z-index: 3;
 }
 #sidebar h1 {
     clear: both;
-    padding: 10px;
     line-height: 0;
     font-variant: small-caps;
     font-family: Roboto;
@@ -19,7 +17,6 @@
 }
 #sidebar p {
     clear: both;
-    padding: 10px;
     line-height: 20px;
     font-family: Roboto;
     font-weight: 300;

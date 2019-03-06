@@ -1,0 +1,20 @@
+<div id="root"><div id="postsOfTheForums">
+<ul>
+    
+<?php
+$i = 0;
+while( isset($postsOfTheForum[$i]) ) {
+    echo '<li>
+    <div id="avatar"></div>
+    <div id="data">
+        <div id="importantBlock">
+            <div class="title"><a href="'.base_url().'Post/index/'.$forumSlug.'/'.$postsOfTheForum[$i]['subForum'].'/'.$postsOfTheForum[$i]["slug"].'">'.$postsOfTheForum[$i]["title"].'</a></div>
+            <div class="content"><p>'.strip_tags($postsOfTheForum[$i]["content"], "<strong>").'</p></div>
+        </div>
+    </div>
+</li>';
+$i++;
+}
+?>
+</ul>
+</div></div>

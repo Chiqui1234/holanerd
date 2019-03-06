@@ -1,0 +1,45 @@
+/* Para el listado de posts de los foros */
+#root #postsOfTheForum ul {
+    padding: 0;
+    margin: 0;
+}
+#root #postsOfTheForum ul li {
+    list-style-type: none;
+    width: 100%;
+    float: left;
+    clear: both;
+    grid-template-columns: 75px auto;
+    grid-template-rows: 75px;
+    display: grid;
+}
+#root #postsOfTheForum ul li #avatar {
+    grid-column: 1;
+    grid-row: 1;
+    background-image: url('https://cdn.iconscout.com/icon/free/png-256/avatar-372-456324.png') cover center;
+    border: 2px solid var(--linkColor);
+    border-radius: 75px;
+}
+#root #postsOfTheForum ul li #data {
+    grid-column: 2;
+}
+#root #postsOfTheForum ul li #data #importantBlock {
+    float: left;
+}
+#root #postsOfTheForum ul li #data #importantBlock .title {
+    font-size: 24px;
+    font-family: Roboto, sans-serif;
+    float: left;
+    clear: both;
+}
+#root #postsOfTheForum ul li #data #importantBlock .content {
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+    float: left;
+    clear: both;
+}
+#root #postsOfTheForum ul li #data #importantBlock .content p {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+

@@ -6,7 +6,7 @@ class Payment_model extends CI_Model {
         $this -> load -> helper('url_helper');
         $this -> load -> helper('purify_helper');
     }
-
+    
     function sellerProductCheck($sellerUsername) {
         // Devuelve el vendedor del producto en cuestión para futura verificación
         $this->db->select('sellerUsername');

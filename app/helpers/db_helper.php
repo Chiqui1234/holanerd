@@ -10,8 +10,22 @@
 -----------------------------------------------------------
 */
 
-if( !function_exists('DB_GET') ) { // Obtiene registro
-    function DB_GET($table, $info) {
+if( !function_exists('DB_GET_SIMPLE') ) { // Útil para obtener varios registros
+    function DB_GET_SIMPLE($table, $limit = 10, $offset = 0) {
+        $ci=& get_instance(); // Creo $ci en los helpers, ya que no se puede acceder a la super variable $this desde fuera de las clases
+        $ci->load->database(); // Creo $ci en los helpers, ya que no se puede acceder a la super variable $this desde fuera de las clases
+        $query = $ci->db->get($table, $limit, $offset);
+        $result = $query->result_array();
+        if( isset($result) ) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+}
+
+if( !function_exists('DB_GET') ) { // Obtiene registro específico
+    function DB_GET($table, $info, $limit = 10, $offset = 0) {
         $ci=& get_instance(); // Creo $ci en los helpers, ya que no se puede acceder a la super variable $this desde fuera de las clases
         $ci->load->database(); // Creo $ci en los helpers, ya que no se puede acceder a la super variable $this desde fuera de las clases
         $query = $ci->db->get_where($table, $info);
@@ -50,7 +64,14 @@ if( !function_exists('DB_POST') ) { // Inserta registro
 
 if( !function_exists('DB_UPDATE') ) { // Actualiza registro
     function DB_UPDATE($table, array $info) {
-        
+        $numberOfSets = count($info);
+        $arrayIndexado = array();
+        foreach ($info as $key => $value) { // Primero me hago un array nuevo indexado con números
+            $this->db->set($key, $value);
+            echo '<br/>Key: '.$key.' | Value: '.$value;
+            $i++;
+        }
+        //$this->db->insert($table);  // Produces: INSERT INTO mytable (`name`) VALUES ('{$name}')
     }
 }
 

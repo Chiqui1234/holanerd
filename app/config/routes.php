@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['uploadPost'] = 'PostCreator/create';
 $route['createPost'] = 'PostCreator/view'; 
+$route['Post'] = 'Post/index';
 $route['profile/logout'] = 'Login/logout'; 
 $route['store'] = 'Store/view'; 
 $route['about'] = 'About/view'; 

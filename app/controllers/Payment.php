@@ -17,7 +17,7 @@ public function __construct() {
     - Sólo el comprador puede ver este método de pago
 */
 
-public function view($productSlug, $sellerUsername, $buyerUsername, $points) {
+public function index($productSlug, $sellerUsername, $buyerUsername, $points) {
 
     $data['title'] = 'Pagar a '.$sellerUsername;
     
@@ -126,6 +126,17 @@ public function process($token) {
         $this->load->view('pages/status', $data);
     }
 
+}
+
+public function payPost($user, $post, $points) {
+    // $user => el que paga
+    // $post => el post al que se le paga
+    // $points => los puntos a brindar
+    // $limit => el limite de puntos
+    $limit = 60;
+    if( V_SESSION() && V_CONFUSER() ) { // Chequeo que la sesión exista y que el usuario esté confirmado
+
+    }
 }
 
 } // Cierre Payment class
