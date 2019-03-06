@@ -10,7 +10,13 @@
         <input type="button" href="javascript:;" onclick="postComment( $('#base_url').val(), $('#username').val(), $('#comment').val(), $('#forum').val(), $('#post').val() );" value="Comentar" />
 </div>
 
-    <div id="commentsBox"></div>
+    <div id="commentsBox"><?php 
+        $i = 0;
+        while( isset($comments[$i]) ) {
+            echo 'commentsBox';
+            $i++;
+        }
+    ?></div>
 
 </div> <!-- Cierre root -->
 
@@ -32,9 +38,9 @@
                 console.log('Comunicándose con: '+base_url+'Post/donatePoints');
             },
             success: function(response) {
-                var result = /*$.parseJSON(response);*/response;
+                var result = response;
                 $('#yourCommentBox').html(response);
-                console.log('Success');
+                console.log('El comentario se subió correctamente');
             },
             error: function(xhr, status, error) {
                 var err = xhr;

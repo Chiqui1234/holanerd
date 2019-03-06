@@ -1,7 +1,8 @@
-- Integrar el puntuador de posts y comentarios (página extra, ver detalle más abajo)
-- Hacer la confirmación de usuario vía email
+- Integrar el puntuador de posts y comentarios
+- Cambiar el offset de las consultas SQL, para ver más de 10 posts por listado (JQuery mediante)
 - El sistema de pagos va a ser un helper, porque atraviesa muchas páginas del sitio
-- ESTUVE ARRANCANDO CON LOS COMENTARIOS CON JQUERY
+- Comentarios con JQuery (todo OK pero falta rico CSS y devolver el comentario del usuario)
+- Hacer la confirmación de usuario vía email
 
 NOTAS:
 - Edité is_exists() en PostCreator pero no vi si funciona (debería)

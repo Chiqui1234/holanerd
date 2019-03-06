@@ -63,18 +63,12 @@ if( !function_exists('DB_POST') ) { // Inserta registro
 }
 
 if( !function_exists('DB_UPDATE') ) { // Actualiza registro
-    function DB_UPDATE($table, array $info) {
-        $numberOfSets = count($info);
-        $arrayIndexado = array();
+    function DB_UPDATE($table, array $info, array $where) {
         $ci=& get_instance(); // Creo $ci en los helpers, ya que no se puede acceder a la super variable $this desde fuera de las clases
         $ci->load->database(); // Creo $ci en los helpers, ya que no se puede acceder a la super variable $this desde fuera de las clases
-        $i = 0;
-        foreach ($info as $key => $value) { // Primero me hago un array nuevo indexado con números
-            $ci->db->set($key, $value);
-            echo '<br/>Key: '.$key.' | Value: '.$value;
-            $i++;
-        }
-        //$this->db->insert($table);  // Produces: INSERT INTO mytable (`name`) VALUES ('{$name}')
+        
+        $ci->db->where($where);
+        $ci->db->update($table, $info);  // Produces: INSERT INTO mytable (`name`) VALUES ('{$name}')
     }
 }
 
