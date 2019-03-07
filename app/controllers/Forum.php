@@ -47,6 +47,6 @@ class Forum extends CI_Controller {
         $data['forumSlug'] = $forumSlug;
         $this->load->view('forum/open', $data);
     }
-    // $this->load->view('templates/post', $data); -> esto estará en otro controlador llamado "Post"
+    
 }
 ?>

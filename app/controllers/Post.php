@@ -26,37 +26,55 @@ public function index($forumSlug, $subForumSlug, $postSlug) {
     $data['actualForum'] = $data['forums'].'/open/'.$forumSlug;      /* FOROS+FORO ABIERTO */
     $data['actualPost'] = base_url().'Post/index/'.$data['forumSlug'].'/'.$info['subForum'].'/'.$postSlug;    /* Y FOROS+FORO ABIERTO+POST */
 
+    $data['authorData'] = $this->Post_model->getAuthor($data['post'][0]['author']);
+
     $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar');
+    $this->load->view('forum/authorData', $data);
     $this->load->view('templates/footer');
     $this->load->view('forum/post', $data); // Abro la vista del post y le paso sus datos
-    if( V_SESSION() && V_CONFUSER() ) {
+    if( V_SESSION() && V_CONFUSER() ) { // Si estás logueado
         $post = $data['post'][0]['slug'];
-        $data['comments'] = $this->Post_model->getComments($table, $post);
+
+        $where1 = array('post' => $postSlug);
+        $data['comments'] = DB_GET('comments_'.$forumSlug, $where1); // Obtengo los comentarios del post
+        
+        $this->load->view('forum/points', $data); // Bajo $post tengo el índice 'points'. Esta vista imprime los puntos acumulados e invita al usuario a donar más
         $this->load->view('forum/comments', $data);
     } else {
         echo '</div>';
     }
 }
 
-public function donatePoints(/*$table, $forum, $post, $user*/) { // Sabiendo la tabla del post, el post y el usuario, quién acceda a éste script podrá donar puntos al usuario y post pasado por variables. Los puntos salen de la comunidad, no del usuario puntuador.
-
-}
-
-public function comment() { // Obtiene los comentarios del post solicitado
-
-}
-
-public function commentPost() { // Sabiendo la tabla del post, el post y el usuario, quién acceda a éste script podrá donar puntos al usuario y post que se pasa por variables (mediante ajax). Los puntos salen de la comunidad, no del usuario puntuador.
-    $info = array(
-        'username' => purify($_REQUEST['username']),
-        'comment' => purify($_REQUEST['comment']),
-        'forum' => purify($_REQUEST['forum']),
-        'post' => purify($_REQUEST['post'])
+public function donatePoints() { // Sabiendo la tabla del post, el post y el usuario, quién acceda a éste script podrá donar puntos al usuario y post pasado por variables. Los puntos salen de la comunidad, no del usuario puntuador.
+    $info = array( // LOTE DE PRUEBA
+        'post' => json_decode($_REQUEST['post']),
+        'forum' => json_decode($_REQUEST['forum']),
+        'username' => json_decode($_REQUEST['username']),
+        'author' => json_decode($_REQUEST['author']), 
+        'points' => json_decode($_REQUEST['points'])       
     );
+    /*$info = array( // LOTE DE PRUEBA
+        'post' => 'macri-cat',
+        'forum' => 'computacion',
+        'username' => 'chiqui1234',
+        'author' => 'chiqui1234', 
+        'points' => 5        
+    );*/
+
+    $table = 'points_'.$info['forum'];
+    $pointsDonated = $this->Post_model->donatePointsProcess($info);
+    /*print_r($info);
+    echo 'Points donated='.$pointsDonated;*/
+    return json_encode($pointsDonated); // True or false
+}
+
+
+public function postComment() { // Sabiendo la tabla del post, el post y el usuario, quién acceda a éste script podrá donar puntos al usuario y post que se pasa por variables (mediante ajax). Los puntos salen de la comunidad, no del usuario puntuador.
+    $info = array( 'username' => purify($_REQUEST['username']), 'comment' => purify($_REQUEST['comment']), 'forum' => purify($_REQUEST['forum']),'post' => purify($_REQUEST['post']) );
 
     $commentAdded = $this->Post_model->addComment($info);
-    $commentCounter = $this->Post_model->updateCommentCounter($info);;
+    $commentCounter = $this->Post_model->updateCommentCounter($info);
+    // Falta chequear que el usuario que comenta y el post, EXISTAN
 
     if( $commentAdded && $commentCounter  ) { // Si $process es false, todo mal
         return true;

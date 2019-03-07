@@ -1,6 +1,7 @@
 <!-- Para generar un comentario :: JQuery -->
 
 
+<div id="comments">
 <div id="yourCommentBox">
         <input type="hidden" value="<?php echo base_url(); ?>" id="base_url" />
         <input type="hidden" value="<?php echo $_SESSION['username']; ?>" id="username" />
@@ -13,11 +14,12 @@
     <div id="commentsBox"><?php 
         $i = 0;
         while( isset($comments[$i]) ) {
-            echo 'commentsBox';
+            echo '<h3>Escribe @'.$comments[$i]['username'].'</h3>';
+            echo '<p>'.$comments[$i]['comment'].'</p>';
             $i++;
         }
     ?></div>
-
+</div><!-- Cierre comments -->
 </div> <!-- Cierre root -->
 
 <script>
@@ -31,7 +33,7 @@
         };
         $.ajax({
             data    :   info,
-            url     :   base_url + 'Post/commentPost',
+            url     :   base_url + 'Post/postComment',
             type    :   'post',
             beforeSend: function() {
                 $('#yourCommentBox').html('Subiendo tu comentario');
