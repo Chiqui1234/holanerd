@@ -65,7 +65,7 @@ public function donatePoints() { // Sabiendo la tabla del post, el post y el usu
     $pointsDonated = $this->Post_model->donatePointsProcess($info);
     /*print_r($info);
     echo 'Points donated='.$pointsDonated;*/
-    return json_encode($pointsDonated; // True or false
+    return $pointsDonated; // True or false
 }
 
 
