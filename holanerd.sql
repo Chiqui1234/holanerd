@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-03-2019 a las 15:08:37
+-- Tiempo de generación: 07-03-2019 a las 23:14:18
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.0
 
@@ -25,6 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `ci_sessions`
+--
+
+CREATE TABLE `ci_sessions` (
+  `id` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `ip_address` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `data` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `comments_computacion`
 --
 
@@ -35,6 +48,14 @@ CREATE TABLE `comments_computacion` (
   `forum` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `post` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Slug del post'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `comments_computacion`
+--
+
+INSERT INTO `comments_computacion` (`id`, `username`, `comment`, `forum`, `post`) VALUES
+(1, 'chiqui1234', 'Hola mamá! ¡¡Estoy en Internet!!', 'computacion', 'macri-cat'),
+(2, 'testeado', 'Esta fuente tipo \"Consolata\" es muy buena :v', 'computacion', 'macri-cat');
 
 -- --------------------------------------------------------
 
@@ -67,7 +88,7 @@ INSERT INTO `forums` (`id`, `slug`, `forumName`, `topicCounter`, `minutes`, `lat
 (4, 'emprenderismo', 'Emprenderismo', 0, 0, '', '', '', 'Aportes', 'Preguntas', 'Ideas'),
 (5, 'universidades', 'Universidades', 0, 0, '', '', '', 'UBA', 'UTN', 'Otras'),
 (6, 'retro', 'Retro/Vintage', 0, 0, '', '', '', 'PCs', 'Consolas', 'Otros'),
-(7, 'off-topic', 'Off-topic', 0, 0, '', '', '', 'Videojuegos', 'Economia-Politica', 'Otras');
+(7, 'off_topic', 'Off-topic', 0, 0, '', '', '', 'Videojuegos', 'Economia-Politica', 'Otras');
 
 -- --------------------------------------------------------
 
@@ -107,8 +128,176 @@ CREATE TABLE `posts_computacion` (
 --
 
 INSERT INTO `posts_computacion` (`id`, `slug`, `author`, `date`, `image`, `title`, `content`, `subForum`, `comments`, `points`, `is_approved`) VALUES
-(1, 'estamos-bien', 'chiqui1234', '06/03/2019 04:55:02 pm', 'https://pbs.twimg.com/media/CwtXLMJW8AIW8Fs.jpg', '¿Estamos bien?', '\r\n    <p data-editable=\"\">MAIAMEE.</p>\r\n    <p data-editable=\"\">Creado desde el Inspector. Get-Content-Tools se inhabilitó solicito... está tímido.</p>\r\n    \r\n    \r\n', 'preguntas', 4, 0, 1),
-(2, 'macri-cat', 'chiqui1234', '06/03/2019 04:58:57 pm', 'https://i.imgur.com/sxoV3wW.jpg', 'Creando un post...', '\r\n    \r\n    \r\n    \r\n    <p>~ <i>Porque macricat(?). Creo este post para chequear que el mensaje de error es correcto :D</i></p>\r\n', 'aportes', 1, 0, 1);
+(1, 'estamos-bien', 'chiqui1234', '06/03/2019 04:55:02 pm', 'https://pbs.twimg.com/media/CwtXLMJW8AIW8Fs.jpg', '¿Estamos bien?', '\r\n    <p data-editable=\"\">MAIAMEE.</p>\r\n    <p data-editable=\"\">Creado desde el Inspector. Get-Content-Tools se inhabilitó solicito... está tímido.</p>\r\n    \r\n    \r\n', 'preguntas', 0, 0, 1),
+(2, 'macri-cat', 'chiqui1234', '06/03/2019 04:58:57 pm', 'https://i.imgur.com/sxoV3wW.jpg', 'Creando un post...', '\r\n    \r\n    \r\n    \r\n    <p>~ <i>Porque macricat(?). Creo este post para chequear que el mensaje de error es correcto :D</i></p>\r\n', 'aportes', 2, 5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `posts_disenografico`
+--
+
+CREATE TABLE `posts_disenografico` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `author` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `image` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `subForum` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Subforo del post en cuestión',
+  `comments` int(5) DEFAULT '0',
+  `points` int(5) DEFAULT '0',
+  `is_approved` tinyint(1) NOT NULL COMMENT 'Si el post está aprobado'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `posts_disenografico`
+--
+
+INSERT INTO `posts_disenografico` (`id`, `slug`, `author`, `date`, `image`, `title`, `content`, `subForum`, `comments`, `points`, `is_approved`) VALUES
+(1, 'estamos-bien', 'chiqui1234', '06/03/2019 04:55:02 pm', 'https://pbs.twimg.com/media/CwtXLMJW8AIW8Fs.jpg', '¿Estamos bien?', '\r\n    <p data-editable=\"\">MAIAMEE.</p>\r\n    <p data-editable=\"\">Creado desde el Inspector. Get-Content-Tools se inhabilitó solicito... está tímido.</p>\r\n    \r\n    \r\n', 'preguntas', 0, 0, 1),
+(2, 'macri-cat', 'chiqui1234', '06/03/2019 04:58:57 pm', 'https://i.imgur.com/sxoV3wW.jpg', 'Creando un post...', '\r\n    \r\n    \r\n    \r\n    <p>~ <i>Porque macricat(?). Creo este post para chequear que el mensaje de error es correcto :D</i></p>\r\n', 'aportes', 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `posts_emprenderismo`
+--
+
+CREATE TABLE `posts_emprenderismo` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `author` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `image` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `subForum` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Subforo del post en cuestión',
+  `comments` int(5) DEFAULT '0',
+  `points` int(5) DEFAULT '0',
+  `is_approved` tinyint(1) NOT NULL COMMENT 'Si el post está aprobado'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `posts_emprenderismo`
+--
+
+INSERT INTO `posts_emprenderismo` (`id`, `slug`, `author`, `date`, `image`, `title`, `content`, `subForum`, `comments`, `points`, `is_approved`) VALUES
+(1, 'estamos-bien', 'chiqui1234', '06/03/2019 04:55:02 pm', 'https://pbs.twimg.com/media/CwtXLMJW8AIW8Fs.jpg', '¿Estamos bien?', '\r\n    <p data-editable=\"\">MAIAMEE.</p>\r\n    <p data-editable=\"\">Creado desde el Inspector. Get-Content-Tools se inhabilitó solicito... está tímido.</p>\r\n    \r\n    \r\n', 'preguntas', 0, 0, 1),
+(2, 'macri-cat', 'chiqui1234', '06/03/2019 04:58:57 pm', 'https://i.imgur.com/sxoV3wW.jpg', 'Creando un post...', '\r\n    \r\n    \r\n    \r\n    <p>~ <i>Porque macricat(?). Creo este post para chequear que el mensaje de error es correcto :D</i></p>\r\n', 'aportes', 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `posts_off_topic`
+--
+
+CREATE TABLE `posts_off_topic` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `author` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `image` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `subForum` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Subforo del post en cuestión',
+  `comments` int(5) DEFAULT '0',
+  `points` int(5) DEFAULT '0',
+  `is_approved` tinyint(1) NOT NULL COMMENT 'Si el post está aprobado'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `posts_off_topic`
+--
+
+INSERT INTO `posts_off_topic` (`id`, `slug`, `author`, `date`, `image`, `title`, `content`, `subForum`, `comments`, `points`, `is_approved`) VALUES
+(1, 'estamos-bien', 'chiqui1234', '06/03/2019 04:55:02 pm', 'https://pbs.twimg.com/media/CwtXLMJW8AIW8Fs.jpg', '¿Estamos bien?', '\r\n    <p data-editable=\"\">MAIAMEE.</p>\r\n    <p data-editable=\"\">Creado desde el Inspector. Get-Content-Tools se inhabilitó solicito... está tímido.</p>\r\n    \r\n    \r\n', 'preguntas', 0, 0, 1),
+(2, 'macri-cat', 'chiqui1234', '06/03/2019 04:58:57 pm', 'https://i.imgur.com/sxoV3wW.jpg', 'Creando un post...', '\r\n    \r\n    \r\n    \r\n    <p>~ <i>Porque macricat(?). Creo este post para chequear que el mensaje de error es correcto :D</i></p>\r\n', 'aportes', 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `posts_programacion`
+--
+
+CREATE TABLE `posts_programacion` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `author` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `image` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `subForum` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Subforo del post en cuestión',
+  `comments` int(5) DEFAULT '0',
+  `points` int(5) DEFAULT '0',
+  `is_approved` tinyint(1) NOT NULL COMMENT 'Si el post está aprobado'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `posts_programacion`
+--
+
+INSERT INTO `posts_programacion` (`id`, `slug`, `author`, `date`, `image`, `title`, `content`, `subForum`, `comments`, `points`, `is_approved`) VALUES
+(1, 'estamos-bien', 'chiqui1234', '06/03/2019 04:55:02 pm', 'https://pbs.twimg.com/media/CwtXLMJW8AIW8Fs.jpg', '¿Estamos bien?', '\r\n    <p data-editable=\"\">MAIAMEE.</p>\r\n    <p data-editable=\"\">Creado desde el Inspector. Get-Content-Tools se inhabilitó solicito... está tímido.</p>\r\n    \r\n    \r\n', 'preguntas', 0, 0, 1),
+(2, 'macri-cat', 'chiqui1234', '06/03/2019 04:58:57 pm', 'https://i.imgur.com/sxoV3wW.jpg', 'Creando un post...', '\r\n    \r\n    \r\n    \r\n    <p>~ <i>Porque macricat(?). Creo este post para chequear que el mensaje de error es correcto :D</i></p>\r\n', 'aportes', 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `posts_retro`
+--
+
+CREATE TABLE `posts_retro` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `author` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `image` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `subForum` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Subforo del post en cuestión',
+  `comments` int(5) DEFAULT '0',
+  `points` int(5) DEFAULT '0',
+  `is_approved` tinyint(1) NOT NULL COMMENT 'Si el post está aprobado'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `posts_retro`
+--
+
+INSERT INTO `posts_retro` (`id`, `slug`, `author`, `date`, `image`, `title`, `content`, `subForum`, `comments`, `points`, `is_approved`) VALUES
+(1, 'estamos-bien', 'chiqui1234', '06/03/2019 04:55:02 pm', 'https://pbs.twimg.com/media/CwtXLMJW8AIW8Fs.jpg', '¿Estamos bien?', '\r\n    <p data-editable=\"\">MAIAMEE.</p>\r\n    <p data-editable=\"\">Creado desde el Inspector. Get-Content-Tools se inhabilitó solicito... está tímido.</p>\r\n    \r\n    \r\n', 'preguntas', 0, 0, 1),
+(2, 'macri-cat', 'chiqui1234', '06/03/2019 04:58:57 pm', 'https://i.imgur.com/sxoV3wW.jpg', 'Creando un post...', '\r\n    \r\n    \r\n    \r\n    <p>~ <i>Porque macricat(?). Creo este post para chequear que el mensaje de error es correcto :D</i></p>\r\n', 'aportes', 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `posts_universidades`
+--
+
+CREATE TABLE `posts_universidades` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `slug` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `author` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `image` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `subForum` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Subforo del post en cuestión',
+  `comments` int(5) DEFAULT '0',
+  `points` int(5) DEFAULT '0',
+  `is_approved` tinyint(1) NOT NULL COMMENT 'Si el post está aprobado'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `posts_universidades`
+--
+
+INSERT INTO `posts_universidades` (`id`, `slug`, `author`, `date`, `image`, `title`, `content`, `subForum`, `comments`, `points`, `is_approved`) VALUES
+(1, 'estamos-bien', 'chiqui1234', '06/03/2019 04:55:02 pm', 'https://pbs.twimg.com/media/CwtXLMJW8AIW8Fs.jpg', '¿Estamos bien?', '\r\n    <p data-editable=\"\">MAIAMEE.</p>\r\n    <p data-editable=\"\">Creado desde el Inspector. Get-Content-Tools se inhabilitó solicito... está tímido.</p>\r\n    \r\n    \r\n', 'preguntas', 0, 0, 1),
+(2, 'macri-cat', 'chiqui1234', '06/03/2019 04:58:57 pm', 'https://i.imgur.com/sxoV3wW.jpg', 'Creando un post...', '\r\n    \r\n    \r\n    \r\n    <p>~ <i>Porque macricat(?). Creo este post para chequear que el mensaje de error es correcto :D</i></p>\r\n', 'aportes', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -124,8 +313,8 @@ CREATE TABLE `users` (
   `dni` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Documento de identidad',
   `avatar` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'URL a un avatar',
   `background` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'URL a un fondo',
-  `color1` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Color primario para el perfil',
-  `color2` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Color secundario para el perfil',
+  `color1` varchar(7) COLLATE utf8_unicode_ci NOT NULL DEFAULT '3E09CF' COMMENT 'Color primario para el perfil (hex)',
+  `color2` varchar(7) COLLATE utf8_unicode_ci NOT NULL DEFAULT '1667E0' COMMENT 'Color secundario para el perfil (hex)',
   `less` tinyint(1) NOT NULL COMMENT 'Desactivar efectos y situaciones que ralentizan al equipo',
   `points` int(6) NOT NULL COMMENT 'Puntos/Minutos del usuario',
   `git` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'URL a tu perfil Git',
@@ -143,11 +332,19 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `dni`, `avatar`, `background`, `color1`, `color2`, `less`, `points`, `git`, `linkedin`, `web`, `is_admin`, `created_at`, `is_confirmed`, `is_public`, `is_deleted`) VALUES
-(1, 'chiqui1234', 'santiagogimenez@outlook.com.ar', 'test', '00000000', '', '', '', '', 0, 0, '', '', '', 1, '04/03/2019', 1, 0, 0);
+(1, 'chiqui1234', 'santiagogimenez@outlook.com.ar', 'test', '00000000', 'https://i.imgur.com/sBiHUGc.jpg', 'theme/holanerd/img/profile/wallpaper.jpg', '3E09CF', '1667E0', 0, 5, '', '', '', 1, '04/03/2019', 1, 0, 0),
+(2, 'testeado', 'santiagogimenez99@gmail.com', 'test', '00000000', '', '', '3E09CF', '1667E0', 0, 60, '', '', '', 0, '07/03/2019', 1, 0, 0),
+(4, 'test', 'pepito@test.com', 'lilolilo', '00000000', '', '', '3E09CF', '1667E0', 0, 60, '', '', '', 1, '07/03/2019', 1, 0, 0);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `ci_sessions`
+--
+ALTER TABLE `ci_sessions`
+  ADD KEY `ci_sessions_timestamp` (`timestamp`);
 
 --
 -- Indices de la tabla `comments_computacion`
@@ -181,7 +378,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `comments_computacion`
 --
 ALTER TABLE `comments_computacion`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del registro';
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del registro', AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `forums`
@@ -199,7 +396,7 @@ ALTER TABLE `posts_computacion`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del registro', AUTO_INCREMENT=3;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del registro', AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

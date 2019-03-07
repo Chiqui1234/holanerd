@@ -1,6 +1,5 @@
 #sidebar {
     grid-column: 7 / 9;
-    grid-row: 2;
     padding-left: 20px;
     background-color: var(--mainColor);
     font-family: Roboto, sans-serif;
@@ -29,4 +28,43 @@
 }
 #sidebar #fastPanel ul li {
     overflow: visible;
+}
+/* Para cuándo se está en los posts */
+#sidebar #miniProfile {
+    width: 100%;
+    margin-top: 20px;
+    clear: both;
+    float: left;
+}
+#sidebar #miniProfile .avatar {
+    width: 125px;
+    height: 125px;
+    border-radius: 125px;
+    clear: both;
+    margin: 0 auto;
+}
+#sidebar #miniProfile .username, #sidebar #miniProfile .createdAt, #sidebar #miniProfile .points {
+    width: 100%;
+    margin-bottom: 5px;
+    float: left;
+    clear: both;
+    font-family: Roboto, sans-serif;
+    text-align: center;
+    color: var(--shadow);
+}
+#sidebar #miniProfile .username {
+    font-size: 20px;
+}
+#sidebar #miniProfile #profiles {
+   width: 90%;
+   margin: 0 auto;
+   padding: 10px;
+   border: 1px solid var(--linkColor);
+   clear: both;
+   content: "";
+}
+#sidebar #miniProfile #profiles a {
+    width: 32px;
+    height: 32px;
+    background-color: black;
 }

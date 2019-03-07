@@ -1,4 +1,4 @@
-<div id="root"><div id="forums">
+<div id="root" style="grid-column: 2 / 9;"><div id="forums">
 <ul>
     <li><!-- Computación -->
         <div class="bg" style="background-image:url('<?php echo base_url(); ?>/theme/holanerd/img/forums/computacion.jpg');animation-duration: 35s;"></div>
@@ -78,9 +78,9 @@
         <div class="quantity"><?php echo $forums[6]['topicCounter']; ?> Posts | <a href="">Ver último</a></div>
         <div class="forumName"><a href="<?php echo base_url().'Forum/open/'.$forums[6]['slug']; ?>"><?php echo $forums[6]['forumName']; ?></a></div><!-- Nombre centrado -->
         <div class="subForums">
-            <a href="Forum/open/off-topic/<?php echo $forums[6]['subForum1']; ?>"><?php echo $forums[6]['subForum1']; ?></a> |
-            <a href="Forum/open/off-topic/<?php echo $forums[6]['subForum2']; ?>"><?php echo $forums[6]['subForum2']; ?></a>
-            <?php if( !empty($forums[6]['subForum3']) ) { echo '| <a href="Forum/open/off-topic/'.$forums[6]['subForum3'].'">'.$forums[6]['subForum3'].'</a>'; } ?>
+            <a href="Forum/open/off_topic/<?php echo $forums[6]['subForum1']; ?>"><?php echo $forums[6]['subForum1']; ?></a> |
+            <a href="Forum/open/off_topic/<?php echo $forums[6]['subForum2']; ?>"><?php echo $forums[6]['subForum2']; ?></a>
+            <?php if( !empty($forums[6]['subForum3']) ) { echo '| <a href="Forum/open/off_topic/'.$forums[6]['subForum3'].'">'.$forums[6]['subForum3'].'</a>'; } ?>
         </div>
     </li>
 </ul>

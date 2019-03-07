@@ -22,11 +22,17 @@ public function index($forumSlug, $subForumSlug, $postSlug) {
     $data['post'] = DB_GET($table, $info); // Obtengo el post solicitado
     $data['title'] = $data['post'][0]['title'];
     
-    $data['forums'] = base_url().'Forum';                      /* GENERO LAS RUTAS DE FOROS, */
-    $data['actualForum'] = $data['forums'].'/open/'.$forumSlug;      /* FOROS+FORO ABIERTO */
+    $data['forums'] = base_url().'Forum';                           /* GENERO LAS RUTAS DE FOROS, */
+    $data['actualForum'] = $data['forums'].'/open/'.$forumSlug;     /* FOROS+FORO ABIERTO */
     $data['actualPost'] = base_url().'Post/index/'.$data['forumSlug'].'/'.$info['subForum'].'/'.$postSlug;    /* Y FOROS+FORO ABIERTO+POST */
 
-    $data['authorData'] = $this->Post_model->getAuthor($data['post'][0]['author']);
+    $data['authorData'] = $this->Post_model->getAuthor($data['post'][0]['author']); // Capto la info del autor del post
+
+    if( $data['authorData'][0]['is_admin'] ) {
+        $data['rank'] = 'Este usuario es administrador';
+    } else {
+        $data['rank'] = 'Este usuario es autor';
+    }
 
     $this->load->view('templates/header', $data);
     $this->load->view('forum/authorData', $data);
@@ -63,9 +69,7 @@ public function donatePoints() { // Sabiendo la tabla del post, el post y el usu
 
     $table = 'points_'.$info['forum'];
     $pointsDonated = $this->Post_model->donatePointsProcess($info);
-    /*print_r($info);
-    echo 'Points donated='.$pointsDonated;*/
-    return $pointsDonated; // True or false
+    return json_encode($pointsDonated); // True or false
 }
 
 

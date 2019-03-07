@@ -41,8 +41,8 @@ body {
     --textColor     : #393939;
     --textColor2    : #696969;
     --textColor3    : #eee;
-    --linkColor     : rgb(62, 9, 207);
-    --linkHover     : rgb(22, 103, 224);
+    --linkColor     : #3E09CF;
+    --linkHover     : #1667E0;
     --linkColor2    : rgb(166, 175, 255);
     --linkHover2    : rgb(213, 220, 241);
     --startGradient : rgb(108, 40, 218);
@@ -65,9 +65,6 @@ body {
 #rootExtended { /* Lo mismo que root, pero ocupa toda la pantalla */
     grid-column:  1 / span 10;
     padding-right: 10px;
-}
-#profile {
-    grid-column: 1 / span 10;
 }
 a {
     -webkit-transition: all 500ms linear;

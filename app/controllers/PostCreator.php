@@ -13,19 +13,19 @@ function view() {
     $sessionExists = V_SESSION();
     $sessionConfirmed = V_CONFUSER();
 
-    if( V_SESSION() && V_CONFUSER() ) { // Si existe una sesión y el usuario está confirmado
         $data['title'] = 'Crear post';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('templates/footer');
 
+    if( V_SESSION() && V_CONFUSER() ) { // Si existe una sesión y el usuario está confirmado
         $this->load->view('templates/postCreator.php'); // Importo la vista del creador de posts
     } else {
-        $data['title'] = 'Error';
         $data['errorStatus'] = true;
         $data['errorText'] = '<p>Tu cuenta no existe o no está confirmada, ¿revisaste tu email?</p>';
-        $this->load->view('error', $data);
+        $this->load->view('status/error', $data);
     }
+    
 }
 
 function create() {

@@ -1,4 +1,7 @@
-/* El contenedor de 'profile' está definido en main.css */
+#profile {
+    grid-column: 1 / span 10;
+    background-color: red;
+}    
 #profile a {
     text-decoration: none;
     color: var(--textColor);

@@ -1,7 +1,8 @@
 <!-- The header contains the basic HTML code that you’ll want to display before 
 loading the main view, together with a heading. It will also output the $title
 variable, which we’ll define later in the controller. -->
-<html>
+<!DOCTYPE HTML>
+<html lang="es">
         <head>
             <title><?php echo $title; ?> | holanerd.com.ar</title>
             <meta charset="UTF-8" />

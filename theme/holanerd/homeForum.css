@@ -1,6 +1,6 @@
 #forums ul  {
-    grid-template-columns: 50% 50%;
-    grid-auto-rows: 250px;
+    grid-template-columns: 33% 33% 33%;
+    grid-auto-rows: 300px;
     display: grid;
     grid-gap: 10px;
     margin: 0;

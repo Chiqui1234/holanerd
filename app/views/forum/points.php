@@ -13,11 +13,11 @@
     <input type="hidden" value="4" id="four" />
     <input type="hidden" value="5" id="five" />
 
-    <li><input type="button" href="javascript:;" onclick="donatePoints( $('#base_url').val(), $('#post').val(), $('forum').val(), $('#username').val(), $('#author').val(), $('#one').val() );" /><p>1m</p></li>
-    <li><input type="button" href="javascript:;" onclick="donatePoints( $('#base_url').val(), $('#post').val(), $('forum').val(), $('#username').val(), $('#author').val(), $('#two').val() );" /><p>2m</p></li>
-    <li><input type="button" href="javascript:;" onclick="donatePoints( $('#base_url').val(), $('#post').val(), $('forum').val(), $('#username').val(), $('#author').val(), $('#three').val() );" /><p>3m</p></li>
-    <li><input type="button" href="javascript:;" onclick="donatePoints( $('#base_url').val(), $('#post').val(), $('forum').val(), $('#username').val(), $('#author').val(), $('#four').val() );" /><p>4m</p></li>
-    <li><input type="button" href="javascript:;" onclick="donatePoints( $('#base_url').val(), $('#post').val(), $('forum').val(), $('#username').val(), $('#author').val(), $('#five').val() );" /><p>5m</p></li>
+    <li><input type="button" href="javascript:;" onclick="donatePoints( $('#base_url').val(), $('#post').val(), $('#forum').val(), $('#username').val(), $('#author').val(), $('#one').val() );" /><p>1m</p></li>
+    <li><input type="button" href="javascript:;" onclick="donatePoints( $('#base_url').val(), $('#post').val(), $('#forum').val(), $('#username').val(), $('#author').val(), $('#two').val() );" /><p>2m</p></li>
+    <li><input type="button" href="javascript:;" onclick="donatePoints( $('#base_url').val(), $('#post').val(), $('#forum').val(), $('#username').val(), $('#author').val(), $('#three').val() );" /><p>3m</p></li>
+    <li><input type="button" href="javascript:;" onclick="donatePoints( $('#base_url').val(), $('#post').val(), $('#forum').val(), $('#username').val(), $('#author').val(), $('#four').val() );" /><p>4m</p></li>
+    <li><input type="button" href="javascript:;" onclick="donatePoints( $('#base_url').val(), $('#post').val(), $('#forum').val(), $('#username').val(), $('#author').val(), $('#five').val() );" /><p>5m</p></li>
 </ul>
 </div>
 
@@ -41,7 +41,7 @@
             },
             success: function(response) {
                 var result = response;
-                $('#points').html(response);
+                $('#points').html('¡Bien! Ya le diste minutos al autor');
                 console.log('¡Bien! Ya le diste minutos al autor');
             },
             error: function(xhr, status, error) {

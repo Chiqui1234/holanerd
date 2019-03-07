@@ -7,10 +7,11 @@ public function __construct() {
 
 public function getAuthor($author) {
     // Teniendo el usuario, busco información básica para rellenar en la sidebar
-    $this->db->select('username, git, linkedin, web, is_admin, created_at');
+    $this->db->select('username, avatar, git, linkedin, web, points, is_admin, created_at');
     $this->db->where('username', $author);
     $query = $this->db->get('users');
-    $data['authorData'] = $query->result_array();
+    $data = $query->result_array();
+    return $data;
 }
 
 public function getComments($table, $post) { // deprecated
