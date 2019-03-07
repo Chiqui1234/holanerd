@@ -46,12 +46,12 @@ public function index($forumSlug, $subForumSlug, $postSlug) {
 }
 
 public function donatePoints() { // Sabiendo la tabla del post, el post y el usuario, quién acceda a éste script podrá donar puntos al usuario y post pasado por variables. Los puntos salen de la comunidad, no del usuario puntuador.
-    $info = array( // LOTE DE PRUEBA
-        'post' => json_decode($_REQUEST['post']),
-        'forum' => json_decode($_REQUEST['forum']),
-        'username' => json_decode($_REQUEST['username']),
-        'author' => json_decode($_REQUEST['author']), 
-        'points' => json_decode($_REQUEST['points'])       
+    $info = array(
+        'post' => $_REQUEST['post'],
+        'forum' => $_REQUEST['forum'],
+        'username' => $_REQUEST['username'],
+        'author' => $_REQUEST['author'], 
+        'points' => $_REQUEST['points']       
     );
     /*$info = array( // LOTE DE PRUEBA
         'post' => 'macri-cat',
@@ -65,7 +65,7 @@ public function donatePoints() { // Sabiendo la tabla del post, el post y el usu
     $pointsDonated = $this->Post_model->donatePointsProcess($info);
     /*print_r($info);
     echo 'Points donated='.$pointsDonated;*/
-    return json_encode($pointsDonated); // True or false
+    return json_encode($pointsDonated; // True or false
 }
 
 
