@@ -14,7 +14,6 @@ class Forum extends CI_Controller {
         $data['title'] = "Foro";
         
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/footer');
 
         $data['forums'] = $this->Forum_model->getForums();

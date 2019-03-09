@@ -24,29 +24,25 @@ public function user() {
     );
 
     $userData = $this->Login_model->getUser($dbData); // Obtengo el usuario
-    
+
     $v_session = V_SESSION();
-    $v_legit = V_LEGIT($dbData['email'], $userData[0]['email']);
-    
-    if( !$v_session && $v_legit ) { // Si no tiene sesión activa y V_LEGIT comprueba que el email digitado por el usuario es igual al de la BD, le damos para adelante
-        
-        $sessionData = array( // Preparo el array para crear las cookies después
-            'email' => $dbData['email'],
-            'username' => $userData[0]['username'],
-            'avatar' => $userData[0]['avatar'],
-            'background' => $userData[0]['background'],
-            'less' => $userData[0]['less']
-        );
-        print_r($sessionData);
-        $this->session->set_userdata($sessionData); // Guardo una sesión
+    if( !$v_session && isset($userData[0]) ) { // Si no tiene sesión activa y si $userData está seteado es porque encontró el usuario
+            $sessionData = array( // Preparo el array para crear las cookies después
+                'email' => $dbData['email'],
+                'username' => $userData[0]['username'],
+                'avatar' => $userData[0]['avatar'],
+                'background' => $userData[0]['background'],
+                'less' => $userData[0]['less']
+            );
+            $this->session->set_userdata($sessionData); // Guardo una sesión
 
-        $data['successText'] = "Tus credenciales son correctas.";
-        $this->load->view("status/success", $data);
+            $data['successText'] = "Tus credenciales son correctas.";
+            $this->load->view("status/success", $data);
     } else {
-        $data['errorText'] = "Tus credenciales son incorrectas.";
-        //$this->load->view("status/error", $data);
+            $data['errorText'] = "Tus credenciales son incorrectas.";
+            $this->load->view("status/error", $data);
     }
-
+        
 }
 
 public function logout() {

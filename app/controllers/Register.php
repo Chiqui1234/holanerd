@@ -56,7 +56,7 @@ public function user() {
         'points' => 60,
         'created_at' => $now,
         'is_admin' => false,
-        'is_confirmed' => false,
+        'is_confirmed' => true,
         'is_public' => false,
         'is_deleted' => false
     );

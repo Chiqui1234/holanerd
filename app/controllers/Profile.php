@@ -10,10 +10,9 @@ public function __construct() {
     //$this->load->library('encrypt');
 }
 
-public function view() {
+public function index() {
     $data['title'] = "Perfil";
     $this->load->view('templates/header', $data, FALSE);
-    $this->load->view('templates/sidebar');
     $this->load->view('templates/footer');
     /*  IMPORTO EL TEMPLATE DEL PERFIL SEGUN CORRESPONDA */
     if( V_SESSION() && V_CONFUSER() ) { // Si la cuenta está confirmada y hay sesión
@@ -24,7 +23,8 @@ public function view() {
         $data['universidades'] = $this->Profile_model->getPosts('universidades', $_SESSION['username']);   /* Porque por ejemplo, si un usuario sólo crea      */
         $data['retro'] = $this->Profile_model->getPosts('retro', $_SESSION['username']);                   /* posts en 'computacion' y yo le pido a MySQL los  */
         $data['off_topic'] = $this->Profile_model->getPosts('off_topic', $_SESSION['username']);           /* posts de todos los foros... es al dope           */
-        $data['profile'] = $this->Profile_model->getInfo();
+        $data['profile'] = $this->Profile_model->getInfo($_SESSION['username']);
+        
         $this->load->view('templates/profile', $data); // Importo el perfil
     } else { // Sino... te notifico :D
         $data['errorText'] = 'Tu cuenta no existe o todavía no fue activada. Si acabás de crearla, revisá tu email.';

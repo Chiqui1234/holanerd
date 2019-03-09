@@ -4,7 +4,7 @@ variable, which we’ll define later in the controller. -->
 <!DOCTYPE HTML>
 <html lang="es">
         <head>
-            <title><?php echo $title; ?> | holanerd.com.ar</title>
+            <title><?php echo $title; ?> | Holanerd</title>
             <meta charset="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/main.css" />
@@ -37,11 +37,11 @@ variable, which we’ll define later in the controller. -->
             <li><a href="<?php echo base_url(); ?>Store">tienda</a></li>
             <?php if( $this->session->has_userdata('email') ) {
                 ?>
-                <li><a href="<?php echo base_url(); ?>profile#profile">perfil</a></li>
+                <li><a href="<?php echo base_url(); ?>Profile/#profile">perfil</a></li>
                 <?php
             } else {
                 ?>
-                <li><a href="<?php echo base_url(); ?>about">holanerd!</a></li>
+                <li><a href="<?php echo base_url(); ?>About">holanerd!</a></li>
                 <?php
             }
                 ?>
