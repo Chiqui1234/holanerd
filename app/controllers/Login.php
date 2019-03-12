@@ -7,8 +7,7 @@ public function __construct() {
     parent::__construct();
     $this -> load -> helper('url_helper');
     $this -> load -> model('Login_model');
-    $this->load->library('session');
-    //$this->load->library('encrypt');
+    $this->load->database();
 }
 
 public function user() {
@@ -39,7 +38,7 @@ public function user() {
             $data['successText'] = "Tus credenciales son correctas.";
             $this->load->view("status/success", $data);
     } else {
-            $data['errorText'] = "Tus credenciales son incorrectas.";
+            $data['errorText'] = "Tus credenciales son incorrectas <strong>o tu cuenta no está confirmada</strong>. ¿Revisaste tu email? Tendría que llegarte un enlace para activar tu cuenta.";
             $this->load->view("status/error", $data);
     }
         

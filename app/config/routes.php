@@ -50,17 +50,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['uploadPost'] = 'PostCreator/create';
-$route['createPost'] = 'PostCreator/view'; 
+$route['Createpost'] = 'PostCreator/view'; 
 $route['Post'] = 'Post/index';
-$route['profile/logout'] = 'Login/logout'; 
-$route['store'] = 'Store/view'; 
-$route['about'] = 'About/view'; 
-$route['logout'] = 'Login/logout'; // Si escribo 'logout', me llevás al controlador 'Login', función pública 'logout'
-$route['profile'] = 'Profile/view';
-$route['register'] = 'Register/view';
-$route['forum'] = 'Forum/view';
-#$route['login/(:any)'] = 'login'; // Si escribo 'login', me llevás a la carpeta 'login'
-#$route['(:any)'] = 'pages/view/$1';
-$route['default_controller'] = 'pages/view';
+$route['Profile/logout'] = 'Login/logout'; 
+$route['Store'] = 'Store/index'; 
+$route['About'] = 'About/index'; 
+$route['Logout'] = 'Login/logout'; // Si escribo 'logout', me llevás al controlador 'Login', función pública 'logout'
+$route['Profile'] = 'Profile/index';
+$route['Register'] = 'Register/index';
+$route['Forum'] = 'Forum/index';
+
+$route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

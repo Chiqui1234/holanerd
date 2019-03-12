@@ -59,17 +59,14 @@ public function donatePoints() { // Sabiendo la tabla del post, el post y el usu
         'author' => $_REQUEST['author'], 
         'points' => $_REQUEST['points']       
     );
-    /*$info = array( // LOTE DE PRUEBA
-        'post' => 'macri-cat',
-        'forum' => 'computacion',
-        'username' => 'chiqui1234',
-        'author' => 'chiqui1234', 
-        'points' => 5        
-    );*/
-
-    $table = 'points_'.$info['forum'];
-    $pointsDonated = $this->Post_model->donatePointsProcess($info);
-    return json_encode($pointsDonated); // True or false
+    /* LOTE DE PRUEBA $info = array( 'post' => 'todo-ok-en-retro-vintage', 'forum' => 'retro', 'username' => 'chiqui1234', 'author' => 'testeado', 'points' => 5);*/
+    $pointsDonated = 0;
+    if( !V_LEGIT($_SESSION['username'], $info['author']) && $info['username'] === $_SESSION['username']) { // Si el envío de datos no fue manipulado para saltarse la restricción de auto-puntuarse
+        $table = 'points_'.$info['forum'];
+        $pointsDonated = $this->Post_model->donatePointsProcess($info);
+        echo '¡Se subieron tus puntos! '.$pointsDonated; 
+    }
+    return $pointsDonated; // True or false
 }
 
 

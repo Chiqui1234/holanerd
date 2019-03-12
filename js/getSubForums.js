@@ -12,7 +12,7 @@ function changeSubforums() {
     var pivot = document.getElementById('pivot'); // Para la tercer opción, que no deberá aparecer siempre
 
     if( selectedForum === 'programacion' || selectedForum === 'computacion'
-    || selectedForum === 'diseno-grafico' || selectedForum === 'audio'
+    || selectedForum === 'disenografico' || selectedForum === 'audio'
     || selectedForum === 'video' ) {
         // Los subforos son: "Aportes" y "Preguntas"
         subforumOption.options[0].text = 'Aportes';
@@ -47,6 +47,17 @@ function changeSubforums() {
         pivot.text = 'Otras';
     }
     
+    if( selectedForum === 'retro') {
+        subforumOption.options[0].text = 'PCs';
+        subforumOption.options[1].text = 'Consolas';
+        subforumOption.options[0].value = 'PCs';
+        subforumOption.options[1].value = 'Consolas';
+
+        pivot.style.display = "block"; // Ahora aparece, porque este foro tiene tercer opción
+        pivot.value = 'Otros';
+        pivot.text = 'Otros';
+    }
+
     if( selectedForum === 'off-topic' ) {
         // Los subforos son: "Economía/Política" y "Videojuegos"
         subforumOption.options[0].text = 'Economía/Política';

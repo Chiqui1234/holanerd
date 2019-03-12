@@ -13,11 +13,12 @@
         <select name="forum" id="forum">
             <option value="computacion" onclick="changeSubforums()">Computación</option>
             <option value="programacion" onclick="changeSubforums()">Programación</option>
-            <option value="diseno-grafico" onclick="changeSubforums()">Diseño gráfico</option>
+            <option value="disenografico" onclick="changeSubforums()">Diseño gráfico</option>
             <option value="audio" onclick="changeSubforums()">Audio</option>
             <option value="video" onclick="changeSubforums()">Video</option>
             <option value="emprenderismo" onclick="changeSubforums()">Emprenderismo</option>
             <option value="universidades" onclick="changeSubforums()">Universidades</option>
+            <option value="retro" onclick="changeSubforums()">Retro</option>
             <option value="off-topic" onclick="changeSubforums()">Off-Topic</option>
         </select>
 

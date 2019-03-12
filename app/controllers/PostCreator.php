@@ -9,7 +9,7 @@ public function __construct() {
     $this -> load -> model('PostCreator_model');
 }
 
-function view() {
+function index() {
     $sessionExists = V_SESSION();
     $sessionConfirmed = V_CONFUSER();
 

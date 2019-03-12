@@ -40,8 +40,9 @@
     width: 125px;
     height: 125px;
     border-radius: 125px;
+    background-size: cover;
     clear: both;
-    margin: 0 auto;
+    margin: 5px auto 5px auto;
 }
 #sidebar #miniProfile .username, #sidebar #miniProfile .createdAt, #sidebar #miniProfile .points {
     width: 100%;

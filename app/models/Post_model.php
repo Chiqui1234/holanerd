@@ -34,18 +34,16 @@ public function donatePointsProcess(array $info) { // Dono puntos al usuario que
         $update_post = array('points' => $actualPostInfo[0]['points']+$info['points']);
         DB_UPDATE($postTable, $update_post, $post_where); // Sumar puntos al post
 
-        $this->db->select('points');                            /* OBTENGO LOS PUNTOS ACUMULADOS DEL    */
+        $this->db->select('points, username');                  /* OBTENGO LOS PUNTOS ACUMULADOS DEL    */
         $this->db->where('username', $info['author']);          /* AUTOR, PARA SUMARLE LOS QUE LE       */
         $actualUserInfoGet = $this->db->get('users');           /* ESTÁN DANDO AHORA. SON PUNTOS        */
         $actualUserInfo = $actualUserInfoGet->result_array();   /* TOTALES DEL USUARIO                  */
-        if( isset($actualUserInfo[0]) ) { // Si el autor existe
+        if( isset($actualUserInfo[0]['points']) && $actualUserInfo[0]['username'] === $info['author'] ) { // Si el autor existe y coincide
             $update_user = array('points' => $actualUserInfo[0]['points']+$info['points']);
-            $user_where = array('username' => $info['username']);
+            $user_where = array('username' => $info['author']);
             DB_UPDATE($usersTable, $update_user, $user_where); // Sumarle los puntos al autor
             return true;
-        } else {
-            return false;
-        }
+        } return false;
     } // Cierre else
 } // Fin donatePointsProcess()
 

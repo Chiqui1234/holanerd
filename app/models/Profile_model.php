@@ -19,9 +19,10 @@ class Profile_model extends CI_Model {
     }
 
     public function getInfo($user) {
-        $this->db->select('points, color1, color2, background, avatar, git, linkedin, web, created_at, is_admin');
+        $this->db->select('username, points, bio, color1, color2, avatar, git, linkedin, web, created_at, is_admin');
         $where = array('username' => $user);
-        $query = $this->db->get_where('users');
+        $query = $this->db->get_where('users', $where);
         $result = $query->result_array();
+        return $result;
     }
 } // Cierre de la clase
