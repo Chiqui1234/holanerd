@@ -1,3 +1,38 @@
+#createForum {
+    width: 100%;
+    clear: both;
+    float: left;
+    border: 1px solid var(--linkColor);
+    margin: 10px 0 10px 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+#createForum p {
+    float: left;
+    font-size: 16px;
+    line-height: 16px;
+    margin-left: 10px;
+}
+#createForum .Btn {
+    background-color: var(--linkColor2);
+    color: var(--mainColor);
+    border: none;
+    outline: none;
+    padding: 5px;
+    margin: 9px 10px 0;
+    font-size: 16px;
+    float: right;
+    font-family: 'Courier New', Courier, monospace;
+}
+#createForum .Btn:hover {
+    background-color: var(--linkHover2);
+    color: var(--shadow);
+    cursor: pointer;
+}
+#forums {
+    width: 100%;
+    content: "";
+    clear: both;
+}
 #forums ul  {
     grid-template-columns: 33% 33% 33%;
     grid-auto-rows: 300px;

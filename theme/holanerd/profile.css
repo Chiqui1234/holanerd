@@ -10,6 +10,15 @@
     padding: 10px;
     margin: 10px auto 10px auto;
 }
+#main h3 {
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+#main p {
+    line-height: 17px;
+    font-size: 16px;
+    text-align: left;
+}
 #profile #main .avatar {
     width: 150px;
     height: 150px;
@@ -26,18 +35,46 @@
     opacity: 0.9;
     z-index: 2;
 }
-#main .userData, #main .social {
+#main .userData, #main .social, #main .config {
     float: left;
     margin-left: 20px;
-    text-align: center;
 }
-#main .userData h1, #main .social h1 {
-    padding: 0;
-    margin: 0;
-    font-size: 26px;
+#main .userData h3 {text-align: center;}
+/* los paneles para editar la visual, redes y privacidad */
+#visual, #redes, #privacidad {
+    width: 100%;
+    float: left;
+    clear: both;
+    padding: 10px;
+    border: 1px solid var(--linkColor); /* este color tiene que decidirlo el usuario */
+    display: none;
 }
-#main .social p {
-    line-height: 17px;
+#visual .left, #visual .right, #redes .left, #redes .right, #privacidadl .left, #privacidad .right {
+    width: 50%;
+    float: left;
+}
+#visual p, #redes p, #privacidad p {
+    line-height: 16px;
     font-size: 16px;
-    text-align: left;
+}
+#visual h3, #redes h3, #privacidad h3 {
+    line-height: 0;
+}
+#visual a, #redes a, #privacidad a {
+    text-decoration: none;
+}
+#visual:target, #redes:target, #privacidad:target {
+    display: block;
+}
+/* Los posts se ven como "etiquetas" */
+#profile #posts ul {
+    list-style-type: none;
+    padding: 0;
+    margin: -10px 0 0 0;
+}
+#profile #posts ul li {
+    float: left;
+    padding: 10px;
+    margin: 5px 5px 5px 0;
+    border: 1px solid var(--linkColor); /* este color tiene que decidirlo el usuario */
 }

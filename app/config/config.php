@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://'. $_SERVER['HTTP_HOST'] .'/holanerd';
-
+//$config['base_url'] = 'http://holanerd.byethost9.com';
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -35,7 +35,7 @@ $config['base_url'] = 'http://'. $_SERVER['HTTP_HOST'] .'/holanerd';
 |
 */
 $config['index_page'] = 'index.php';
-
+//$config['index_page'] = '';
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
@@ -51,8 +51,8 @@ $config['index_page'] = 'index.php';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'REQUEST_URI';
-
+//$config['uri_protocol']	= 'REQUEST_URI';
+$config['uri_protocol']	= 'AUTO';
 /*
 |--------------------------------------------------------------------------
 | URL suffix

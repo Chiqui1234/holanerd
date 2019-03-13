@@ -30,7 +30,13 @@ public function user() {
                 'email' => $dbData['email'],
                 'username' => $userData[0]['username'],
                 'avatar' => $userData[0]['avatar'],
-                'background' => $userData[0]['background'],
+                'color1' => $userData[0]['color1'],
+                'color2' => $userData[0]['color2'],
+                'created_at' => $userData[0]['created_at'],
+                'is_public' => $userData[0]['is_public'],
+                'git' => $userData[0]['git'],
+                'linkedin' => $userData[0]['linkedin'],
+                'web' => $userData[0]['web'],
                 'less' => $userData[0]['less']
             );
             $this->session->set_userdata($sessionData); // Guardo una sesión

@@ -19,10 +19,15 @@ class Profile_model extends CI_Model {
     }
 
     public function getInfo($user) {
-        $this->db->select('username, points, bio, color1, color2, avatar, git, linkedin, web, created_at, is_admin');
+        $this->db->select('points, bio, created_at, is_admin, is_public'); /* color1, color2, created_at, is_public, git, linkedin, web => son cookies creadas en el login */
         $where = array('username' => $user);
         $query = $this->db->get_where('users', $where);
         $result = $query->result_array();
         return $result;
+    }
+
+    public function updateInfo(array $info) {
+        $where = array('username' => $_SESSION['username']);
+        DB_UPDATE('users', $info, $where);
     }
 } // Cierre de la clase

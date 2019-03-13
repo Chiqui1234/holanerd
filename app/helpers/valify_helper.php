@@ -29,8 +29,7 @@ if( !function_exists('V_SESSION') ) {
         // Comprueba que exista una sesión válida
         if( isset($_SESSION['email']) && 
             isset($_SESSION['username']) &&
-            isset($_SESSION['avatar']) &&
-            isset($_SESSION['background']) ) { // ¿Las variables de sesión están seteadas y contienen información? (Nótese que empty() no arroja error si la variable no existe, simplemente false)
+            isset($_SESSION['avatar']) ) { // ¿Las variables de sesión están seteadas y contienen información? (Nótese que empty() no arroja error si la variable no existe, simplemente false)
                 return true;
         } else {
                 return false;

@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['uploadPost'] = 'PostCreator/create';
-$route['Createpost'] = 'PostCreator/view'; 
+$route['createPost'] = 'PostCreator/index'; 
 $route['Post'] = 'Post/index';
 $route['Profile/logout'] = 'Login/logout'; 
 $route['Store'] = 'Store/index'; 

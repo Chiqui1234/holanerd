@@ -2,10 +2,12 @@
     display: none;
 }
 #postUploader { /* Caja base */
-
+    width: 100%;
+    float: left;
+    clear: both;
 }
 #postUploader #forum, #postUploader #subforum, #postUploader #image { /* Estilo que aplican a los inputs del creador de posts */
-    width: 33%;
+    width: calc( 33% - 10px );
     margin: 10px 10px 0 0;
     outline: none;
     border: 2px solid var(--linkColor2);
