@@ -24,6 +24,7 @@ variable, which we’ll define later in the controller. -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
         </head>
         <body>
+<div id="openFashionHeader"><a href="#fashionHeader" onclick="openFH();"></a></div>
 <div id="fashionHeader"> <!-- Un header muy fachero -->
     <?php
     if( isset($_SESSION['less']) && (!$_SESSION['less']) ) { // Si 'less' (menos) existe y es FALSO, entonces el usuario "quiere más" y habilitamos el JS
@@ -45,9 +46,16 @@ variable, which we’ll define later in the controller. -->
                 <?php
             }
                 ?>
-            
-            <!--<li><a href="login">entrar</a></li>-->
-        </ul>
+            </ul>
     </nav>
 
 </div> <!-- Termina el header fachero -->
+<script>
+function closeFH() {
+    document.getElementById('openFashionHeader').innerHTML = '<a href="#fashionHeader" onclick="openFH():"></a>';
+}
+function openFH() {
+    var OFH = document.getElementById('openFashionHeader');
+    OFH.innerHTML = '<a href="#" onclick="closeFH();"></a>';
+}
+</script>

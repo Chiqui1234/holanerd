@@ -36,18 +36,18 @@
             url     :   base_url + 'Post/postComment',
             type    :   'post',
             beforeSend: function() {
-                $('#yourCommentBox').html('Subiendo tu comentario');
+                $('#yourCommentBox').html('<p>Subiendo tu comentario...</p>');
                 console.log('Comunicándose con: '+base_url+'Post/donatePoints');
             },
             success: function(response) {
                 var result = response;
-                $('#yourCommentBox').html(response);
+                $('#yourCommentBox').html('<h3>Escribe @'+username+'</h3><p>'+comment+'</p>');
                 console.log('El comentario se subió correctamente');
             },
             error: function(xhr, status, error) {
                 var err = xhr;
                 console.warn('ERROR: ' + err.Message);
-                $('#yourCommentBox').html('No pudimos subir tu comentario');
+                $('#yourCommentBox').html('<p>No pudimos subir tu comentario</p>');
             }
         });
     } // Cierre de función

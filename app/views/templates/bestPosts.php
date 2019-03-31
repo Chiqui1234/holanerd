@@ -1,5 +1,5 @@
 <div class="hallOfFame"><h1>Mejores posts del mes</h1>
-        <ul>
+        <!--<ul>
             <li>
                 <div class="img"></div>
                 <div class="title">Mis sprites freemium</div>
@@ -20,5 +20,5 @@
                 <div class="img"></div>
                 <div class="title">Aumentá tu productividad con Linux</div>
             </li>
-        </ul>
+        </ul>-->
 </div>

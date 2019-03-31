@@ -16,19 +16,19 @@ public function user() {
     $this->load->view('templates/header', $data, FALSE);
     $this->load->view('templates/sidebar');
     $this->load->view('templates/footer');
-
+    $password = $this->input->post('password');
     $dbData = array( // Capto la entrada del usuario
-        'email' => $this->input->post('email'),
-        'password' => $this->input->post('password')
+        'username' => $this->input->post('username')
     );
 
-    $userData = $this->Login_model->getUser($dbData); // Obtengo el usuario
+    $userData = DB_GET('users', $dbData);; // Obtengo el usuario
 
     $v_session = V_SESSION();
     if( !$v_session && isset($userData[0]) ) { // Si no tiene sesión activa y si $userData está seteado es porque encontró el usuario
+        if( PASSWORD_VERIFY($password, $userData[0]['password']) ) { // Si la contraseña que ingresó el user es igual a la de la BD
             $sessionData = array( // Preparo el array para crear las cookies después
-                'email' => $dbData['email'],
-                'username' => $userData[0]['username'],
+                'username' => $dbData['username'],
+                'email' => $this->encryption->encrypt($userData[0]['email']),
                 'avatar' => $userData[0]['avatar'],
                 'color1' => $userData[0]['color1'],
                 'color2' => $userData[0]['color2'],
@@ -43,11 +43,14 @@ public function user() {
 
             $data['successText'] = "Tus credenciales son correctas.";
             $this->load->view("status/success", $data);
+        } else {
+            $data['errorText'] = "Tu contraseña es incorrecta";
+            $this->load->view("status/error", $data);
+        }
     } else {
-            $data['errorText'] = "Tus credenciales son incorrectas <strong>o tu cuenta no está confirmada</strong>. ¿Revisaste tu email? Tendría que llegarte un enlace para activar tu cuenta.";
+            $data['errorText'] = "Puede que tu cuenta no exista <strong>o no está confirmada</strong>. ¿Revisaste tu email? Tendría que llegarte un enlace para activar tu cuenta.";
             $this->load->view("status/error", $data);
     }
-        
 }
 
 public function logout() {
@@ -57,7 +60,7 @@ public function logout() {
     $this->load->view('templates/sidebar');
     $this->load->view('templates/footer');
 
-        $this -> Login_model -> unsetUser('email');
+        $this -> Login_model -> unsetUser();
         $data['successText'] = "Podés seguir navegando, pero tu sesión se cerró como querías.";
         $this->load->view("status/success", $data);
 }

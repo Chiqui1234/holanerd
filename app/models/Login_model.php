@@ -9,14 +9,16 @@ class Login_model extends CI_Model {
         $this -> load -> helper('db_helper'); // Uso simplificado para el manejo con BDs
     }
 
-    function getUser($dbData) {
-        // Busca el usuario/email/contraseña y chequea si coincide con el formulario
-        $result = DB_GET('users', $dbData);
-        return $result;
-        // Executes: SELECT username, email, password FROM users
-    }
-
-    function unsetUser($userData) {
+    function unsetUser() {
+        $userData = array(
+            '__ci_last_regenerate',
+            'email', 'username', 'password', 'avatar',
+            'color1', 'color2',
+            'dni', 'created_at', 'is_public', 'is_admin',
+            'is_confirmed', 'is_deleted',
+            'points', 'git', 'linkedin', 'web',
+            'less'
+        );
         $this->session->unset_userdata($userData);
     }
 }

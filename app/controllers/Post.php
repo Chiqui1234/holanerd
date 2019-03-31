@@ -64,7 +64,7 @@ public function donatePoints() { // Sabiendo la tabla del post, el post y el usu
     if( !V_LEGIT($_SESSION['username'], $info['author']) && $info['username'] === $_SESSION['username']) { // Si el envío de datos no fue manipulado para saltarse la restricción de auto-puntuarse
         $table = 'points_'.$info['forum'];
         $pointsDonated = $this->Post_model->donatePointsProcess($info);
-        echo '¡Se subieron tus puntos! '.$pointsDonated; 
+        //echo '¡Se subieron tus puntos! '.$pointsDonated; 
     }
     return $pointsDonated; // True or false
 }

@@ -5,7 +5,7 @@
 <div id="root"><div id="profile">
         <div id="main" class="backdrop-blur">
                 <div class="avatar" style="background-image:url('<?php echo $_SESSION['avatar']; ?>');">
-                        <div class="rank">Administrador</div>
+                <div class="rank">Usuario</div>
                 </div> <!-- A la izquierda -->
                 <div class="userData">
                         <h3>@<?php echo $_SESSION['username']; ?></h3>
@@ -22,7 +22,8 @@
                         <h3>Configuración</h3>
                         <p><a href="#visual">Editar visual</a></p>
                         <p><a href="#redes">Editar redes</a></p>
-                        <p><a href="#privacidad">Privacidad</a></p>
+                        <p><a href="#privacidad">Privacidad y Rendimiento</a></p>
+                        <p><a href="logout">Cerrar sesión</a></p>
                 </div>
         </div> <!-- Cierre de #main -->
         <div id="visual"> <!-- Dónde se edita la estética del perfil -->
@@ -57,9 +58,9 @@
                                                                 <option value="0" <?php if($_SESSION['is_public'] == 0){echo 'selected';} ?>>No</option>
                                                         </select>
                                 </p>
-                                <p>"Less" (<?php echo $_SESSION['less']; ?>) |   <select id="less">
-                                                                <option value="0" <?php if($_SESSION['less'] == 0){echo 'selected';} ?>>Si</option>
-                                                                <option value="1" <?php if($_SESSION['less'] == 1){echo 'selected';} ?>>No</option>
+                                <p><a title='Si "Less" ("Menos") está activado, habrá menos efectos y transiciones que ralenticen el equipo'>"Less"</a> (<?php echo $_SESSION['less']; ?>) |   <select id="less">
+                                                                <option value="0" <?php if($_SESSION['less'] == 1){echo 'selected';} ?>>Si</option>
+                                                                <option value="1" <?php if($_SESSION['less'] == 0){echo 'selected';} ?>>No</option>
                                                         </select>
                                 </p>
                 </div>

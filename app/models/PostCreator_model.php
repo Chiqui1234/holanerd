@@ -19,4 +19,14 @@ class PostCreator_model extends CI_Model {
         }
     }
 
+    public function updateTopicCounter($forumSlug) {
+        $whereTopicCounter = array('slug' => $forumSlug);
+        $query = $this->db->get_where('forums', $whereTopicCounter);
+        $result = $query->result_array();
+        $info = array(
+            'topicCounter' => $result[0]['topicCounter']+1
+        );
+        DB_UPDATE('forums', $info, $whereTopicCounter);
+    }
+
 }

@@ -6,17 +6,15 @@ class Register_model extends CI_Model {
         $this -> load -> helper('purify_helper');
     }
 
-    public function userAvailable($data) {
+    public function userAvailable($username) {
         $dbData = array(
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'dni' => $data['dni']
+            'username' => $username,
         );
         $this->db->where($dbData); // Obtené todos los registros con idéntico usuario, email y dni
         $result = $this->db->get('users');
         $result = $result->result_array();
-        if( isset($result[0]) && ($result[0]['username'] === $data['username'] || $result[0]['email'] === $data['email'] || $result[0]['dni'] === $data['dni']) ) {
-            return false; // Este usuario NO está disponible, porque el usuario, email o DNI ya está en uso
+        if( isset($result[0]) ) {
+            return false; // Este usuario NO está disponible, porque el usuario ya está en uso
         } else {
             return true;
         }

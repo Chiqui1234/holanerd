@@ -43,7 +43,7 @@ function create() {
     $postData = array(
         // id se auto-genera en la Query SQL
         'slug' =>  slugify($this->input->post('title')),
-        'author' => purify($_SESSION['username']), // Se obtiene el usuario que creó el post
+        'author' => $_SESSION['username'], // Se obtiene el usuario que creó el post
         'date' => V_TIME(),
         // Los puntos son cero por defecto
         'image' => $this->input->post('image'),
@@ -54,6 +54,9 @@ function create() {
         'is_approved' => 1 // Por ahora, no vamos a coartar la libertad de nadie (se aprueba por defecto) :P
     );
 
+    if($postData['image'] === NULL || $postData['image'] == '') {
+        $postData['image'] = 'https://adrianalonso.es/wp-content/uploads/2017/05/code.jpg'; // Imágen dummie :P
+    }
     $table = 'posts_'.$positionData['forum']; // Establezco a que tabla va el post (el nombre de la tabla tiene el prefijo "posts_")
 
     $is_valid = V_FORM_ASSOC($postData); // Paso el array asociativo a la función y, si todos los índices tienen contenido...
@@ -61,11 +64,12 @@ function create() {
     if( $is_valid ) { // ... le damos para adelante
         
         if( !$this->PostCreator_model->isExists($table, $postData['slug']) && DB_POST($table, $postData) ) {
+            $this->PostCreator_model->updateTopicCounter($positionData['forum']); // Agrego +1 a topicCounter
             $data['successText'] = 'Ya podés ver tu post <a href="'.base_url().'Post/index/'.$positionData['forum'].'/'.$postData['subforum'].'/'.$postData['slug'].'">acá</a>.';
             $data['title'] = 'Post publicado';
             $this->load->view('status/success', $data);
         } else{
-            $data['errorText'] = 'No pudimos crear tu post. ¡Probá en unos minutos! Quizá exista un post con el mismo nombre que el tuyo. Eso no está permitido en Holanerd.';
+            $data['errorText'] = 'No pudimos crear tu post. ¡Probá en unos minutos! Quizá exista un post con el mismo nombre que el tuyo.';
             $data['title'] = 'Error';
             $this->load->view('status/error', $data);
         }

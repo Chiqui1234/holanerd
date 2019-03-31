@@ -128,15 +128,4 @@ public function process($token) {
 
 }
 
-public function payPost($user, $post, $points) {
-    // $user => el que paga
-    // $post => el post al que se le paga
-    // $points => los puntos a brindar
-    // $limit => el limite de puntos
-    $limit = 60;
-    if( V_SESSION() && V_CONFUSER() ) { // Chequeo que la sesión exista y que el usuario esté confirmado
-
-    }
-}
-
 } // Cierre Payment class

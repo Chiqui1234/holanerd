@@ -1,6 +1,6 @@
 
 <div id="points">
-<h4>El post tiene <a href="#helper" onclick="minutes();"><?php echo $post[0]['points']; ?> <?php if($post[0]['points'] !== 1) { echo 'minutos'; } else{ echo 'minuto'; } ?></a>. Si te gustó, ¡puntualo!</h4>
+<h4>El post tiene <a href="#helper" onclick="minutes();" id="minutes"><?php echo $post[0]['points']; ?> <?php if($post[0]['points'] !== 1) { echo 'minutos'; } else{ echo 'minuto'; } ?></a>. Si te gustó, ¡puntualo!</h4>
 <ul>
     <input type="hidden" value="<?php echo base_url(); ?>" id="base_url" />
     <input type="hidden" value="<?php echo $postSlug; ?>" id="post" />
@@ -36,18 +36,18 @@
             url     :   base_url + 'Post/donatePoints',
             type    :   'post',
             beforeSend: function() {
-                $('#points').html('Dando minutos...');
+                $('#points').html('<p>Dando minutos...</p>');
                 console.log('Comunicándose con: '+base_url+'Post/donatePoints');
             },
             success: function(response) {
                 var result = response;
-                $('#points').html('¡Bien! Ya le diste minutos al autor');
-                console.log('¡Bien! Ya le diste minutos al autor');
+                $('#points').html('<p>¡Bien! Ya le diste minutos al autor.</p>');
+                console.log('<p>¡Bien! Ya le diste minutos al autor</p>');
             },
             error: function(xhr, status, error) {
                 var err = xhr;
                 console.warn('ERROR: ' + err.Message);
-                $('#points').html('No pudimos darle minutos al autor');
+                $('#points').html('<p>No pudimos darle minutos al autor, ¡probá en un rato!</p>');
             }
         }); // Cierre de ajax
     } // Cierre de función

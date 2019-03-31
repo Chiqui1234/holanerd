@@ -6,7 +6,7 @@ public function __construct() {
 }
 
 public function getForums() { // Obtiene todos los foros disponibles
-    return $this->db->get('forums')->result_array();
+    return DB_GET_SIMPLE('forums');
 }
 
 }

@@ -11,15 +11,7 @@ public function __construct() {
     //$this->load->library('encrypt');
 }
 
-function encrypt(array $data) {
-    return $this->encrypt->encode($data);
-}
-
-function decrypt(array $data) {
-    return $this->encrypt->decode($data);
-}
-
-public function view() {
+public function index() {
     $data['title'] = 'Registro';
     $this->load->view('templates/header', $data, FALSE);
     $this->load->view('templates/sidebar');
@@ -38,20 +30,21 @@ public function user() {
     $now = purify(date('d/m/Y')); // Obtengo la fecha
 
     // Capto variables del formulario. Este array va a comprobación
-    $catch_data = array(
-        'username' => purify($this->input->post('username')),
-        'email' => purify($this->input->post('email')),
-        'password' => purify($this->input->post('passwd')),
-        'passwdConfirm' => purify($this->input->post('passwdConfirm')),
-        'dni' => purify($this->input->post('dni'))
+    $userData = array(
+        'username' => slugify($this->input->post('username')),
+        'email' => $this->encryption->encrypt($this->input->post('email')),
+        'password' => $this->input->post('passwd'),
+        'passwdConfirm' => $this->input->post('passwdConfirm'),
+        'dni' => $this->encryption->encrypt($this->input->post('dni'))
     );
-    
-    // Array preparado para la BD
-    $validate_data = array (
-        'username' => $catch_data['username'],
-        'email' => $catch_data['email'],
-        'password' => $catch_data['password'],
-        'dni' => $catch_data['dni'],
+    $userAvailable_status = $this->Register_model->userAvailable($userData['username']);
+    if( V_FORM_ASSOC($userData) && $userAvailable_status ) {
+        // Array preparado para la BD
+        $validate_data = array (
+        'username' => $userData['username'],
+        'email' => $userData['email'],
+        'password' => PASSWORD_HASH($userData['password'], PASSWORD_DEFAULT),
+        'dni' => $userData['dni'],
         'avatar' => '',
         'points' => 60,
         'created_at' => $now,
@@ -59,11 +52,12 @@ public function user() {
         'is_confirmed' => true,
         'is_public' => false,
         'is_deleted' => false
-    );
+        'linkedin' => 'no-especificado',
+        'git' => 'no-especificado',
+        'web' => 'no-especificado'
+        );
 
-    if( $this->Register_model->checkUser($catch_data) ) {
-
-        $this->session->set_userdata('email', $validate_data['email']); // Guardo una sesión
+        $this->session->set_userdata($validate_data); // Guardo una sesión
 
         // DATOS PARA ENVIO DE EMAIL
         $emailData = array(
