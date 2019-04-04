@@ -1,3 +1,5 @@
+`Facebook <http://fb.com/holanerd>`_ | `Sitio web <http://holanerd.net>`_
+
 ###################
 ¿Qué es `#holanerd <http://holanerd.net>`_?
 ###################
@@ -26,3 +28,10 @@ Queremos ofrecerte lo mejor, y por eso estamos trabajando en lazos que te van a 
 ¿Cómo me asocio?
 ******************
 Si tenés una tienda virtual de productos y buscar métodos de pago, deberías enviarnos un email a `admin@holanerd.net <mailto:admin@holanerd.net>`_
+
+#########################
+Colaborar con el proyecto
+#########################
+
+Para colaborar con el proyecto, podés hacer un fork y hacer un commit. Eso si, al bajarte este repositorio deberías bajarte CodeIgniter 3.1.10 de su web oficial y copiar los archivos /application/config/config.php y /application/config/database.php dentro de nuestra aplicación /app/config :D
+Luego, abrí esos archivos y colocá tus credenciales para conectar el sitio con tu localhost y base de datos MySQL. Con la descarga de nuestro repo viene la base de datos 'holanerd.sql' para que tengas el sistema funcionando y realices las pruebas necesarias.
