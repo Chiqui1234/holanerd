@@ -1,70 +1,28 @@
 ###################
-What is CodeIgniter
+¿Qué es `#holanerd <http://holanerd.net>`_?
 ###################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+`#holanerd <http://holanerd.net>`_ es una comunidad de creativos y desarrolladores. Juntos hacemos crecer a este nuevo lugar que nos llena de oportunidades. Podemos conocer gente y transferirnos puntos que podemos ganar a través de colaboraciones.
 
-*******************
-Release Information
-*******************
+******************
+¿Cómo gano puntos?
+******************
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+La comunidad en `#holanerd <http://holanerd.net>`_ gana 60 puntos con su registro. De ahí en más, todo depende de vos. Podés crear posts de calidad en el tema que te sientas más cómodo para que otras personas aprendan de vos. Así, te donarán puntos que servirán para adquirir productos y servicios.
 
-**************************
-Changelog and New Features
-**************************
+***********************************
+¿Puedo usar los puntos cómo moneda?
+***********************************
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
-
-*******************
-Server Requirements
-*******************
-
-PHP version 5.6 or newer is recommended.
-
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+Definitivamente se puede y es la idea principal. En primer lugar, estamos trabajando en una Tienda de productos. Está enfocada, sobretodo, a gente que no tiene experiencia formal ni está siendo contratada y/o es muy nuevo en el rubro. De ésta forma, podés crear una página para vender tu producto a cambio de puntos. Estos puntos te serán muy útiles si querés contratar gente para un proyecto futuro o comprar assets (recursos) digitales dentro de la comunidad y sus asociados.
 
 ************
-Installation
+¿Asociados?
 ************
 
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
+Queremos ofrecerte lo mejor, y por eso estamos trabajando en lazos que te van a ayudar a comprar lo necesario, pero con los puntos que ganaste por escribir un post. Por ahora, tenemos la compañía de Olivaires Hardware (venta de equipos informáticos y técnicos) y QueCompu.com (una tienda de compra/venta). Los puntos pueden servir para descuentos en productos de estos sitios :D Próximamente, se busca utilizar los puntos para adquirir la totalidad de productos.
 
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
-
-*********
-Resources
-*********
-
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community Slack Channel <https://codeigniterchat.slack.com>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+******************
+¿Cómo me asocio?
+******************
+Si tenés una tienda virtual de productos y buscar métodos de pago, deberías enviarnos un email a `admin@holanerd.net <mailto:admin@holanerd.net>`_
