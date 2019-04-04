@@ -1,6 +1,6 @@
 
 <div id="points">
-<h4>El post tiene <a href="#helper" onclick="minutes();" id="minutes"><?php echo $post[0]['points']; ?> <?php if($post[0]['points'] !== 1) { echo 'minutos'; } else{ echo 'minuto'; } ?></a>. Si te gustó, ¡puntualo!</h4>
+<p>El post tiene <a href="#helper" onclick="minutes();" id="minutes"><?php echo $post[0]['points']; ?> <?php if($post[0]['points'] !== 1) { echo 'minutos'; } else{ echo 'minuto'; } ?></a>. Si te gustó, ¡puntualo!</p>
 <ul>
     <input type="hidden" value="<?php echo base_url(); ?>" id="base_url" />
     <input type="hidden" value="<?php echo $postSlug; ?>" id="post" />

@@ -59,8 +59,8 @@
                                                         </select>
                                 </p>
                                 <p><a title='Si "Less" ("Menos") está activado, habrá menos efectos y transiciones que ralenticen el equipo'>"Less"</a> (<?php echo $_SESSION['less']; ?>) |   <select id="less">
-                                                                <option value="0" <?php if($_SESSION['less'] == 1){echo 'selected';} ?>>Si</option>
-                                                                <option value="1" <?php if($_SESSION['less'] == 0){echo 'selected';} ?>>No</option>
+                                                                <option value="1" <?php if($_SESSION['less'] == 1){echo 'selected';} ?>>Si</option>
+                                                                <option value="0" <?php if($_SESSION['less'] == 0){echo 'selected';} ?>>No</option>
                                                         </select>
                                 </p>
                 </div>

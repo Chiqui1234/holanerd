@@ -2,6 +2,7 @@
 
 
 <div id="comments">
+    <h3>Comentarios</h3>
 <div id="yourCommentBox">
         <input type="hidden" value="<?php echo base_url(); ?>" id="base_url" />
         <input type="hidden" value="<?php echo $_SESSION['username']; ?>" id="username" />
@@ -37,12 +38,12 @@
             type    :   'post',
             beforeSend: function() {
                 $('#yourCommentBox').html('<p>Subiendo tu comentario...</p>');
-                console.log('Comunicándose con: '+base_url+'Post/donatePoints');
+                //console.log('Comunicándose con: '+base_url+'Post/donatePoints');
             },
             success: function(response) {
                 var result = response;
                 $('#yourCommentBox').html('<h3>Escribe @'+username+'</h3><p>'+comment+'</p>');
-                console.log('El comentario se subió correctamente');
+                //console.log('El comentario se subió correctamente');
             },
             error: function(xhr, status, error) {
                 var err = xhr;

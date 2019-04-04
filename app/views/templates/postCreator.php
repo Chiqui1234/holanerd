@@ -18,7 +18,7 @@
             <input type="text" id="title" name="title" placeholder="Título del post ❤" onclick="editAdvice()" />
             <img id="liveImage" src="https://adrianalonso.es/wp-content/uploads/2017/05/code.jpg" width="100%" /> <!-- When #image has a valid image URL, it loads inside this <img> -->
             <div id="post" contenteditable="false">
-                Bienvenido al creador de posts. Si deseás crear un post, hacé clic en el lápiz de la punta superior derecha.
+                <p>Bienvenido al creador de posts. Si deseás crear un post, hacé clic en el lápiz de la punta superior derecha.</p>
             </div>
         </div>
         <input type="hidden" id="postCatcher" value="" name="post" required /> <!-- Mediante javascript, capturo el contenido del post -->
@@ -33,22 +33,20 @@
             </div>
             <input type="text" id="image" placeholder="Portada del post" name="image" /> <!-- La URL de la portada del post -->
         </div>
-        <select name="forum" id="forum">
-            <option value="computacion" onclick="changeSubforums()">Computación</option>
-            <option value="programacion" onclick="changeSubforums()">Programación</option>
-            <option value="disenografico" onclick="changeSubforums()">Diseño gráfico</option>
-            <option value="audio" onclick="changeSubforums()">Audio</option>
-            <option value="video" onclick="changeSubforums()">Video</option>
-            <option value="emprenderismo" onclick="changeSubforums()">Emprenderismo</option>
-            <option value="universidades" onclick="changeSubforums()">Universidades</option>
-            <option value="retro" onclick="changeSubforums()">Retro</option>
-            <option value="off_topic" onclick="changeSubforums()">Off-Topic</option>
+        <select name="forum" id="forum" onchange="changeSubforums();">
+            <option value="computacion" onclick="changeSubforums();">Computación</option>
+            <option value="programacion" onclick="changeSubforums();">Programación</option>
+            <option value="disenografico" onclick="changeSubforums();">Diseño gráfico</option>
+            <option value="emprenderismo" onclick="changeSubforums();">Emprenderismo</option>
+            <option value="universidades" onclick="changeSubforums();">Universidades</option>
+            <option value="off_topic" onclick="changeSubforums();">Off-Topic</option>
         </select>
 
         <select name="subforum" id="subforum">
             <option value="aportes">Aportes</option>
-            <option value="preguntas">Preguntas</option>
-            <option value="" id="pivot">Aportes</option>
+            <option value="preguntas">Historia</option>
+            <option value="retro">Retro</option>
+            <option value="seguridad">Seguridad</option>
         </select>
 
         <button name="submit" onclick="submitPost()">Subir post</button>
@@ -67,7 +65,10 @@
         }
         </script>  
         <script src="<?php echo base_url(); ?>plug-ins/editor.js"></script>
-        <script>document.getElementById("image").addEventListener("input", liveImage); // Al notar un cambio en la URL de la portada, intenta actualizar la imágen del post
-        </script>
         <script src="<?php echo base_url(); ?>plug-ins/getSubForums.js"></script>
+        <script>
+        //document.getElementById("forum").addEventListener("onchange", changeSubforums());
+        document.getElementById("image").addEventListener("input", liveImage); // Al notar un cambio en la URL de la portada, intenta actualizar la imágen del post
+        </script>
+        
 </div> <!-- Cierre div#root -->

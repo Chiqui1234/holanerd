@@ -52,7 +52,7 @@ variable, which we’ll define later in the controller. -->
 </div> <!-- Termina el header fachero -->
 <script>
 function closeFH() {
-    document.getElementById('openFashionHeader').innerHTML = '<a href="#fashionHeader" onclick="openFH():"></a>';
+    document.getElementById('openFashionHeader').innerHTML = '<a href="#fashionHeader" onclick="openFH();"></a>';
 }
 function openFH() {
     var OFH = document.getElementById('openFashionHeader');

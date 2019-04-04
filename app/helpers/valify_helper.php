@@ -72,8 +72,8 @@ if( !function_exists('V_CONFUSER') ) {
 if( !function_exists('V_LEGIT') ) {
 
     function V_LEGIT($a, $b) {
-        // Chequea que $a === $b
-        if( $a === $b ) {
+        // Chequea que $a == $b
+        if( $a == $b ) {
             return true;
         } else {
             return false;

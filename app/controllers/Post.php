@@ -43,7 +43,6 @@ public function index($forumSlug, $subForumSlug, $postSlug) {
 
         $where1 = array('post' => $postSlug);
         $data['comments'] = DB_GET('comments_'.$forumSlug, $where1); // Obtengo los comentarios del post
-        
         $this->load->view('forum/points', $data); // Bajo $post tengo el índice 'points'. Esta vista imprime los puntos acumulados e invita al usuario a donar más
         $this->load->view('forum/comments', $data);
     } else {
