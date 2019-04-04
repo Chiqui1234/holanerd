@@ -7,7 +7,6 @@ function changeSubforums() {
     var forumNameIndex = forumNameOption.selectedIndex;
     var selectedForum = forumNameOption.options[forumNameIndex].value;
     var subforumOption = document.getElementById('subforum');
-    var pivot = document.getElementById('pivot'); // Para la tercer opción, que no deberá aparecer siempre
 
     if ( selectedForum === 'computacion' ) {
         subforumOption.options[0].text = 'Aportes';
