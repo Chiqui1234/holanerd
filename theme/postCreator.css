@@ -1,0 +1,149 @@
+* {
+    box-sizing: border-box;
+}
+a {cursor: pointer;}
+#postContainer {
+    width: 100%;
+}
+#postUploader { /* Form styling */
+    padding-bottom: 10px;
+}
+/**/
+#liveImage {
+    clear: both;
+    background-position: center;
+    background-size: cover;
+}
+#image { /* Text input for liveImage */
+    width: 100%;
+    outline: none;
+    border: 1px solid #929292;
+    padding: 10px;
+    font-size: 14px;
+    font-family: Roboto;
+    color: var(--shadow);
+    display: none;
+}
+/* Basic buttons */
+#editBtn {
+    top: 10px;
+}
+#okBtn {
+    top: 10px;
+    display: none;
+}
+#cancelBtn {
+    top: 84px;
+    display: none;
+}
+#editBtn, #okBtn, #cancelBtn {
+    width: 64px;
+    height: 64px;
+    position: fixed;
+    right: 10px;
+    cursor: pointer;
+    opacity: 1.0; /* Default */
+}
+#editBtn:hover, #okBtn:hover, #cancelBtn:hover {
+    /*animation: rotate360 2s; => ONLY WHEN AUTO-DRAFT*/
+}
+/* Style for post */
+#postContainer #title { /* Estilo para input#title */
+    width: calc(100% - 1px);
+    clear: both;
+    float: left;
+    margin-bottom: 10px;
+    outline: none;
+    border: 1px solid var(--clearLine);
+    padding: 10px;
+    font-family: Roboto, sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+}
+#postContainer #post {
+    width: 100%;
+    float: left;
+    clear: both;
+    background-color: #fafafa;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-family: Roboto, sans-serif;
+    outline: none; /* Firefox and others :D */
+}
+#postContainer #post *:focus {outline:none;} /* For Edge and Chrome */
+#postContainer #post h2 {
+    font-size: 26px;
+}
+#postContainer #post h3 {
+    font-size: 23px;
+}
+/* Floating sidebar */
+#postTools {
+    width: 100%;
+    margin-bottom: 10px;
+    clear: both;
+    float: left;
+}
+#postTools #tools {
+    width: 100%;
+    float: left;
+    clear: both;
+}
+#postTools #tools ul {
+    padding: 0;
+    margin: 0;
+}
+#postTools #tools li { /* Why not work when #postTools #tools ul li?? :O */
+    list-style-type: none;
+    border: 2px solid var(--linkHover);
+    background-color: var(--linkHover2);
+    padding: 5px;
+    float: left;
+    margin: 5px;
+    cursor: pointer;
+}
+#postTools #tools li:hover {
+    background-color: var(--linkcolor2);
+}
+#postTools input {
+    width: 99%;
+    margin: 5px .5% 5px .5%;
+    padding: 5px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    border-top: 2px solid var(--linkColor);
+}
+/**/
+#bottom {
+    width: 100%;
+    float: left;
+    content: "";
+    margin-bottom: 10px;
+    display: none;
+}
+#bottom select, #bottom button {
+    width: 31%;
+    margin: 0 .5% 0 .5%;
+    float: left;
+    border: 2px solid var(--linkColor2);
+    outline: none;
+    padding: 5px;
+    float: left;
+    font-family: Roboto, sans-serif;
+    font-variant: small-caps;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-transition: all 200ms linear;
+    -moz-transition: all 200ms linear;
+    -o-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+#bottom select:hover, #bottom button:hover {
+    box-shadow: 0 0 15px var(--clearLine);
+
+}
+@keyframes rotate360 {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }

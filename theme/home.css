@@ -1,0 +1,32 @@
+#warnBox, #helpBox {
+    width: 100%;
+    padding: 10px;
+    float: left;
+    clear: both;
+    margin: 10px 0 10px 0;
+}
+#helpBox {
+    background-color: var(--helpColor);
+}
+#warnBox ul, #helpBox ul {
+    list-style-type: initial;
+    overflow: visible;
+    font-family: Roboto, sans-serif;
+}
+#warnBox ul li, #helpBox ul li {
+    white-space: normal;
+    overflow: visible;
+    color: var(--mainColor);
+}
+#warnBox h1, #warnBox h3, #helpBox h3 {
+    color: var(--textColor3);
+}
+#helpBox h1 {
+    color: var(--textColor3);
+}
+#helpBox p {
+    color: var(--textColor2);
+}
+#warnBox {
+    background-color: var(--warningColor);
+}

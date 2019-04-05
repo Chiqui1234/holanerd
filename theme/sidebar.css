@@ -1,0 +1,108 @@
+#sidebar {
+    grid-column: 7 / 9;
+    padding-left: 20px;
+    background-color: var(--mainColor);
+    font-family: Roboto, sans-serif;
+    z-index: 3;
+}
+#sidebar h1 {
+    clear: both;
+    line-height: 0;
+    font-variant: small-caps;
+    font-family: Roboto;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--textColor2);
+}
+#sidebar p {
+    clear: both;
+    line-height: 20px;
+    font-family: Roboto;
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--textColor2);
+}
+#sidebar #fastPanel ul {
+    list-style-type: circle;
+    overflow: visible;
+}
+#sidebar #fastPanel ul li {
+    overflow: visible;
+}
+/* Para cuándo se está en los posts */
+#sidebar #miniProfile {
+    width: 100%;
+    margin-top: 20px;
+    clear: both;
+    float: left;
+}
+#sidebar #miniProfile .avatar {
+    width: 125px;
+    height: 125px;
+    border-radius: 125px;
+    background-size: cover;
+    clear: both;
+    margin: 5px auto 5px auto;
+}
+#sidebar #miniProfile .username, #sidebar #miniProfile .createdAt, #sidebar #miniProfile .points {
+    width: 100%;
+    margin-bottom: 5px;
+    float: left;
+    clear: both;
+    font-family: Roboto, sans-serif;
+    text-align: center;
+    color: var(--shadow);
+}
+#sidebar #miniProfile .username {
+    font-size: 20px;
+}
+#sidebar #miniProfile #profiles {
+   width: 90%;
+   margin: 0 auto;
+   padding: 10px;
+   border: 1px solid var(--linkColor);
+   clear: both;
+   content: "";
+}
+#sidebar #miniProfile #profiles a {
+    width: 32px;
+    height: 32px;
+    background-color: black;
+}
+/* RESPONSIVE */
+#sidebarResponsive {
+    grid-row: 1;
+    grid-column: 2;
+    display: none;
+}
+#sidebarResponsive #login {
+    display: none;
+}
+#sidebarResponsive #login * {
+    width: 100%;
+}
+@media only screen and (min-width: 1601px) {
+    #sidebar {
+        display: block;
+    }
+    #sidebarResponsive {
+        display: none;
+    }
+    #login {
+        display: block;
+    }
+}
+@media only screen and (max-width: 1153px) {
+    #sidebar {
+        display: none;
+    }
+    #sidebarResponsive {
+        display: block;
+    }
+    #sidebarResponsive #login {
+        display: block;
+    }
+    #login {
+        display: none;
+    }
+}
