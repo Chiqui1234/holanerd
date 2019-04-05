@@ -51,7 +51,7 @@ public function user() {
         'is_admin' => false,
         'is_confirmed' => true,
         'is_public' => false,
-        'is_deleted' => false
+        'is_deleted' => false,
         'linkedin' => 'no-especificado',
         'git' => 'no-especificado',
         'web' => 'no-especificado'

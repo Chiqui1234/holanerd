@@ -7,17 +7,17 @@ variable, which we’ll define later in the controller. -->
             <title><?php echo $title; ?> | Holanerd</title>
             <meta charset="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/main.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/home.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/header.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/nav.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/sidebar.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/homeForum.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/post.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/payment.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/profile.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/postCreator.css" />
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/holanerd/footer.css" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/main.css?version=1" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/home.css?version=1" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/header.css?version=1" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/nav.css?version=1" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/sidebar.css?version=1" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/homeForum.css?version=1" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/post.css?version=1" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/payment.css?version=1" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/profile.css?version=1" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/postCreator.css?version=1" />
+            <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>theme/footer.css?version=1" />
             <!-- Google Fonts -->
             <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
             <!-- JQuery -->
@@ -31,6 +31,9 @@ variable, which we’ll define later in the controller. -->
         $this->load->view('templates/particles');
     } ?>
     <div class="logo" title="<?php echo $title; ?>"></div>
+    <div id="sidebarResponsive">
+    <?php $this->load->view('templates/loginForm'); ?>
+    </div>
     <nav>
         <ul>
             <li><a href="<?php echo base_url(); ?>">inicio</a></li> <!-- Un feed general de todo el sitio -->
