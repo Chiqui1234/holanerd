@@ -54,9 +54,9 @@ function create() {
         'is_approved' => 1 // Por ahora, no vamos a coartar la libertad de nadie (se aprueba por defecto) :P
     );
 
-    if( !empty($postData['image']) ) {
+    /*if( !empty($postData['image']) ) {
         $postData['image'] = 'https://adrianalonso.es/wp-content/uploads/2017/05/code.jpg'; // Imágen dummie :P
-    }
+    }*/
     $table = 'posts_'.$positionData['forum']; // Establezco a que tabla va el post (el nombre de la tabla tiene el prefijo "posts_")
 
     $is_valid = V_FORM_ASSOC($postData); // Paso el array asociativo a la función y, si todos los índices tienen contenido...

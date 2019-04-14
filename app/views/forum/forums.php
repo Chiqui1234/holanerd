@@ -7,14 +7,14 @@
 <ul>
     <?php
     $forumNames = array( /* Tiene que estar en órden con la consulta hecha en el controlador Forum. Podría hacer un while para rellenar esto pero si tenemos muchos users, estamos al horno */
-        'computacion', 'programacion', 'disenografico', 'emprenderismo', 'universidades', /*'retro', 'video', 'audio',*/ 'off_topic'
+        'computacion', 'programacion', 'disenografico', 'emprenderismo', 'universidades', 'off_topic', 'audio'
     );
-    $forumCounter = 6;
+    $forumCounter = 7;
     $i = 0;
     while( $i < $forumCounter ) {
         echo '<li>
-        <div class="bg" style="background-image:url(\''.base_url().'theme/holanerd/img/forums/'.$forumNames[$i].'.jpg\');animation-duration: '.($forumCounter*10/1.15).'s;"></div>
-        <div class="minutes">'.$forums[$i]['minutes'].' Puntos</div>
+        <div class="bg" style="background-image:url(\''.base_url().'theme/img/forums/'.$forumNames[$i].'.jpg\');"></div>
+        <!--<div class="minutes">'.$forums[$i]['minutes'].' Puntos</div>-->
         <div class="quantity">'.$forums[$i]['topicCounter'].' Posts | <a href="">Ver último</a></div>
         <div class="forumName"><a href="'.base_url().'Forum/open/'.$forums[$i]['slug'].'">'.$forums[$i]['forumName'].'</a></div><!-- Nombre centrado -->
         <div class="subForums">

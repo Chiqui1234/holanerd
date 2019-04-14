@@ -45,7 +45,7 @@ public function user() {
         'email' => $userData['email'],
         'password' => PASSWORD_HASH($userData['password'], PASSWORD_DEFAULT),
         'dni' => $userData['dni'],
-        'avatar' => '',
+        'avatar' => 'http://holanerd.net/theme/img/default/avatar.jpg',
         'points' => 60,
         'created_at' => $now,
         'is_admin' => false,
@@ -79,7 +79,7 @@ public function user() {
 
         $this->Register_model->createUser($validate_data); // Creo el usuario
         //$this->Email_model->sendEmail($emailData); // Envío el email
-        $data['successText'] = '<p>¡Usuario creado! Revisá tu email para validar tu cuenta.</p>';
+        $data['successText'] = '<p>¡Usuario creado! <!--Revisá tu email para validar tu cuenta.--></p>';
         $this->load->view('status/success', $data);
 } else {
     $data['errorText'] = '<p>Existe otra cuenta con tu nombre de usuario, email o dni; O bien, olvidaste <strong>rellenar todo el formulario</strong>.</p>';

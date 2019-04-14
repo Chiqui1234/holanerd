@@ -61,6 +61,11 @@
             <option value="universidades:UBA" id="UBA">Universidades : UBA</option>
             <option value="universidades:UADE" id="UADE">Universidades : UADE</option>
             <option value="universidades:Otras" id="Otras">Universidades : Otras</option>
+            <!-- Audio --> 
+            <option value="audio:Aportes" id="Aportes">Audio : Aportes</option>
+            <option value="audio:Teoria" id="Teoria">Audio : Teoria</option>
+            <option value="audio:Tablatura" id="Tablatura">Audio : Tablatura</option>
+            <option value="audio:Otros" id="Otros">Audio : Otros</option>
             <!-- Off-Topic --> 
             <option value="off_topic:Staff" id="Staff">Off-topic : Staff</option>
             <option value="off_topic:Economia" id="Economia">Off-topic : Economía</option>

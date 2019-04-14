@@ -63,5 +63,4 @@ class PostCreator_model extends CI_Model {
         );
         DB_UPDATE('forums', $info, $whereTopicCounter);
     }
-
 }

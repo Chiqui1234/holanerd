@@ -15,13 +15,13 @@ public function index() {
     $data['title'] = "Perfil";
     $this->load->view('templates/header', $data, FALSE);
     /*  IMPORTO EL TEMPLATE DEL PERFIL SEGUN CORRESPONDA */
-    if( /*V_SESSION() && */V_CONFUSER() ) { // Si la cuenta está confirmada y hay sesión
+    if( V_SESSION() && V_CONFUSER() ) { // Si la cuenta está confirmada y hay sesión. NOTA: activé V_SESSION
         $user = $this->encryption->decrypt($_SESSION['username']);
         $data['computacion'] = $this->Profile_model->getPosts('computacion', $user);        /* Ahora hago un getPost() por cada foro existente, */
         $data['programacion'] = $this->Profile_model->getPosts('programacion', $user);      /* pero próximamente tengo que usar una columna     */
         $data['disenografico'] = $this->Profile_model->getPosts('disenografico', $user);    /* del perfil dónde almacene, separado por comas,   */
-        //$data['audio'] = $this->Profile_model->getPosts('audio', $user);                    /* los foros en los que el usuario creó posts.      */
-        //$data['video'] = $this->Profile_model->getPosts('video', $user);                    /* Porque por ejemplo, si un usuario sólo crea      */
+        $data['audio'] = $this->Profile_model->getPosts('audio', $user);                    /* los foros en los que el usuario creó posts.      */
+        //$data['video'] = $this->Profile_model->getPosts('video', $user);                  /* Porque por ejemplo, si un usuario sólo crea      */
         $data['emprenderismo'] = $this->Profile_model->getPosts('emprenderismo', $user);    /* posts en 'computacion' y yo le pido a MySQL los  */
         $data['universidades'] = $this->Profile_model->getPosts('universidades', $user);    /* posts de todos los foros... es al dope           */
         //$data['retro'] = $this->Profile_model->getPosts('retro', $user);                   
@@ -105,8 +105,8 @@ public function redes() {
 public function privacidad() {
     // Edita la privacidad del perfil
     $info = array(
-        'is_public' => $_REQUEST['b'],
-        'less' => $_REQUEST['a']
+        'is_public' => $_REQUEST['a'],
+        'less' => $_REQUEST['b']
     );
     
     $sessionData = array( // Preparo el array para crear las cookies después

@@ -5,8 +5,10 @@
     <h3>Comentarios</h3>
 <div id="yourCommentBox">
         <input type="hidden" value="<?php echo base_url(); ?>" id="base_url" />
-        <input type="hidden" value="<?php echo $_SESSION['username']; ?>" id="username" />
-        <textarea id="comment" placeholder="¡Escribí lo que sientas!"></textarea>
+        <?php if(V_SESSION()) { ?><input type="hidden" value="<?php echo $_SESSION['username']; ?>" id="username" required /> <?php } else { ?>
+            <input type="text" value="" id="username" placeholder="Nombre" required />
+        <?php } ?>
+        <textarea id="comment" placeholder="¡Escribí lo que sientas!" required></textarea>
         <input type="hidden" value="<?php echo $forumSlug; ?>" id="forum" />
         <input type="hidden" value="<?php echo $postSlug; ?>" id="post" />
         <input type="button" href="javascript:;" onclick="postComment( $('#base_url').val(), $('#username').val(), $('#comment').val(), $('#forum').val(), $('#post').val() );" value="Comentar" />

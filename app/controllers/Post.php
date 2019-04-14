@@ -28,23 +28,23 @@ public function index($forumSlug, $subForumSlug, $postSlug) {
 
     $data['authorData'] = $this->Post_model->getAuthor($data['post'][0]['author']); // Capto la info del autor del post
 
-    if( $data['authorData'][0]['is_admin'] ) {
+    /*if( $data['authorData'][0]['is_admin'] ) {
         $data['rank'] = 'Este usuario es administrador';
     } else {
         $data['rank'] = 'Este usuario es autor';
-    }
+    }*/
+    $data['rank'] = 'Este usuario es autor';
 
     $this->load->view('templates/header', $data);
     $this->load->view('forum/authorData', $data);
     $this->load->view('templates/footer');
     $this->load->view('forum/post', $data); // Abro la vista del post y le paso sus datos
-    if( V_SESSION() && V_CONFUSER() ) { // Si estás logueado
+    $where1 = array('post' => $postSlug);
+    $data['comments'] = DB_GET('comments_'.$forumSlug, $where1); // Obtengo los comentarios del post
+    $this->load->view('forum/comments', $data);
+    if( V_SESSION() && V_CONFUSER() ) { // Si estás logueado, podés puntuar
         $post = $data['post'][0]['slug'];
-
-        $where1 = array('post' => $postSlug);
-        $data['comments'] = DB_GET('comments_'.$forumSlug, $where1); // Obtengo los comentarios del post
         $this->load->view('forum/points', $data); // Bajo $post tengo el índice 'points'. Esta vista imprime los puntos acumulados e invita al usuario a donar más
-        $this->load->view('forum/comments', $data);
     } else {
         echo '</div>';
     }
@@ -56,16 +56,23 @@ public function donatePoints() { // Sabiendo la tabla del post, el post y el usu
         'forum' => $_REQUEST['forum'],
         'username' => $_REQUEST['username'],
         'author' => $_REQUEST['author'], 
-        'points' => $_REQUEST['points']       
+        'points' => $_REQUEST['points']
+        /*'post' => 'la-bd-de-facebook-parece-haberse-filtrado',
+        'forum' => 'computacion',
+        'username' => 'dummie',
+        'author' => 'chiqui1234', 
+        'points' => 3*/
     );
-    /* LOTE DE PRUEBA $info = array( 'post' => 'todo-ok-en-retro-vintage', 'forum' => 'retro', 'username' => 'chiqui1234', 'author' => 'testeado', 'points' => 5);*/
-    $pointsDonated = 0;
-    if( !V_LEGIT($_SESSION['username'], $info['author']) && $info['username'] === $_SESSION['username']) { // Si el envío de datos no fue manipulado para saltarse la restricción de auto-puntuarse
-        $table = 'points_'.$info['forum'];
-        $pointsDonated = $this->Post_model->donatePointsProcess($info);
-        //echo '¡Se subieron tus puntos! '.$pointsDonated; 
+    $pointsDonated = false; // Valor por defecto. Será true si la donación resulta exitosa
+    //$info = array( 'post' => 'primeros-pasos-en-gnu-linux', 'forum' => 'universidades', 'username' => 'jdespo', 'author' => 'chiqui1234', 'points' => 5);
+    if( V_FORM_ASSOC($info) && !V_LEGIT($_SESSION['username'], $info['author']) && V_LEGIT($info['username'], $_SESSION['username']) ) { // Si el envío de datos no fue manipulado para saltarse la restricción de auto-puntuarse
+        $pointsToPost_v = $this->Post_model->pointsToPost($info); // Será 'true' si la donación resulta exitosa
+        $pointsToAuthor_v = $this->Post_model->pointsToAuthor($info); // Será 'true' si la donación resulta exitosa
+        return true;
     }
-    return $pointsDonated; // True or false
+    echo 'PointsToPost: '.$pointsToPost_v.'<br />'; // Debug
+    echo 'PointsToAuthor: '.$pointsToAuthor_v.'<br />'; // Debug
+    return false; // Si no sale con 'true' es porque faltó una verificación
 }
 
 
@@ -80,8 +87,7 @@ public function postComment() { // Sabiendo la tabla del post, el post y el usua
         return true;
     } else {
         return false;
-    }
-    
+    }  
 }
 
 protected function updateCommentCounter() {

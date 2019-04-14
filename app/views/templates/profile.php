@@ -10,7 +10,8 @@
                 <div class="userData">
                         <h3>@<?php echo $_SESSION['username']; ?></h3>
                         <p><?php echo $_SESSION['created_at']; ?></p>
-                        <p><?php echo $profile[0]['points']; ?> puntos</p>
+                        <p><?php echo $_SESSION['points']; ?> puntos</p>
+                        <p><a href="logout">Cerrar sesión</a></p>
                 </div>
                 <div class="social">
                         <h3>Redes</h3>
@@ -23,7 +24,6 @@
                         <p><a href="#visual">Editar visual</a></p>
                         <p><a href="#redes">Editar redes</a></p>
                         <p><a href="#privacidad">Privacidad y Rendimiento</a></p>
-                        <p><a href="logout">Cerrar sesión</a></p>
                 </div>
         </div> <!-- Cierre de #main -->
         <div id="visual"> <!-- Dónde se edita la estética del perfil -->

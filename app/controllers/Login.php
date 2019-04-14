@@ -14,14 +14,14 @@ public function user() {
     $data['title'] = "Entrar";
     
     $this->load->view('templates/header', $data, FALSE);
-    $this->load->view('templates/sidebar');
+    
     $this->load->view('templates/footer');
     $password = $this->input->post('password');
     $dbData = array( // Capto la entrada del usuario
         'username' => $this->input->post('username')
     );
 
-    $userData = DB_GET('users', $dbData);; // Obtengo el usuario
+    $userData = DB_GET('users', $dbData); // Obtengo el usuario
 
     $v_session = V_SESSION();
     if( !$v_session && isset($userData[0]) ) { // Si no tiene sesión activa y si $userData está seteado es porque encontró el usuario
@@ -32,6 +32,7 @@ public function user() {
                 'avatar' => $userData[0]['avatar'],
                 'color1' => $userData[0]['color1'],
                 'color2' => $userData[0]['color2'],
+                'points' => $userData[0]['points'],
                 'created_at' => $userData[0]['created_at'],
                 'is_public' => $userData[0]['is_public'],
                 'git' => $userData[0]['git'],
@@ -46,10 +47,12 @@ public function user() {
         } else {
             $data['errorText'] = "Tu contraseña es incorrecta";
             $this->load->view("status/error", $data);
+            $this->load->view('templates/sidebar');
         }
     } else {
             $data['errorText'] = "Puede que tu cuenta no exista <strong>o no está confirmada</strong>. ¿Revisaste tu email? Tendría que llegarte un enlace para activar tu cuenta.";
             $this->load->view("status/error", $data);
+            $this->load->view('templates/sidebar');
     }
 }
 
