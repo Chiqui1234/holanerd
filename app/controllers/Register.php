@@ -57,7 +57,7 @@ public function user() {
         'web' => 'no-especificado'
         );
 
-        $this->session->set_userdata($validate_data); // Guardo una sesión
+        //$this->session->set_userdata($validate_data); // Ya no guardo una sesión porque genera un bug
 
         // DATOS PARA ENVIO DE EMAIL
         $emailData = array(
@@ -74,8 +74,6 @@ public function user() {
             $data['text'] = '<p>No pudimos enviarte un email, no podrás activar tu cuenta.</p>';
             $this->load->view('pages/status', $data);
         }*/
-
-        //$this->Email_model->activationPage($emailData); // Crea el archivo para activar tu cuenta
 
         $this->Register_model->createUser($validate_data); // Creo el usuario
         //$this->Email_model->sendEmail($emailData); // Envío el email

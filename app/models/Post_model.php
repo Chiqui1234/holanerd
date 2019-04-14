@@ -21,7 +21,7 @@ public function getComments($table, $post) { // deprecated
     return DB_GET($table, $postSlug);
 }
 
-public function pointsToPost(array $info) { // Dono puntos al usuario que hizo "X" post. Esos puntos se deben ver en el post y su perfil (dónde realmente se acumulan)
+public function toPost(array $info) { // Transfiero los puntos al post en cuestión
     if( $info['points'] > 5 || $info['points'] < 1 ) { // Por si alguien se hace el gracioso editando el HTML
         return false;
     } else {
@@ -36,17 +36,20 @@ public function pointsToPost(array $info) { // Dono puntos al usuario que hizo "
     } // Cierre else
 } // Fin pointsToPost()
 
-public function pointsToAuthor(array $info) {
-    $usersTable = 'users';
-    $this->db->select('points, username');                  /* OBTENGO LOS PUNTOS ACUMULADOS DEL    */
+public function toAuthor(array $info) {
+    if( $info['points'] > 5 || $info['points'] < 1 ) { // Por si alguien se hace el gracioso editando el HTML
+        return false;
+    } else {
+    $this->db->select('points');                  /* OBTENGO LOS PUNTOS ACUMULADOS DEL    */
     $this->db->where('username', $info['author']);          /* AUTOR, PARA SUMARLE LOS QUE LE       */
     $actualUserInfoGet = $this->db->get('users');           /* ESTÁN DANDO AHORA. OBTENGO PUNTOS    */
     $actualUserInfo = $actualUserInfoGet->result_array();   /* TOTALES DEL USUARIO.                 */
-    if( $actualUserInfo[0]['username'] === $info['author'] ) { // Si el autor existe y coincide
+    if( isset($actualUserInfo[0]['points']) ) {
         $update_user = array('points' => $actualUserInfo[0]['points']+$info['points']);
         $user_where = array('username' => $info['author']);
-        DB_UPDATE($usersTable, $update_user, $user_where); // Sumarle los puntos al autor
+        DB_UPDATE('users', $update_user, $user_where); // Sumarle los puntos al autor
         return true;
+    }
     }
     return false;
 }

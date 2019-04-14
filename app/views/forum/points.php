@@ -31,13 +31,14 @@
             'author': author,               // El autor del post
             'points': points                // La cantidad de puntos que deja
         };
+        console.log(info);
         $.ajax({
             data    :   info,
-            url     :   base_url + 'Post/donatePoints',
+            url     :   base_url + 'Post/transferPoints',
             type    :   'post',
             beforeSend: function() {
                 $('#points').html('<p>Dando minutos...</p>');
-                console.log('Comunicándose con: '+base_url+'Post/donatePoints');
+                console.log('Comunicándose con: '+base_url+'Post/transferPoints');
             },
             success: function(response) {
                 var result = response;

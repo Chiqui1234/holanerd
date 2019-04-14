@@ -18,9 +18,8 @@ if( !function_exists('DB_GET_SIMPLE') ) { // Útil para obtener varios registros
         $result = $query->result_array();
         if( isset($result) ) {
             return $result;
-        } else {
-            return false;
         }
+        return false;
     }
 }
 
@@ -28,13 +27,13 @@ if( !function_exists('DB_GET') ) { // Obtiene registro específico
     function DB_GET($table, $info, $limit = 10, $offset = 0) {
         $ci=& get_instance(); // Creo $ci en los helpers, ya que no se puede acceder a la super variable $this desde fuera de las clases
         $ci->load->database(); // Creo $ci en los helpers, ya que no se puede acceder a la super variable $this desde fuera de las clases
-        $query = $ci->db->get_where($table, $info);
-        $result = $query->result_array();
-        if( isset($result) ) {
+        $ci->db->where($info);
+        $query = $ci->db->get($table);
+        if(!empty($query)) {
+            $result = $query->result_array();
             return $result;
-        } else {
-            return false;
         }
+        return false;
     }
 }
 

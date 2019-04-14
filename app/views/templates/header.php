@@ -27,7 +27,7 @@ variable, which we’ll define later in the controller. -->
 <div id="openFashionHeader"><a href="#fashionHeader" onclick="openFH();"></a></div>
 <div id="fashionHeader"> <!-- Un header muy fachero -->
     <?php
-    if( isset($_SESSION['less']) && (!$_SESSION['less']) ) { // Si 'less' (menos) existe y es FALSO, entonces el usuario "quiere más" y habilitamos el JS
+    if( isset($_SESSION['less']) && $_SESSION['less'] == 0 ) { // Si 'less' (menos) existe y es FALSO, entonces el usuario "quiere más" y habilitamos el JS
         $this->load->view('templates/particles');
     } ?>
     <div class="logo" title="<?php echo $title; ?>"></div>

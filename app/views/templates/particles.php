@@ -2,8 +2,8 @@
 <div id="particles-js"></div>
 
 <!-- scripts -->
-<script src="<?php echo base_url(); ?>theme/holanerd/js/particlesJs/particles.js"></script>
-<script src="<?php echo base_url(); ?>theme/holanerd/js/particlesJs/app.js"></script>
+<script src="<?php echo base_url(); ?>theme/js/particlesJs/particles.js"></script>
+<script src="<?php echo base_url(); ?>theme/js/particlesJs/app.js"></script>
 
 <!-- stats.js -->
 <script>

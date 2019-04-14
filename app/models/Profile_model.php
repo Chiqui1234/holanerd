@@ -12,10 +12,10 @@ class Profile_model extends CI_Model {
 
     // getUserInfo en Login_model.php
     function getPosts($table, $user) {
-        $where = array(
-            'author' => $user
-        );
-        return DB_GET('posts_'.$table, $where);
+        $where = array('author' => $user);
+        $query = $this->db->get_where('posts_'.$table, $where);
+        $result = $query->result_array();
+        return $result;
     }
 
     public function getInfo($user) {

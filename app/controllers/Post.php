@@ -50,34 +50,24 @@ public function index($forumSlug, $subForumSlug, $postSlug) {
     }
 }
 
-public function donatePoints() { // Sabiendo la tabla del post, el post y el usuario, quién acceda a éste script podrá donar puntos al usuario y post pasado por variables. Los puntos salen de la comunidad, no del usuario puntuador.
+public function transferPoints() { // Para darle puntos al autor del post :D
     $info = array(
-        'post' => $_REQUEST['post'],
-        'forum' => $_REQUEST['forum'],
-        'username' => $_REQUEST['username'],
-        'author' => $_REQUEST['author'], 
-        'points' => $_REQUEST['points']
-        /*'post' => 'la-bd-de-facebook-parece-haberse-filtrado',
-        'forum' => 'computacion',
-        'username' => 'dummie',
-        'author' => 'chiqui1234', 
-        'points' => 3*/
+        'post' => $_REQUEST['post'], // El post al que se le dan puntos
+        'forum' => $_REQUEST['forum'], // El foro al que pertenece el post
+        'username' => $_REQUEST['username'], // El usuario que da puntos
+        'author' => $_REQUEST['author'], // El usuario que escribió el post y debe recibir los puntos
+        'points' => $_REQUEST['points'] // La cantidad de puntos que van al post y su autor
     );
-    $pointsDonated = false; // Valor por defecto. Será true si la donación resulta exitosa
-    //$info = array( 'post' => 'primeros-pasos-en-gnu-linux', 'forum' => 'universidades', 'username' => 'jdespo', 'author' => 'chiqui1234', 'points' => 5);
-    if( V_FORM_ASSOC($info) && !V_LEGIT($_SESSION['username'], $info['author']) && V_LEGIT($info['username'], $_SESSION['username']) ) { // Si el envío de datos no fue manipulado para saltarse la restricción de auto-puntuarse
-        $pointsToPost_v = $this->Post_model->pointsToPost($info); // Será 'true' si la donación resulta exitosa
-        $pointsToAuthor_v = $this->Post_model->pointsToAuthor($info); // Será 'true' si la donación resulta exitosa
-        return true;
+    if( V_FORM_ASSOC($info) ) { // Si todos los campos se rellenaron, podemos puntuar
+        $transferToPost = $this->Post_model->toPost($info);
+        $transferToAuthor = $this->Post_model->toAuthor($info);
+        return $transferToAuthor;
     }
-    echo 'PointsToPost: '.$pointsToPost_v.'<br />'; // Debug
-    echo 'PointsToAuthor: '.$pointsToAuthor_v.'<br />'; // Debug
-    return false; // Si no sale con 'true' es porque faltó una verificación
+    return false; // Si no entró al if, devolvemos falso
 }
 
-
-public function postComment() { // Sabiendo la tabla del post, el post y el usuario, quién acceda a éste script podrá donar puntos al usuario y post que se pasa por variables (mediante ajax). Los puntos salen de la comunidad, no del usuario puntuador.
-    $info = array( 'username' => purify($_REQUEST['username']), 'comment' => purify($_REQUEST['comment']), 'forum' => purify($_REQUEST['forum']),'post' => purify($_REQUEST['post']) );
+public function postComment() { // Sabiendo la tabla del post, el post y el usuario, quién acceda a éste script podrá comentar el post deseado
+    $info = array( 'username' => $_REQUEST['username'], 'comment' => $_REQUEST['comment'], 'forum' => $_REQUEST['forum'],'post' => $_REQUEST['post'] );
 
     $commentAdded = $this->Post_model->addComment($info);
     $commentCounter = $this->Post_model->updateCommentCounter($info);

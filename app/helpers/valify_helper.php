@@ -94,7 +94,6 @@ if( !function_exists('V_FORM_ASSOC') ) {
             $arrayIndexado[$i] = $value;
             $i++;
         }
-        
         for($z = 0;$z < $i;$z++) { // Recorro el array en búsqueda de algún campo vacío
             if( empty($arrayIndexado[$z]) ) {
                 $flag = false;

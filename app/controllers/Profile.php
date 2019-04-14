@@ -16,7 +16,7 @@ public function index() {
     $this->load->view('templates/header', $data, FALSE);
     /*  IMPORTO EL TEMPLATE DEL PERFIL SEGUN CORRESPONDA */
     if( V_SESSION() && V_CONFUSER() ) { // Si la cuenta está confirmada y hay sesión. NOTA: activé V_SESSION
-        $user = $this->encryption->decrypt($_SESSION['username']);
+        $user = $_SESSION['username'];
         $data['computacion'] = $this->Profile_model->getPosts('computacion', $user);        /* Ahora hago un getPost() por cada foro existente, */
         $data['programacion'] = $this->Profile_model->getPosts('programacion', $user);      /* pero próximamente tengo que usar una columna     */
         $data['disenografico'] = $this->Profile_model->getPosts('disenografico', $user);    /* del perfil dónde almacene, separado por comas,   */
@@ -27,7 +27,6 @@ public function index() {
         //$data['retro'] = $this->Profile_model->getPosts('retro', $user);                   
         $data['off_topic'] = $this->Profile_model->getPosts('off_topic', $user);           
         $data['profile'] = $this->Profile_model->getInfo($user);
-
         $this->load->view('templates/profile', $data); // Importo el perfil
         $this->load->view('templates/sidebarForProfile', $data); // Importo la sidebar con su bio
     } else { // Sino... te notifico :D
@@ -118,8 +117,8 @@ public function privacidad() {
         'created_at' => $_SESSION['created_at'],
         'is_public' => $info['is_public'],
         'git' => $_SESSION['git'],
-        'linkedin' => $info['linkedin'],
-        'web' => $info['web'],
+        'linkedin' => $_SESSION['linkedin'],
+        'web' => $_SESSION['web'],
         'less' => $info['less']
     );
     $this->session->set_userdata($sessionData); // Guardo una sesión
